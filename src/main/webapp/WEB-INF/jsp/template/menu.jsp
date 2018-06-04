@@ -9,19 +9,20 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-<link rel="stylesheet" href="<c:url value="resources/css/fullcalendar.min.css"/>">
-<link rel="stylesheet" href="<c:url value="resources/css/fullcalendar.print.min.css"/>">
-<link rel="stylesheet" href="<c:url value="resources/css/coding.css"/>">
-<link rel="stylesheet" href="<c:url value="resources/css/menu.css"/>">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/fullcalendar.min.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/fullcalendar.print.min.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/coding.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/menu.css">
 <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
-<script src="<c:url value="resources/js/coding.js"/>"></script>
-<script src="<c:url value="resources/js/moment.min.js"/>"></script>
-<script src="<c:url value="resources/js/fullcalendar.min.js"/>"></script>
-<script src="<c:url value="resources/js/theme.js"/>"></script>
+<script src="${pageContext.request.contextPath}/resources/js/coding.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/moment.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/fullcalendar.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/theme.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <sitemesh:write property="head"/>
 
 <style>
+
 
 </style>
 </head>
