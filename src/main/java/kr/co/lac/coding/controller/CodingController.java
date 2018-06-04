@@ -27,7 +27,10 @@ public class CodingController {
 	
 	
 	@RequestMapping("/codingRoom.do")
-	public void main() throws Exception {}
+	public void codingRoom() throws Exception {}
+	
+	@RequestMapping("/waitRoom.do")
+	public void waitRoom() throws Exception {}
 //	
 //	@RequestMapping("/list.json")
 //	@ResponseBody
