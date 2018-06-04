@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.lac.repository.mapper.ScheduleMapper">
+	<resultMap id="schedualMap" type="schedule">
+		<result column="" property=""></result>
+	</resultMap>
+	<select id="selectScheduleByDate" parameterType="">
+		select *
+		from
+		tb_schedule
+		where stat_date=#{statDate} or end_date=#{endDate};
+	</select>
+
+	<!--새 일정 추가 -->
+	<insert id="insertSchedule">
+		insert into tb_schedule(sch_no,
+		user_no, start_date, end_date, sch_detail,
+		sch_color)
+		values(s_schedule.nevtval(), #{userNo},#{startDate}, #{schDetail},
+		#{schColor});
+	</insert>
+
+	<!-- /*일정편집*/ -->
+	<update id="updateSchedule">
+		update tb_schedule
+		set start_date = #{startDate},
+		end_date = #{endDate},
+		sch_detail = #{schDetail},
+		sch_color =
+		#{schColor}
+		where sch_no = #{schNo};
+	</update>
+
+	<!-- /*일정삭제*/ -->
+	<delete id="deleteSchedule">
+		delete
+		from tb_schedule
+		where sch_no = #{schNo};
+	</delete>
+</mapper>
