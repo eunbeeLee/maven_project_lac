@@ -59,5 +59,8 @@
 	<mvc:view-resolvers>
 		<mvc:jsp prefix="/WEB-INF/jsp/" suffix=".jsp" />
 	</mvc:view-resolvers>
+	
+	<mvc:resources location="/resources/js/" mapping="/resources/js/**"></mvc:resources>
+	<mvc:resources location="/resources/css/" mapping="/resources/css/**"></mvc:resources>
 
 </beans>
