@@ -5,6 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/coding/css/coding.css">
 </head>
 <body>
 
@@ -106,59 +107,22 @@
                 </div>  <!-- end #search_order -->
 
                 <div id="order_box" class="row">    <!-- start #order_box -->
-                        <li class="box btn btn-primary">
-                            <span>명령문 box</span>
-                        </li>
-                        <li class="box btn btn-primary">
-                            <span>명령문 box</span>
-                        </li>
-                        <li class="box btn btn-primary">
-                            <span>명령문 box</span>
-                        </li>
-                        <li class="box btn btn-primary">
-                            <span>명령문 box</span>
-                        </li>
-                        <li class="box btn btn-primary">
-                            <span>명령문 box</span>
-                        </li>
-                        <li class="box btn btn-primary">
-                            <span>명령문 box</span>
-                        </li>
-                        <li class="box btn btn-primary">
-                            <span>명령문 box</span>
-                        </li>
-                        <li class="box btn btn-primary">
-                            <span>명령문 box</span>
-                        </li>
-                        <li class="box btn btn-primary">
-                            <span>명령문 box</span>
-                        </li>
-                        <li class="box btn btn-primary">
-                            <span>명령문 box</span>
-                        </li>
-                        <li class="box btn btn-primary">
-                            <span>명령문 box</span>
-                        </li>
-                        <li class="box btn btn-primary">
-                            <span>명령문 box</span>
-                        </li>
-                        <li class="box btn btn-primary">
-                            <span>명령문 box</span>
-                        </li>
-                        <li class="box btn btn-primary">
-                            <span>명령문 box</span>
-                        </li>
-                        <li class="box btn btn-primary">
-                            <span>명령문 box</span>
-                        </li>
+                        <div  id="draggable" class="draggable box btn btn-primary">
+                        ds
+                        </div>
                 </div>  <!-- end #order_box -->       
                 <div class="content_box row">
 	                <div class="block_box col-md-6">   <!-- start .content_box -->
 	                    <div class="entryMouseViewWorkspace"></div>
-	                    
 	                </div>  
+	                <div class="text_line col-md-6">   <!-- 소스 작성 부분-->
 	                
-	                <div class="text_line col-md-6">   <!-- start .content_box -->
+	                	<div class="source_box"> <!-- 소스 -->
+	                	</div>
+	                	
+	                	<div class="compile_box"> <!-- 컴파일 결과 -->
+	                	</div>
+	                	
 	                </div>  
                     <button id="compile" type="button" class="btn btn-default btn-sm">
 			          <span class="glyphicon glyphicon-play"></span> Compile
@@ -227,7 +191,7 @@
         </div>  <!-- end #chatting_area -->
 
     </div>  <!-- end #main_area -->
-    <script type="text/javascript" src="../../assets/js/coding.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/coding/js/coding.js"></script>
 <script>
 	$(function() {
 		setTimeout(() => {
@@ -268,10 +232,7 @@
         side_bar_btn = true;
     }
 
-
-
-
-
 </script>	
+
 </body>
 </html>
