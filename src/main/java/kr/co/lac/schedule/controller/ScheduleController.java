@@ -11,7 +11,7 @@ import kr.co.lac.repository.domain.Schedule;
 @Controller
 @RequestMapping("/schedule")
 public class ScheduleController {
-	@Autowired
+//	@Autowired
 //	private Calendar
 	
 	@RequestMapping("/newSchedule.do")

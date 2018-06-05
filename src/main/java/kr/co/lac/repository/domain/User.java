@@ -5,8 +5,8 @@ public class User {
 	private String nickname;
 	private String email;
 	private String password;
-	private String profile_pic;
-	private String login_state_code;
+	private String profilePic;
+	private String loginStateCode;
 	public int getUserNo() {
 		return userNo;
 	}
@@ -36,18 +36,18 @@ public class User {
 		this.password = password;
 		return this;
 	}
-	public String getProfile_pic() {
-		return profile_pic;
+	public String getProfilePic() {
+		return profilePic;
 	}
-	public User setProfile_pic(String profile_pic) {
-		this.profile_pic = profile_pic;
+	public User setProfilePic(String profilePic) {
+		this.profilePic = profilePic;
 		return this;
 	}
-	public String getLogin_state_code() {
-		return login_state_code;
+	public String getLoginStateCode() {
+		return loginStateCode;
 	}
-	public User setLogin_state_code(String login_state_code) {
-		this.login_state_code = login_state_code;
+	public User setLoginStateCode(String loginStateCode) {
+		this.loginStateCode = loginStateCode;
 		return this;
 	}
 	
