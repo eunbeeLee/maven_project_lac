@@ -37,6 +37,18 @@ public class FriendsController {
 		friendsService.requestFriendsDelete(friendsRequest);
 	}
 	
+	@RequestMapping("/insert.json")
+	@ResponseBody
+	public void friendsInsert(FriendsRequest friendsRequest) throws Exception {
+		friendsService.insertFriends(friendsRequest);
+	}
+	
+	@RequestMapping("/delete.json")
+	@ResponseBody
+	public void friendsDelete(FriendsRequest friendsRequest) throws Exception {
+		friendsService.deleteFriends(friendsRequest);
+	}
+	
 	
 	
 }

@@ -30,6 +30,7 @@ public class FriendsServiceImpl implements FriendsService {
 	@Transactional(rollbackFor=Exception.class)
 	@Override
 	public void insertFriends(FriendsRequest friendsRequest) throws Exception {
+		mapper.deleteFriendsRequest(friendsRequest);
 		mapper.insertFriends(friendsRequest);
 		int temp = friendsRequest.getfReqUNo();
 		friendsRequest.setfReqUNo(friendsRequest.getfResUNo());

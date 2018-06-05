@@ -13,9 +13,8 @@
 	<select id="selectSearchUser" parameterType="search" resultMap="userMap">
 		select *
 		  from tb_user
-		 where 1=1
+		 where user_no != #{userNo}
 		<if test="type == 'unknown'">
-		   and user_no != #{userNo}
 		   and user_no not in (select f_user_no
 		                         from tb_friends
 		                        where user_no = #{userNo})
@@ -60,7 +59,7 @@
 		   and f_res_u_no = #{fResUNo}
 	</delete>
 	<insert id="insertFriends" parameterType="friendsRequest">
-		insert into tb_friends_request(
+		insert into tb_friends(
 		user_no,
 		f_user_no
 		)values(
@@ -70,7 +69,7 @@
 	</insert>
 	<delete id="deleteFriends" parameterType="friendsRequest">
 		delete
-		  from tb_friends_request
+		  from tb_friends
 		 where user_no = #{fReqUNo}
 		   and f_user_no = #{fResUNo}
 	</delete>
