@@ -1,4 +1,4 @@
-package kr.co.mlec.login.controller;
+package kr.co.lac.user.controller;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

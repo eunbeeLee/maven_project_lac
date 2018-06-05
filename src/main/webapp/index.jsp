@@ -10,7 +10,7 @@
 <body>
 	
 	
-	<a href='<c:url value="/coding/codingRoom.do"/>'>
+	<a href='<c:url value="/main/loginForm.do"/>'>
 		안해안해안해아ㅐ항ㄴ해안해
 	</a>
 	<br>

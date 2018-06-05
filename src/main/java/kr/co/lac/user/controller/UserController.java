@@ -1,4 +1,4 @@
-package kr.co.mlec.login.controller;
+package kr.co.lac.user.controller;
 
 import javax.servlet.http.HttpSession;
 
@@ -6,26 +6,26 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import kr.co.mlec.login.service.LoginService;
-import kr.co.mlec.repository.domain.Login;
+import kr.co.lac.repository.domain.User;
+import kr.co.lac.user.service.UserService;
 
 
 @Controller
-@RequestMapping("/login")
-public class LoginController {
+@RequestMapping("/main")
+public class UserController {
 	@Autowired
-	private LoginService loginService;
+	private UserService userService;
 	
 	@RequestMapping("/loginForm.do")
 	public void loginForm() {}
 	
 	
 	@RequestMapping("/login.do")
-	public String login(HttpSession session, Login login) throws Exception{
-		Login user = loginService.retrieveUser(login.getId());
+	public String login(HttpSession session, User login) throws Exception{
+		User user = userService.selectUserEmail(login.getEmail());
 		if(user==null) {
 			session.setAttribute("errMsg", "아이디를 확인하세요");
-		}else if(user.getPass().equals(login.getPass())){
+		}else if(user.getPassword().equals(login.getPassword())){
 			session.removeAttribute("errMsg");
 			session.setAttribute("user", user);	// 세션에 로그인 정보 담기
 			return "redirect:/board/list.do";
