@@ -3,8 +3,11 @@ package kr.co.lac.repository.domain;
 public class Search {
 	private int userNo;
 	private String nickname;
-	private String unknown;	// yes or no
-	
+	private String type;	/* unknown  : 모르는 친구 
+							   friends  : 아는 친구
+							   request  : 친구신청
+							   response : 친구요청
+							*/
 	
 	public int getUserNo() {
 		return userNo;
@@ -20,11 +23,11 @@ public class Search {
 		this.nickname = nickname;
 		return this;
 	}
-	public String getUnknown() {
-		return unknown;
+	public String getType() {
+		return type;
 	}
-	public Search setUnknown(String unknown) {
-		this.unknown = unknown;
+	public Search setType(String type) {
+		this.type = type;
 		return this;
 	}
 }

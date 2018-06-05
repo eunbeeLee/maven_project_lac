@@ -112,7 +112,7 @@
 			New Friends
 		</div>
 		<div class="search_friends">
-			<input type="text" placeholder="새 친구 검색">
+			<input type="text" id="srarch_new_friends" placeholder="새 친구 검색">
 		</div>
 		<div class="friends_search_list">
 		
@@ -405,7 +405,6 @@
 	$("#friends_btn_button").on("click",()=>{
 		$("#friends_list").fadeToggle(300);
 		$("#back_ground_shadow").fadeToggle(300);
-		searchMyFriends("","no")
 	})
 	$($("#calendar_btn_button").fadeIn(300));
 	
@@ -419,6 +418,7 @@
 		$("#new_friends").css({"z-index":1500});
 		$("#my_friends").css({"z-index":1400});
 		$("#request_friends").css({"z-index":1400});
+		
 	})
 	
 	$("#my_friends_menu").on("click",function(){
@@ -428,6 +428,7 @@
 		$("#my_friends").css({"z-index":1500});
 		$("#new_friends").css({"z-index":1400});
 		$("#request_friends").css({"z-index":1400});
+		
 	})
 	
 	$("#request_friends_menu").on("click",function(){
@@ -444,15 +445,38 @@
 	})
 	
 	
+	$("#srarch_my_friends").on("keyup",function(){
+		console.log($(this).val())
+		searchFriends($(this).val(),"no",$("#my_friends div.friends_search_list"),"삭제")
+	})
 	
+	$("#srarch_new_friends").on("keyup",function(){
+		console.log($(this).val())
+		searchFriends($(this).val(),"yes",$("#new_friends div.friends_search_list"),"추가")
+	})
 	
-	function searchMyFriends(search,unknown) {
+	$(()=>{
+		searchFriends($("#srarch_new_friends").val(),"unknown",$("#new_friends div.friends_search_list"),"추가")
+		searchFriends($("#srarch_my_friends").val(),"friends",$("#my_friends div.friends_search_list"),"삭제")
+	});
+	
+	function searchFriends(nickname,type,area,btn) {
 		$.ajax({
-			url:'${pageContext.request.contextPath}friends/search.json',
+			url:'${pageContext.request.contextPath}/friends/search.json',
 			type:"POST",
-			data: {"userNo":userNo,"search":search,"unknown":unknown}
+			data: {"userNo":userNo,"nickname":nickname,"type":type}
 		}).done(function (result) {
-			console.log(result)
+				area.html("");
+			for(info of result){
+				area.append(`
+						<div class="friedns_icon">
+						<img src="${pageContext.request.contextPath}`+info.profilePic+`">
+						<span>`+info.nickname+`</span>
+						<span class="friends_utill_btn btn btn-default">`+btn+`</span>
+						<input type="hidden" value="`+info.userNo+`"/>
+						</div>
+						`);				
+			}
 		})
 	}
 
