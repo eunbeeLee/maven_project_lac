@@ -34,6 +34,11 @@
 <body>
 <div id="back_ground_shadow">
 </div>
+<div id="back_ground_loding">
+    <div class="loading_img">
+        <img id="loading_img" src="${pageContext.request.contextPath}/resources/img/default/loading.gif"/>
+    </div>
+</div>
 
 
 <div id="menu_bar">
@@ -59,7 +64,7 @@
 <%-- 새 클래스 생성 --%>
 <div id="create_class">
 	<div>
-		<div id="calss_name" contenteditable="true" placeholder="Class 이름을 알려주세요!"></div>
+		<div id="calss_name" contenteditable="true" placeholder="Project 이름을 알려주세요!"></div>
 		<div ib="create_btn">
 			<div id="create_btn_st" class="menu_btn btn btn-default">Finish</div>
 		</div>
@@ -467,11 +472,18 @@
 		searchFriends("","response",$("#response_friends_list div.friends_search_r_list"),"수락")
 	});
 	
-	
+	function loding() {
+		$(document).ajaxStart(function(){
+			$("#back_ground_loding").css({"display":"block"});
+		}).ajaxStop(function(){
+			$("#back_ground_loding").css({"display":"none"});
+		})
+	}
 
 	$("#my_friends").on("click","span.friends_utill_btn",function(){
 		console.log($(this).siblings("input").val())
 		let remove = $(this).parent(".friedns_icon");
+		loding();
 		$.ajax({
 			url:'${pageContext.request.contextPath}/friends/delete.json',
 			type:"POST",
@@ -484,6 +496,7 @@
 	
 	$("#new_friends").on("click","span.friends_utill_btn",function(){
 		let remove = $(this).parent(".friedns_icon");
+		loding();
 		$.ajax({
 			url:'${pageContext.request.contextPath}/friends/request.json',
 			type:"POST",
@@ -496,6 +509,7 @@
 	
 	$("#response_friends_list").on("click","span.friends_utill_btn",function(){
 		let remove = $(this).parent(".friedns_icon");
+		loding();
 		$.ajax({
 			url:'${pageContext.request.contextPath}/friends/insert.json',
 			type:"POST",
@@ -508,6 +522,7 @@
 	
 	$("#request_friends_list").on("click","span.friends_utill_btn",function(){
 		let remove = $(this).parent(".friedns_icon");
+		loding();
 		$.ajax({
 			url:'${pageContext.request.contextPath}/friends/requestDelete.json',
 			type:"POST",
@@ -520,6 +535,7 @@
 	
 	
 	function searchFriends(nickname,type,area,btn) {
+		loding();
 		$.ajax({
 			url:'${pageContext.request.contextPath}/friends/search.json',
 			type:"POST",
@@ -539,6 +555,17 @@
 		})
 	}
 
+	$("#create_btn_st").on("click",()=>{
+		let projectName = $("#calss_name");
+		loding();
+		$.ajax({
+			url:'${pageContext.request.contextPath}/project/createProject.json',
+			type:"POST",
+			data: {"userNo":userNo,"projectName":projectName.text()}
+		}).done(function () {
+				projectName.text("");
+			})
+		})
 </script>
 
 </body>
