@@ -1,4 +1,4 @@
-package kr.co.mlec.repository.domain;
+package kr.co.lac.repository.domain;
 
 import java.util.Date;
 

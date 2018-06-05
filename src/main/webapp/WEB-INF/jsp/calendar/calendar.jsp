@@ -64,9 +64,8 @@ body {
 			<div id="calendar"></div>
 		</div>
 		<div class="col-md-3" id="scheduleList">
-			<h3
-				style="font-weight: bold; text-align: center; margin-top: 0; margin-bottom: 30px;">일정
-				리스트</h3>
+			<h3 style="font-weight: bold; text-align: center; margin-top: 0; margin-bottom: 30px;">
+			일정 리스트</h3>
 			<p></p>
 			<div class="table-responsive">
 				<table class="table">
@@ -163,9 +162,8 @@ body {
 									id="scheColor" type="color" value="#41c7f4">
 							</div>
 							<div class="form-group">
-								<textarea rows="14" name="message" placeholder="일정 내용"
-									class="form-control" id="scheduleDetail">
-					        </textarea>
+								<textarea id="scheduleDetail"rows="14" name="message" placeholder="일정내용을 기입하세요."
+									class="form-control"></textarea>
 							</div>
 							<div class="form-group">
 								<button class="btn btn-primary float-none" type="submit"
@@ -239,6 +237,32 @@ $(document).ready(function() {
       },
       //일정클릭이벤트
       eventClick: function(eventObj) {
+    	  $("#updateScheduleDetail").attr({"placeholder":eventObj.title});
+    	  let start = new Date(eventObj.start);
+		  let month = start.getMonth()+1;
+		  if(month.toString().length < 2){var sMonth = '0'+month;}
+		  else{sMonth =month;}
+// 		  alert(start.getDate().toString().length);
+		  if(start.getDate().toString().length < 2){var sDate = '0'+start.getDate();}
+		  else{sDate =start.getDate();}
+    	  let sDateFormat = start.getFullYear()+'-'+sMonth+'-'+sDate;
+//     	  alert(dateFormat);
+    	  $("#editStartDate").attr({"value":sDateFormat});
+    	  
+    	  let end = new Date(eventObj.end);
+    	  let eMonth = end.getMonth()+1;
+    	  let eDate = end.getDate();
+    	  if(eMonth.toString().length < 2){var eMonthFormat = '0'+eMonth;}
+		  else{eMonthFormat =eMonth;}
+		  if(eDate.toString().length < 2){var eDateFormat = '0'+eDate;}
+		  else{eDateFormat = eDate;}
+    	  let eDateval = end.getFullYear()+'-'+eMonthFormat+'-'+eDateFormat;
+    	  if(eDateval == '1970-01-01'){
+       	  	$("#editEndDate").attr({"value":sDateFormat});    	      	  
+    	  }else{
+       	  	$("#editEndDate").attr({"value":eDateval});    	      	  
+    	  }
+    	  
     	  $("#editScheModal").modal();	
 // 	          alert('Clicked ' + eventObj.title);
 	      },
@@ -332,7 +356,7 @@ $(document).ready(function() {
         },
         {
           title: 'Click for Google',
-          url: 'http://google.com/',
+//           url: 'http://google.com/',
           start: '2018-03-28'
         }
       ]

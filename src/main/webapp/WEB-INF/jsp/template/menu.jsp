@@ -7,17 +7,22 @@
 <meta charset="UTF-8">
 <title>Insert title here<sitemesh:write property="title"/></title>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css"> -->
+<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css"> -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/fullcalendar.min.css">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/fullcalendar.print.min.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/fullcalendar/fullcalendar.min.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/fullcalendar/fullcalendar.print.min.css" media="print">
+
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/coding.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/menu.css">
+<script src="${pageContext.request.contextPath}/resources/js/jquery.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/bootstrap/js/bootstrap.min.js"></script>
 <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/coding.js"></script>
-<script src="${pageContext.request.contextPath}/resources/js/moment.min.js"></script>
-<script src="${pageContext.request.contextPath}/resources/js/fullcalendar.min.js"></script>
-<script src="${pageContext.request.contextPath}/resources/js/theme.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/fullcalendar/moment.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/fullcalendar/fullcalendar.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/fullcalendar/theme.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <sitemesh:write property="head"/>
 
