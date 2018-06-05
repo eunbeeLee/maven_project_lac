@@ -13,12 +13,22 @@
 	</select>
 
 	<!--새 일정 추가 -->
-	<insert id="insertSchedule">
-		insert into tb_schedule(sch_no,
-		user_no, start_date, end_date, sch_detail,
-		sch_color)
-		values(s_schedule.nevtval(), #{userNo},#{startDate}, #{schDetail},
-		#{schColor});
+	<insert id="insertSchedule" parameterType="schedule">
+		insert into tb_schedule(
+			sch_no,
+			user_no, 
+			start_date,  
+			end_date, 
+			sch_detail,
+			sch_color
+		)
+		values(
+			s_schedule.nevtval(), 
+			#{userNo},
+			#{startDate}, 
+			#{schDetail},
+			#{schColor}
+		);
 	</insert>
 
 	<!-- /*일정편집*/ -->
