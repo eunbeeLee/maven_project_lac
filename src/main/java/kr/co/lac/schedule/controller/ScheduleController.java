@@ -27,7 +27,14 @@ public class ScheduleController {
 		scheduleService.insertSchedule(sch);
 		return sch;
 	}
-	
+//	@RequestMapping("/selectSchedule.json")
+//	@ResponseBody
+//	public Schedule[] selectScheduleByDate(int month) {
+//		scheduleService.selectScheduleByDate();
+//		Schedule[] sArray = new Schedule[];
+//		return Schedule[];
+//	}
+//	
 }
 
 

@@ -274,11 +274,8 @@ $(document).ready(function() {
 	      addEventButton: {
 	        text: '+',
 	        click: function() {
-// 	          var dateStr = prompt('날짜를 입력하세요(YYYY-MM-DD)');
-// 	          var date = moment(dateStr);
 	          $("#newScheModal").modal();
 	          $("#newScheModal").attr({"diplay":"block"});
-	          
 	          
 	      //----일정 추가 버튼 클릭시
 			  $("#addSchBtn").click(function(e){
@@ -300,7 +297,6 @@ $(document).ready(function() {
 					 dataType:"json",
 					 data:$("#addNewSchedule").serialize(),
 					 success : function(result){
-// 						 console.log(result);
 						  var sDate = moment(result.startDate);
 						  var eDate = moment(result.endDate);
 						  var schDetail = moment(result.schDetail);
@@ -318,15 +314,7 @@ $(document).ready(function() {
 					  error:function(e){
 						  console.log(e);
 					  }
-// 				  });
 				  });
-			  
-// 				  $("#addNewSchedule").on("submit", function(e){
-// 					e.preventDefault();
-// 				  var sDate = moment($("#startDate").val());
-// 				  var eDate = moment($("#endDate").val());
-// 				  var scheduleDetail = $("#scheduleDetail").val();
-// 				  });
 			  });
 	        }
 	      //---새일정 추가 버튼 완료
@@ -335,11 +323,6 @@ $(document).ready(function() {
 	      }
 	    },
 	  //오늘날짜
-// 	  var Date = new Date();
-// 	    var day = date.getDate();
-// 	    if ((day+"").length < 2) {     
-// 	        day = "0" + day;
-// 	    }
       defaultDate: '2018-06-05',
       navLinks: true, // can click day/week names to navigate views
       editable: true,
@@ -367,8 +350,8 @@ $(document).ready(function() {
         },
         {
           title: 'Conference',
-          start: '2018-03-11',
-          end: '2018-03-13'
+          start: '2018-05-30',
+          end: '2018-06-02'
         },
         {
           title: 'Meeting',

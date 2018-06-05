@@ -10,7 +10,7 @@
 		<result column="sch_detail" property="schDetail"></result>
 		<result column="sch_color" property="schColor"></result>
 	</resultMap>
-	<select id="selectScheduleByDate" resultMap="scheduleMap">
+	<select id="selectScheduleByDate" parameterType="int" resultMap="scheduleMap">
 		select *
 		from
 		tb_schedule
