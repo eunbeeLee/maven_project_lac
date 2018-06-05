@@ -11,8 +11,8 @@ public class Schedule {
 		this.schNo = schNo;
 	}
 	private String userNo;
-	private Date startDate;
-	private Date endDate;
+	private String startDate;
+	private String endDate;
 	private String schDetail;
 	private String schColor;
 	public String getUserNo() {
@@ -21,20 +21,20 @@ public class Schedule {
 	public void setUserNo(String userNo) {
 		this.userNo = userNo;
 	}
-	public Date getStartDate() {
-		return startDate;
-	}
-	public void setStartDate(Date startDate) {
-		this.startDate = startDate;
-	}
-	public Date getEndDate() {
-		return endDate;
-	}
-	public void setEndDate(Date endDate) {
-		this.endDate = endDate;
-	}
 	public String getSchDetail() {
 		return schDetail;
+	}
+	public String getStartDate() {
+		return startDate;
+	}
+	public void setStartDate(String startDate) {
+		this.startDate = startDate;
+	}
+	public String getEndDate() {
+		return endDate;
+	}
+	public void setEndDate(String endDate) {
+		this.endDate = endDate;
 	}
 	public void setSchDetail(String schDetail) {
 		this.schDetail = schDetail;
