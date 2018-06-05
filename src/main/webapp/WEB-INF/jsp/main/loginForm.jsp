@@ -9,7 +9,7 @@
 
 	<main class="page landing-page">
 	<section class="clean-block clean-hero"
-		style="background-image: url(/project_lac//assets/img/tech/image4.jpg); color: rgba(9, 162, 255, 0.85);">
+		style="background-image: url(/maven_project_lac/src/main/webapp/resources/assets/img/tech/image4.jpg); color: rgba(9, 162, 255, 0.85);">
 		<div class="float-right text col-md-6"
 			style="margin: 0; margin-right: 0px; margin-left: -427px;">
 			<h2>Learning And Code</h2>
@@ -19,7 +19,7 @@
 		</div>
 		<div class="float-right text col-md-6 login-clean"
 			style="margin-right: -383px;">
-			<form method="post">
+			<form method="post" action="login.do">
 				<h2 class="sr-only">Login Form</h2>
 				<div class="illustration">
 					<i class="icon ion-ios-navigate"></i>

@@ -18,18 +18,16 @@
     http://www.springframework.org/schema/context
     http://www.springframework.org/schema/context/spring-context.xsd">
     
-<!-- 	<context:component-scan base-package="db.member" /> -->
 	
-	<!-- mybatis °´Ã¼ ÁØºñ -->
-	<context:property-placeholder 
-		location="classpath:config/mybatis/db.properties"/>
+<!-- 	<context:property-placeholder  -->
+<!-- 		location="classpath:config/mybatis/db.properties"/> -->
 
 
-	<!-- DBCP »ç¿ë
+	<!-- DBCP å ì™ì˜™å ï¿½
 	 -->	
 	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource"
       	p:driverClassName="com.mysql.cj.jdbc.Driver"
-        p:url="jdbc:mysql://project-lac.cgp1qdd6o5kc.us-east-2.rds.amazonaws.com:3306/project_lac??useSSL=false&amp;serverTimezone=UTC"
+        p:url="jdbc:mysql://project-lac.cgp1qdd6o5kc.us-east-2.rds.amazonaws.com:3306/project_lac"
         p:username="admin" 
         p:password="admin!23" />
 	
@@ -44,7 +42,7 @@
 		<property name="basePackage" value="kr.co.lac.repository.mapper" />
 	</bean>
 	
-	<!-- Æ®·£Àè¼Ç Ã³¸®
+	<!-- íŠ¸å ì™ì˜™å ì™ì˜™å ï¿½ ì²˜å ì™ì˜™
 	 -->
 <!-- 	<bean id="transactionManager" -->
 <!-- 		class="org.springframework.jdbc.datasource.DataSourceTransactionManager"> -->

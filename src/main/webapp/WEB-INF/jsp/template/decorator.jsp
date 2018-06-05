@@ -26,13 +26,13 @@
 <body>
   <div class = "container">
     <div class = "header">
-      <c:import url="/jsp/decorator/topMenu.jsp"></c:import>
+      <c:import url="/WEB-INF/jsp/decorator/topMenu.jsp"></c:import>
     </div>
     <div class = "content">
     <sitemesh:write property="body"/>
     </div>
     <div class = "footer">
-      <c:import url="/jsp/decorator/footer.jsp"></c:import>
+      <c:import url="/WEB-INF/jsp/decorator/footer.jsp"></c:import>
     </div>
   </div>	
 </body>

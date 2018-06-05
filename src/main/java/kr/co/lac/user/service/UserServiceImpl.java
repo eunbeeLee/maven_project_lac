@@ -13,7 +13,6 @@ public class UserServiceImpl implements UserService {
 	@Autowired
 	private UserMapper mapper;
 
-	@Override
 	public User selectUserEmail(String email) throws Exception {
 		return mapper.selectUserEmail(email);
 	}
