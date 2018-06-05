@@ -70,7 +70,7 @@
 <%-- 개인정보 수정 --%>
 <div id="my_info">
 		<div id="my_profile_img">
-			<img src="/project_lac/jsp/template/defalutImg.jpg"/>
+			<img src="${pageContext.request.contextPath}/resources/img/default/defaultImg.jpg"/>
 		</div>
 		<div id="my_profile_repair">
 			<div>
@@ -94,48 +94,12 @@
 			My Friends
 		</div>
 		<div class="search_friends">
-			<input type="text" placeholder="내 친구 검색">
+			<input id="srarch_my_friends" type="text" placeholder="내 친구 검색">
 		</div>
 		<div class="friends_search_list">
 		
 			<div class="friedns_icon">
-				<img src="/project_lac/jsp/template/defalutImg.jpg">
-				<span>닉네임#1223</span>
-				<span class="friends_utill_btn btn btn-default">삭제</span>
-			</div>
-
-			<div class="friedns_icon">
-				<img src="/project_lac/jsp/template/defalutImg.jpg">
-				<span>닉네임#1223</span>
-				<span class="friends_utill_btn btn btn-default">삭제</span>
-			</div>
-
-			<div class="friedns_icon">
-				<img src="/project_lac/jsp/template/defalutImg.jpg">
-				<span>닉네임#1223</span>
-				<span class="friends_utill_btn btn btn-default">삭제</span>
-			</div>
-
-			<div class="friedns_icon">
-				<img src="/project_lac/jsp/template/defalutImg.jpg">
-				<span>닉네임#1223</span>
-				<span class="friends_utill_btn btn btn-default">삭제</span>
-			</div>
-
-			<div class="friedns_icon">
-				<img src="/project_lac/jsp/template/defalutImg.jpg">
-				<span>닉네임#1223</span>
-				<span class="friends_utill_btn btn btn-default">삭제</span>
-			</div>
-
-			<div class="friedns_icon">
-				<img src="/project_lac/jsp/template/defalutImg.jpg">
-				<span>닉네임#1223</span>
-				<span class="friends_utill_btn btn btn-default">삭제</span>
-			</div>
-
-			<div class="friedns_icon">
-				<img src="/project_lac/jsp/template/defalutImg.jpg">
+				<img src="${pageContext.request.contextPath}/resources/img/default/defaultImg.jpg">
 				<span>닉네임#1223</span>
 				<span class="friends_utill_btn btn btn-default">삭제</span>
 			</div>
@@ -154,67 +118,67 @@
 		
 		
 			<div class="friedns_icon">
-				<img src="/project_lac/jsp/template/defalutImg.jpg">
+				<img src="${pageContext.request.contextPath}/resources/img/default/defaultImg.jpg">
 				<span>닉네임#1223</span>
 				<span class="friends_utill_btn btn btn-default">추가</span>
 			</div>
 		
 			<div class="friedns_icon">
-				<img src="/project_lac/jsp/template/defalutImg.jpg">
+				<img src="${pageContext.request.contextPath}/resources/img/default/defaultImg.jpg">
 				<span>닉네임#1223</span>
 				<span class="friends_utill_btn btn btn-default">추가</span>
 			</div>
 		
 			<div class="friedns_icon">
-				<img src="/project_lac/jsp/template/defalutImg.jpg">
+				<img src="${pageContext.request.contextPath}/resources/img/default/defaultImg.jpg">
 				<span>닉네임#1223</span>
 				<span class="friends_utill_btn btn btn-default">추가</span>
 			</div>
 		
 			<div class="friedns_icon">
-				<img src="/project_lac/jsp/template/defalutImg.jpg">
+				<img src="${pageContext.request.contextPath}/resources/img/default/defaultImg.jpg">
 				<span>닉네임#1223</span>
 				<span class="friends_utill_btn btn btn-default">추가</span>
 			</div>
 		
 			<div class="friedns_icon">
-				<img src="/project_lac/jsp/template/defalutImg.jpg">
+				<img src="${pageContext.request.contextPath}/resources/img/default/defaultImg.jpg">
 				<span>닉네임#1223</span>
 				<span class="friends_utill_btn btn btn-default">추가</span>
 			</div>
 		
 			<div class="friedns_icon">
-				<img src="/project_lac/jsp/template/defalutImg.jpg">
+				<img src="${pageContext.request.contextPath}/resources/img/default/defaultImg.jpg">
 				<span>닉네임#1223</span>
 				<span class="friends_utill_btn btn btn-default">추가</span>
 			</div>
 		
 			<div class="friedns_icon">
-				<img src="/project_lac/jsp/template/defalutImg.jpg">
+				<img src="${pageContext.request.contextPath}/resources/img/default/defaultImg.jpg">
 				<span>닉네임#1223</span>
 				<span class="friends_utill_btn btn btn-default">추가</span>
 			</div>
 		
 			<div class="friedns_icon">
-				<img src="/project_lac/jsp/template/defalutImg.jpg">
+				<img src="${pageContext.request.contextPath}/resources/img/default/defaultImg.jpg">
 				<span>닉네임#1223</span>
 				<span class="friends_utill_btn btn btn-default">추가</span>
 			</div>
 		
 			<div class="friedns_icon">
-				<img src="/project_lac/jsp/template/defalutImg.jpg">
+				<img src="${pageContext.request.contextPath}/resources/img/default/defaultImg.jpg">
 				<span>닉네임#1223</span>
 				<span class="friends_utill_btn btn btn-default">추가</span>
 			</div>
 		
 			<div class="friedns_icon">
-				<img src="/project_lac/jsp/template/defalutImg.jpg">
+				<img src="${pageContext.request.contextPath}/resources/img/default/defaultImg.jpg">
 				<span>닉네임#1223</span>
 				<span class="friends_utill_btn btn btn-default">추가</span>
 			</div>
 		
 			<div class="friedns_icon">
-				<img src="/project_lac/jsp/template/defalutImg.jpg">
+				<img src="${pageContext.request.contextPath}/resources/img/default/defaultImg.jpg">
 				<span>닉네임#1223</span>
 				<span class="friends_utill_btn btn btn-default">추가</span>
 			</div>
@@ -231,42 +195,42 @@
 			</div>
 			<div class="friends_search_r_list">
 				<div class="friedns_icon">
-					<img src="/project_lac/jsp/template/defalutImg.jpg">
+					<img src="${pageContext.request.contextPath}/resources/img/default/defaultImg.jpg">
 					<span>닉네임#1223</span>
 					<span class="friends_utill_btn btn btn-default">수락</span>
 				</div>
 				<div class="friedns_icon">
-					<img src="/project_lac/jsp/template/defalutImg.jpg">
+					<img src="${pageContext.request.contextPath}/resources/img/default/defaultImg.jpg">
 					<span>닉네임#1223</span>
 					<span class="friends_utill_btn btn btn-default">수락</span>
 				</div>
 				<div class="friedns_icon">
-					<img src="/project_lac/jsp/template/defalutImg.jpg">
+					<img src="${pageContext.request.contextPath}/resources/img/default/defaultImg.jpg">
 					<span>닉네임#1223</span>
 					<span class="friends_utill_btn btn btn-default">수락</span>
 				</div>
 				<div class="friedns_icon">
-					<img src="/project_lac/jsp/template/defalutImg.jpg">
+					<img src="${pageContext.request.contextPath}/resources/img/default/defaultImg.jpg">
 					<span>닉네임#1223</span>
 					<span class="friends_utill_btn btn btn-default">수락</span>
 				</div>
 				<div class="friedns_icon">
-					<img src="/project_lac/jsp/template/defalutImg.jpg">
+					<img src="${pageContext.request.contextPath}/resources/img/default/defaultImg.jpg">
 					<span>닉네임#1223</span>
 					<span class="friends_utill_btn btn btn-default">수락</span>
 				</div>
 				<div class="friedns_icon">
-					<img src="/project_lac/jsp/template/defalutImg.jpg">
+					<img src="${pageContext.request.contextPath}/resources/img/default/defaultImg.jpg">
 					<span>닉네임#1223</span>
 					<span class="friends_utill_btn btn btn-default">수락</span>
 				</div>
 				<div class="friedns_icon">
-					<img src="/project_lac/jsp/template/defalutImg.jpg">
+					<img src="${pageContext.request.contextPath}/resources/img/default/defaultImg.jpg">
 					<span>닉네임#1223</span>
 					<span class="friends_utill_btn btn btn-default">수락</span>
 				</div>
 				<div class="friedns_icon">
-					<img src="/project_lac/jsp/template/defalutImg.jpg">
+					<img src="${pageContext.request.contextPath}/resources/img/default/defaultImg.jpg">
 					<span>닉네임#1223</span>
 					<span class="friends_utill_btn btn btn-default">수락</span>
 				</div>
@@ -281,43 +245,43 @@
 			
 			
 				<div class="friedns_icon">
-					<img src="/project_lac/jsp/template/defalutImg.jpg">
+					<img src="${pageContext.request.contextPath}/resources/img/default/defaultImg.jpg">
 					<span>닉네임#1223</span>
 					<span class="friends_utill_btn btn btn-default">거절</span>
 				</div>
 			
 				<div class="friedns_icon">
-					<img src="/project_lac/jsp/template/defalutImg.jpg">
+					<img src="${pageContext.request.contextPath}/resources/img/default/defaultImg.jpg">
 					<span>닉네임#1223</span>
 					<span class="friends_utill_btn btn btn-default">거절</span>
 				</div>
 			
 				<div class="friedns_icon">
-					<img src="/project_lac/jsp/template/defalutImg.jpg">
+					<img src="${pageContext.request.contextPath}/resources/img/default/defaultImg.jpg">
 					<span>닉네임#1223</span>
 					<span class="friends_utill_btn btn btn-default">거절</span>
 				</div>
 			
 				<div class="friedns_icon">
-					<img src="/project_lac/jsp/template/defalutImg.jpg">
+					<img src="${pageContext.request.contextPath}/resources/img/default/defaultImg.jpg">
 					<span>닉네임#1223</span>
 					<span class="friends_utill_btn btn btn-default">거절</span>
 				</div>
 			
 				<div class="friedns_icon">
-					<img src="/project_lac/jsp/template/defalutImg.jpg">
+					<img src="${pageContext.request.contextPath}/resources/img/default/defaultImg.jpg">
 					<span>닉네임#1223</span>
 					<span class="friends_utill_btn btn btn-default">거절</span>
 				</div>
 			
 				<div class="friedns_icon">
-					<img src="/project_lac/jsp/template/defalutImg.jpg">
+					<img src="${pageContext.request.contextPath}/resources/img/default/defaultImg.jpg">
 					<span>닉네임#1223</span>
 					<span class="friends_utill_btn btn btn-default">거절</span>
 				</div>
 			
 				<div class="friedns_icon">
-					<img src="/project_lac/jsp/template/defalutImg.jpg">
+					<img src="${pageContext.request.contextPath}/resources/img/default/defaultImg.jpg">
 					<span>닉네임#1223</span>
 					<span class="friends_utill_btn btn btn-default">거절</span>
 				</div>
@@ -333,7 +297,7 @@
 	<div id="noti_screen">
 		<div class="noti_info">
 			<div class="noti_img">
-				<img src="/project_lac/jsp/template/defalutImg.jpg">
+				<img src="${pageContext.request.contextPath}/resources/img/default/defaultImg.jpg">
 			</div>
 			<div class="noti_text">
 				<span>친구이름</span><br>
@@ -345,7 +309,7 @@
 		
 		<div class="noti_info">
 			<div class="noti_img">
-				<img src="/project_lac/jsp/template/defalutImg.jpg">
+				<img src="${pageContext.request.contextPath}/resources/img/default/defaultImg.jpg">
 			</div>
 			<div class="noti_text">
 				<span>친구이름</span><br>
@@ -357,7 +321,7 @@
 		
 		<div class="noti_info">
 			<div class="noti_img">
-				<img src="/project_lac/jsp/template/defalutImg.jpg">
+				<img src="${pageContext.request.contextPath}/resources/img/default/defaultImg.jpg">
 			</div>
 			<div class="noti_text">
 				<span>친구이름</span><br>
@@ -369,7 +333,7 @@
 		
 		<div class="noti_info">
 			<div class="noti_img">
-				<img src="/project_lac/jsp/template/defalutImg.jpg">
+				<img src="${pageContext.request.contextPath}/resources/img/default/defaultImg.jpg">
 			</div>
 			<div class="noti_text">
 				<span>친구이름</span><br>
@@ -380,7 +344,7 @@
 		
 		<div class="noti_info">
 			<div class="noti_img">
-				<img src="/project_lac/jsp/template/defalutImg.jpg">
+				<img src="${pageContext.request.contextPath}/resources/img/default/defaultImg.jpg">
 			</div>
 			<div class="noti_text">
 				<span>친구이름</span><br>
@@ -392,7 +356,7 @@
 		
 		<div class="noti_info">
 			<div class="noti_img">
-				<img src="/project_lac/jsp/template/defalutImg.jpg">
+				<img src="${pageContext.request.contextPath}/resources/img/default/defaultImg.jpg">
 			</div>
 			<div class="noti_text">
 				<span>프로젝트 이름</span><br>
@@ -403,7 +367,7 @@
 		
 		<div class="noti_info">
 			<div class="noti_img">
-				<img src="/project_lac/jsp/template/defalutImg.jpg">
+				<img src="${pageContext.request.contextPath}/resources/img/default/defaultImg.jpg">
 			</div>
 			<div class="noti_text">
 				<span>프로젝트 이름</span><br>
@@ -422,6 +386,7 @@
     <sitemesh:write property="body"/>
 
 <script>
+	var userNo = ${user.userNo}
 
 	$("#back_ground_shadow").on("click",function(){
 		$(this).fadeToggle(300)
@@ -440,6 +405,7 @@
 	$("#friends_btn_button").on("click",()=>{
 		$("#friends_list").fadeToggle(300);
 		$("#back_ground_shadow").fadeToggle(300);
+		searchMyFriends("","no")
 	})
 	$($("#calendar_btn_button").fadeIn(300));
 	
@@ -477,6 +443,18 @@
 		$("#noti_area").fadeToggle(300);
 	})
 	
+	
+	
+	
+	function searchMyFriends(search,unknown) {
+		$.ajax({
+			url:'${pageContext.request.contextPath}friends/search.json',
+			type:"POST",
+			data: {"userNo":userNo,"search":search,"unknown":unknown}
+		}).done(function (result) {
+			console.log(result)
+		})
+	}
 
 </script>
 
