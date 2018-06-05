@@ -1,0 +1,28 @@
+#compile{
+    position: fixed;
+    bottom: 0;
+    right: 29.5%;
+}
+.entryMouseViewWorkspace{
+	color: blue;
+	text-align: center;
+    width: 100px;
+}
+ .block_box ,.text_line{
+ 	padding:0px;
+    height: 100%;
+    background-color: aliceblue;
+    position: relative;
+ }
+ .compile_box{
+ 	padding:0px;
+ 	height:20%;
+ }
+ .source_box{
+ 	padding:0px;
+ 	height:80%;
+ }
+ .box{
+ 	z-index: 3;
+ }
+ 
