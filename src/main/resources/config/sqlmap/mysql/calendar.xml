@@ -10,7 +10,7 @@
 		<result column="sch_detail" property="schDetail"></result>
 		<result column="sch_color" property="schColor"></result>
 	</resultMap>
-	<select id="selectScheduleByDate" resultMap="scheduleMap">
+	<select id="selectScheduleByDate" parameterType="int" resultMap="scheduleMap">
 		select *
 		from
 		tb_schedule
@@ -20,7 +20,6 @@
 	<!--새 일정 추가 -->
 	<insert id="insertSchedule" parameterType="schedule">
 		insert into tb_schedule(
-			sch_no,
 			user_no, 
 			start_date,  
 			end_date, 
@@ -28,9 +27,9 @@
 			sch_color
 		)
 		values(
-			s_schedule.nevtval(), 
 			#{userNo},
 			#{startDate}, 
+			#{endDate}, 
 			#{schDetail},
 			#{schColor}
 		);

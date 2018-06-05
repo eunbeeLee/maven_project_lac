@@ -112,7 +112,7 @@
 			New Friends
 		</div>
 		<div class="search_friends">
-			<input type="text" placeholder="새 친구 검색">
+			<input type="text" id="srarch_new_friends" placeholder="새 친구 검색">
 		</div>
 		<div class="friends_search_list">
 		
@@ -405,7 +405,6 @@
 	$("#friends_btn_button").on("click",()=>{
 		$("#friends_list").fadeToggle(300);
 		$("#back_ground_shadow").fadeToggle(300);
-		searchMyFriends("","no")
 	})
 	$($("#calendar_btn_button").fadeIn(300));
 	
@@ -419,6 +418,7 @@
 		$("#new_friends").css({"z-index":1500});
 		$("#my_friends").css({"z-index":1400});
 		$("#request_friends").css({"z-index":1400});
+		
 	})
 	
 	$("#my_friends_menu").on("click",function(){
@@ -428,6 +428,7 @@
 		$("#my_friends").css({"z-index":1500});
 		$("#new_friends").css({"z-index":1400});
 		$("#request_friends").css({"z-index":1400});
+		
 	})
 	
 	$("#request_friends_menu").on("click",function(){
@@ -444,15 +445,97 @@
 	})
 	
 	
+/* 	$("#srarch_my_friends").on("keyup",function(){
+		console.log($(this).val())
+		searchFriends($(this).val(),"friends",$("#my_friends div.friends_search_list"),"삭제")
+	})
+	
+	$("#srarch_new_friends").on("keyup",function(){
+		console.log($(this).val())
+		searchFriends($(this).val(),"unknown",$("#new_friends div.friends_search_list"),"추가")
+	})
+	
+	$("#request_friends").on("click",function(){
+		searchFriends("","request",$("#request_friends_list div.friends_search_r_list"),"취소")
+		searchFriends("","response",$("#response_friends_list div.friends_search_r_list"),"수락")
+	}) */
+	
+	$(()=>{
+		searchFriends($("#srarch_new_friends").val(),"unknown",$("#new_friends div.friends_search_list"),"추가")
+		searchFriends($("#srarch_my_friends").val(),"friends",$("#my_friends div.friends_search_list"),"삭제")
+		searchFriends("","request",$("#request_friends_list div.friends_search_r_list"),"취소")
+		searchFriends("","response",$("#response_friends_list div.friends_search_r_list"),"수락")
+	});
 	
 	
-	function searchMyFriends(search,unknown) {
+
+	$("#my_friends").on("click","span.friends_utill_btn",function(){
+		console.log($(this).siblings("input").val())
+		let remove = $(this).parent(".friedns_icon");
 		$.ajax({
-			url:'${pageContext.request.contextPath}friends/search.json',
+			url:'${pageContext.request.contextPath}/friends/delete.json',
 			type:"POST",
-			data: {"userNo":userNo,"search":search,"unknown":unknown}
+			data: {"fReqUNo":userNo,"fResUNo":$(this).siblings("input").val()}
 		}).done(function (result) {
-			console.log(result)
+				remove.fadeOut(100);
+				searchFriends($("#srarch_new_friends").val(),"unknown",$("#new_friends div.friends_search_list"),"추가");
+			})
+	})
+	
+	$("#new_friends").on("click","span.friends_utill_btn",function(){
+		let remove = $(this).parent(".friedns_icon");
+		$.ajax({
+			url:'${pageContext.request.contextPath}/friends/request.json',
+			type:"POST",
+			data: {"fReqUNo":userNo,"fResUNo":$(this).siblings("input").val()}
+		}).done(function (result) {
+				remove.fadeOut(100);
+				searchFriends("","request",$("#request_friends_list div.friends_search_r_list"),"취소");
+			})
+	})
+	
+	$("#response_friends_list").on("click","span.friends_utill_btn",function(){
+		let remove = $(this).parent(".friedns_icon");
+		$.ajax({
+			url:'${pageContext.request.contextPath}/friends/insert.json',
+			type:"POST",
+			data: {"fReqUNo":userNo,"fResUNo":$(this).siblings("input").val()}
+		}).done(function (result) {
+				remove.fadeOut(100);
+				searchFriends($("#srarch_my_friends").val(),"friends",$("#my_friends div.friends_search_list"),"삭제");
+			})
+	})
+	
+	$("#request_friends_list").on("click","span.friends_utill_btn",function(){
+		let remove = $(this).parent(".friedns_icon");
+		$.ajax({
+			url:'${pageContext.request.contextPath}/friends/requestDelete.json',
+			type:"POST",
+			data: {"fReqUNo":userNo,"fResUNo":$(this).siblings("input").val()}
+		}).done(function (result) {
+				remove.fadeOut(100);
+				searchFriends($("#srarch_new_friends").val(),"unknown",$("#new_friends div.friends_search_list"),"추가");
+			})
+	})
+	
+	
+	function searchFriends(nickname,type,area,btn) {
+		$.ajax({
+			url:'${pageContext.request.contextPath}/friends/search.json',
+			type:"POST",
+			data: {"userNo":userNo,"nickname":nickname,"type":type}
+		}).done(function (result) {
+				area.html("");
+			for(info of result){
+				area.append(`
+						<div class="friedns_icon">
+						<img src="${pageContext.request.contextPath}`+info.profilePic+`">
+						<span>`+info.nickname+`</span>
+						<span class="friends_utill_btn btn btn-default">`+btn+`</span>
+						<input type="hidden" value="`+info.userNo+`"/>
+						</div>
+						`);				
+			}
 		})
 	}
 

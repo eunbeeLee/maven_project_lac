@@ -5,6 +5,8 @@
 <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css"> -->
 <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css"> -->
 <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script> -->
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/waitMe.css">
+<script src="${pageContext.request.contextPath}/resources/js/waitMe.js"></script>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 
@@ -148,7 +150,7 @@ body {
 				</div>
 				<div class="modal-body">
 					<div class="contact-clean">
-						<form method="post" id="addNewSchedule" action="schedule/newschedule.do">
+						<form method="post" id="addNewSchedule">
 							<input type="hidden" name="userNo" value='1'>
 							<div class="form-group col-md-5 startDay">
 								<span>시작일</span> <input type="date" class="form-control"
@@ -167,7 +169,7 @@ body {
 									class="form-control"></textarea>
 							</div>
 							<div class="form-group">
-								<button class="btn btn-primary float-none" type="submit"
+								<button class="btn btn-primary float-none" type="button"
 									id="addSchBtn">추가</button>
 							</div>
 						</form>
@@ -272,39 +274,47 @@ $(document).ready(function() {
 	      addEventButton: {
 	        text: '+',
 	        click: function() {
-// 	          var dateStr = prompt('날짜를 입력하세요(YYYY-MM-DD)');
-// 	          var date = moment(dateStr);
 	          $("#newScheModal").modal();
 	          $("#newScheModal").attr({"diplay":"block"});
 	          
-	          
 	      //----일정 추가 버튼 클릭시
-			  $("#addSchBtn").click(function(){
+			  $("#addSchBtn").click(function(e){
+				  e.preventDefault();
+				  console.log($("#addNewSchedule").serialize());
+			          $("#newScheModal").modal('hide');
+						$("body").waitMe({
+							effect : "win8",
+							text :"please wait",
+							bg : "rgba(255,255,255,0.7)",
+							color : "#000"
+						});
+						setTimeout(() => {
+							$("body").waitMe("hide");
+						}, 3000);
 				  $.ajax({
-					 url:"maven_project_lac/schedule/newSchedule.do",
+					 url:"/maven_project_lac/schedule/newSchedule.json",
+					 type:"POST",
 					 dataType:"json",
-					 data:$("#addNewSchedule").serialize()
-				  })
-				  .done(function(result){
-					  var sDate = moment(restult.startDate);
-					  var eDate = moment(restult.endDate);
-					  var scheduleDetail = moment(restult.scheduleDetail);
-					 $.fullCalendar.formatRange(sDate, eDate, 'MMMM D YYYY');
-		            $('#calendar').fullCalendar('renderEvent', {
-		              title: 'test',
-		              start: sDate,
-		              end:   eDate,
-		              allDay: true
-		            });
-		            alert('일정이 등록 완료되었습니다');
+					 data:$("#addNewSchedule").serialize(),
+					 success : function(result){
+						  var sDate = moment(result.startDate);
+						  var eDate = moment(result.endDate);
+						  var schDetail = moment(result.schDetail);
+						  var schDetail = result.schDetail;
+						 $.fullCalendar.formatRange(sDate, eDate, 'MMMM D YYYY');
+						 
+			            $('#calendar').fullCalendar('renderEvent', {
+			              title: schDetail,
+			              start: sDate,
+			              end:   eDate,
+			              allDay: true
+			            });
+			            alert('일정이 등록 완료되었습니다');
+					  },
+					  error:function(e){
+						  console.log(e);
+					  }
 				  });
-			  
-// 				  $("#addNewSchedule").on("submit", function(e){
-// 					e.preventDefault();
-// 				  var sDate = moment($("#startDate").val());
-// 				  var eDate = moment($("#endDate").val());
-// 				  var scheduleDetail = $("#scheduleDetail").val();
-// 				  });
 			  });
 	        }
 	      //---새일정 추가 버튼 완료
@@ -313,7 +323,7 @@ $(document).ready(function() {
 	      }
 	    },
 	  //오늘날짜
-      defaultDate: '2018-03-12',
+      defaultDate: '2018-06-05',
       navLinks: true, // can click day/week names to navigate views
       editable: true,
       eventLimit: true, // allow "more" link when too many events
@@ -340,8 +350,8 @@ $(document).ready(function() {
         },
         {
           title: 'Conference',
-          start: '2018-03-11',
-          end: '2018-03-13'
+          start: '2018-05-30',
+          end: '2018-06-02'
         },
         {
           title: 'Meeting',
