@@ -148,7 +148,7 @@ body {
 				</div>
 				<div class="modal-body">
 					<div class="contact-clean">
-						<form method="post" id="addNewSchedule" action="newSchedule.do">
+						<form method="post" id="addNewSchedule" action="schedule/newschedule.do">
 							<div class="form-group col-md-5 startDay">
 								<span>시작일</span> <input type="date" class="form-control"
 									name="startDate" id="startDate" />
@@ -275,7 +275,19 @@ $(document).ready(function() {
 // 	          var date = moment(dateStr);
 	          $("#newScheModal").modal();
 	          $("#newScheModal").attr({"diplay":"block"});
+	          
+	          
+	      //----일정 추가 버튼 클릭시
 			  $("#addSchBtn").click(function(){
+// 				  $.ajax({
+// 					 url:"maven_project_lac/schedule/newSchedule.do",
+// 					 type:"POST",
+// 					 data:{"addNewSchedule"=addNewSchedule}
+// 				  })
+// 				  .done(function(result){
+					  
+// 				  });
+			  
 				  $("#addNewSchedule").on("submit", function(e){
 					e.preventDefault();
 				  var sDate = moment($("#startDate").val());
@@ -283,7 +295,6 @@ $(document).ready(function() {
 				  var scheduleDetail = $("#scheduleDetail").val();
 				  });
 				 $.fullCalendar.formatRange(sDate, eDate, 'MMMM D YYYY');
-// 	          if (date.isValid()) {
 	            $('#calendar').fullCalendar('renderEvent', {
 	              title: 'test',
 	              start: sDate,
@@ -291,11 +302,11 @@ $(document).ready(function() {
 	              allDay: true
 	            });
 	            alert('일정이 등록 완료되었습니다');
-// 	          } else {
-// 	            alert('올바른 날짜가 아닙니다.');
-// 	          }
 			  });
 	        }
+	      //---새일정 추가 버튼 완료
+	          
+	          
 	      }
 	    },
 	  //오늘날짜
