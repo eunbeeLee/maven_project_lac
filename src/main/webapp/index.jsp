@@ -19,15 +19,15 @@
 	</a>
 	<br>
 
-	<a href='<c:url value="/main/login.do?user=1"/>'>
+	<a href='<c:url value="/main/login.do?us=1"/>'>
 		강제로그인 - 나쁜조장
 	</a>
 	<br>
-	<a href='<c:url value="/main/login.do?user=2"/>'>
+	<a href='<c:url value="/main/login.do?us=2"/>'>
 		강제로그인 - 진솔
 	</a>
 	<br>
-	<a href='<c:url value="/main/login.do?user=3"/>'>
+	<a href='<c:url value="/main/login.do?us=3"/>'>
 		강제로그인 - 은비이이
 	</a>
 	<br>
