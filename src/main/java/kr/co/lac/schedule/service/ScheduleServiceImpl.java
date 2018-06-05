@@ -1,4 +1,4 @@
-package kr.co.mlec.board.service;
+package kr.co.lac.schedule.service;
 
 public class ScheduleServiceImpl {
 

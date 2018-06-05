@@ -148,21 +148,21 @@ body {
 				</div>
 				<div class="modal-body">
 					<div class="contact-clean">
-						<form method="post" id="addNewSchedule">
+						<form method="post" id="addNewSchedule" action="newSchedule.do">
 							<div class="form-group col-md-5 startDay">
 								<span>시작일</span> <input type="date" class="form-control"
 									name="startDate" id="startDate" />
 							</div>
 							<div class="form-group col-md-5 endDay">
-								<span>종료일</span> <input type="date" class="form-control"
+								<span>종료일</span> <input type="date" class ="form-control"
 									name="endDate" id="endDate" />
 							</div>
 							<div class="form-group col-md-2">
 								<span style="visibility: hidden;">일정색</span> <input
-									id="scheColor" type="color" value="#41c7f4">
+									id="scheColor" name="schColor" type="color" value="#41c7f4">
 							</div>
 							<div class="form-group">
-								<textarea id="scheduleDetail"rows="14" name="message" placeholder="일정내용을 기입하세요."
+								<textarea id="scheduleDetail"rows="14" name="schDetail" placeholder="일정내용을 기입하세요."
 									class="form-control"></textarea>
 							</div>
 							<div class="form-group">
