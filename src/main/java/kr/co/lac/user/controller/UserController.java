@@ -19,6 +19,8 @@ public class UserController {
 	
 	@RequestMapping("/loginForm.do")
 	public void loginForm() {}
+	@RequestMapping("/registForm.do")
+	public void registForm() {}
 	
 	
 	@RequestMapping("/login.do")
@@ -41,4 +43,11 @@ public class UserController {
 		session.invalidate();	// 세션값 지우기
 		return "redirect:loginForm.do";
 	}
+	
+	@RequestMapping("/registUser.do")
+	public String registUser(User user) throws Exception {
+		userService.insertUser(user);
+		return "redirect:loginForm.do";
+	}
+	
 }

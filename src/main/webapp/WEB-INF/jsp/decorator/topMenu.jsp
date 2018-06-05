@@ -6,9 +6,9 @@
             <div class="collapse navbar-collapse"
                 id="navcol-1">
                 <ul class="nav navbar-nav ml-auto">
-                    <li role="presentation" class="nav-item"><a href="index.html" class="nav-link active">Login</a></li>
+                    <li role="presentation" class="nav-item"><a href="loginForm.do" class="nav-link">로그인</a></li>
 <!--                     <li role="presentation" class="nav-item"><a href="login.html" class="nav-link">Login</a></li> -->
-                    <li role="presentation" class="nav-item"><a href="registration.html" class="nav-link">Register</a></li>
+                    <li role="presentation" class="nav-item"><a href="registForm.do" class="nav-link">회원가입</a></li>
                 </ul>
             </div>
         </div>

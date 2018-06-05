@@ -10,7 +10,7 @@
 	<div class="register-photo" style="margin-top: 80px;">
 		<div class="form-container">
 			<div class="image-holder"></div>
-			<form method="post">
+			<form method="post" id="regist" action="registUser.do">
 				<h2 class="text-center">
 					<strong>새로운 계정을</strong>추가하세요.
 				</h2>
@@ -46,6 +46,13 @@
 	<script src="/project_lac/assets/js/jquery.min.js"></script>
 	<script src="/project_lac/assets/bootstrap/js/bootstrap.min.js"></script>
 	<script src="/project_lac/assets/js/theme.js"></script>
-
+	<script>
+// 	$("#regist").on("submit",function(e){
+// 		e.prevetdefault();
+		
+// 	});
+	
+	
+	</script>
 </body>
 </html>

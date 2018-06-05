@@ -4,4 +4,5 @@ import kr.co.lac.repository.domain.User;
 
 public interface UserService {
 	public User selectUserEmail(String email) throws Exception;
+	public void insertUser(User user) throws Exception;
 }

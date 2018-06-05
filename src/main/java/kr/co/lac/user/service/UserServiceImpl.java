@@ -13,8 +13,15 @@ public class UserServiceImpl implements UserService {
 	@Autowired
 	private UserMapper mapper;
 
+	@Override
 	public User selectUserEmail(String email) throws Exception {
 		return mapper.selectUserEmail(email);
 	}
+
+	@Override
+	public void insertUser(User user) throws Exception {
+		mapper.insertUser(user);
+	}
+	
 	
 }
