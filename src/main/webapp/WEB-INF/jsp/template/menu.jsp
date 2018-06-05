@@ -445,20 +445,79 @@
 	})
 	
 	
-	$("#srarch_my_friends").on("keyup",function(){
+/* 	$("#srarch_my_friends").on("keyup",function(){
 		console.log($(this).val())
-		searchFriends($(this).val(),"no",$("#my_friends div.friends_search_list"),"삭제")
+		searchFriends($(this).val(),"friends",$("#my_friends div.friends_search_list"),"삭제")
 	})
 	
 	$("#srarch_new_friends").on("keyup",function(){
 		console.log($(this).val())
-		searchFriends($(this).val(),"yes",$("#new_friends div.friends_search_list"),"추가")
+		searchFriends($(this).val(),"unknown",$("#new_friends div.friends_search_list"),"추가")
 	})
+	
+	$("#request_friends").on("click",function(){
+		searchFriends("","request",$("#request_friends_list div.friends_search_r_list"),"취소")
+		searchFriends("","response",$("#response_friends_list div.friends_search_r_list"),"수락")
+	}) */
 	
 	$(()=>{
 		searchFriends($("#srarch_new_friends").val(),"unknown",$("#new_friends div.friends_search_list"),"추가")
 		searchFriends($("#srarch_my_friends").val(),"friends",$("#my_friends div.friends_search_list"),"삭제")
+		searchFriends("","request",$("#request_friends_list div.friends_search_r_list"),"취소")
+		searchFriends("","response",$("#response_friends_list div.friends_search_r_list"),"수락")
 	});
+	
+	
+
+	$("#my_friends").on("click","span.friends_utill_btn",function(){
+		console.log($(this).siblings("input").val())
+		let remove = $(this).parent(".friedns_icon");
+		$.ajax({
+			url:'${pageContext.request.contextPath}/friends/delete.json',
+			type:"POST",
+			data: {"fReqUNo":userNo,"fResUNo":$(this).siblings("input").val()}
+		}).done(function (result) {
+				remove.fadeOut(100);
+				searchFriends($("#srarch_new_friends").val(),"unknown",$("#new_friends div.friends_search_list"),"추가");
+			})
+	})
+	
+	$("#new_friends").on("click","span.friends_utill_btn",function(){
+		let remove = $(this).parent(".friedns_icon");
+		$.ajax({
+			url:'${pageContext.request.contextPath}/friends/request.json',
+			type:"POST",
+			data: {"fReqUNo":userNo,"fResUNo":$(this).siblings("input").val()}
+		}).done(function (result) {
+				remove.fadeOut(100);
+				searchFriends("","request",$("#request_friends_list div.friends_search_r_list"),"취소");
+			})
+	})
+	
+	$("#response_friends_list").on("click","span.friends_utill_btn",function(){
+		let remove = $(this).parent(".friedns_icon");
+		$.ajax({
+			url:'${pageContext.request.contextPath}/friends/insert.json',
+			type:"POST",
+			data: {"fReqUNo":userNo,"fResUNo":$(this).siblings("input").val()}
+		}).done(function (result) {
+				remove.fadeOut(100);
+				searchFriends($("#srarch_my_friends").val(),"friends",$("#my_friends div.friends_search_list"),"삭제");
+			})
+	})
+	
+	$("#request_friends_list").on("click","span.friends_utill_btn",function(){
+		let remove = $(this).parent(".friedns_icon");
+		$.ajax({
+			url:'${pageContext.request.contextPath}/friends/requestDelete.json',
+			type:"POST",
+			data: {"fReqUNo":userNo,"fResUNo":$(this).siblings("input").val()}
+		}).done(function (result) {
+				remove.fadeOut(100);
+				searchFriends($("#srarch_new_friends").val(),"unknown",$("#new_friends div.friends_search_list"),"추가");
+			})
+	})
+	
 	
 	function searchFriends(nickname,type,area,btn) {
 		$.ajax({
