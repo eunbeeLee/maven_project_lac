@@ -64,6 +64,9 @@
    	    overflow: auto;
         padding: 0 4%;
     }
+    .room{
+    	cursor: pointer;
+    }
     p{
     	color:rgba(0,0,0,.68);
    	    margin: 0 0 10px 10px;
