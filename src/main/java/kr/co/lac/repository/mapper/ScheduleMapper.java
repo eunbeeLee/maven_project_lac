@@ -1,15 +1,12 @@
-package kr.co.lac.schedule.service;
+package kr.co.lac.repository.mapper;
 
 import java.util.List;
 
 import kr.co.lac.repository.domain.Schedule;
 
-public interface ScheduleService {
-	public List<Schedule>selectScheduleByDate() throws Exception;
-	
+public interface ScheduleMapper {
+	public List<Schedule> selectScheduleByDate() throws Exception;
 	public void insertSchedule(Schedule schedule) throws Exception;
-	
 	public void updateSchedule(Schedule schedule) throws Exception;
-	
-	public void deleteSchedule(int schNo) throws Exception;
+	public void deleteSchedule(int schNo)throws Exception;
 }

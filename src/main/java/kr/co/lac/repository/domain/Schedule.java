@@ -3,6 +3,13 @@ package kr.co.lac.repository.domain;
 import java.util.Date;
 
 public class Schedule {
+	private int schNo;
+	public int getSchNo() {
+		return schNo;
+	}
+	public void setSchNo(int schNo) {
+		this.schNo = schNo;
+	}
 	private String userNo;
 	private Date startDate;
 	private Date endDate;

@@ -149,6 +149,7 @@ body {
 				<div class="modal-body">
 					<div class="contact-clean">
 						<form method="post" id="addNewSchedule" action="schedule/newschedule.do">
+							<input type="hidden" name="userNo" value='1'>
 							<div class="form-group col-md-5 startDay">
 								<span>시작일</span> <input type="date" class="form-control"
 									name="startDate" id="startDate" />
@@ -279,29 +280,31 @@ $(document).ready(function() {
 	          
 	      //----일정 추가 버튼 클릭시
 			  $("#addSchBtn").click(function(){
-// 				  $.ajax({
-// 					 url:"maven_project_lac/schedule/newSchedule.do",
-// 					 type:"POST",
-// 					 data:{"addNewSchedule"=addNewSchedule}
-// 				  })
-// 				  .done(function(result){
-					  
-// 				  });
-			  
-				  $("#addNewSchedule").on("submit", function(e){
-					e.preventDefault();
-				  var sDate = moment($("#startDate").val());
-				  var eDate = moment($("#endDate").val());
-				  var scheduleDetail = $("#scheduleDetail").val();
+				  $.ajax({
+					 url:"maven_project_lac/schedule/newSchedule.do",
+					 dataType:"json",
+					 data:$("#addNewSchedule").serialize()
+				  })
+				  .done(function(result){
+					  var sDate = moment(restult.startDate);
+					  var eDate = moment(restult.endDate);
+					  var scheduleDetail = moment(restult.scheduleDetail);
+					 $.fullCalendar.formatRange(sDate, eDate, 'MMMM D YYYY');
+		            $('#calendar').fullCalendar('renderEvent', {
+		              title: 'test',
+		              start: sDate,
+		              end:   eDate,
+		              allDay: true
+		            });
+		            alert('일정이 등록 완료되었습니다');
 				  });
-				 $.fullCalendar.formatRange(sDate, eDate, 'MMMM D YYYY');
-	            $('#calendar').fullCalendar('renderEvent', {
-	              title: 'test',
-	              start: sDate,
-	              end:   eDate,
-	              allDay: true
-	            });
-	            alert('일정이 등록 완료되었습니다');
+			  
+// 				  $("#addNewSchedule").on("submit", function(e){
+// 					e.preventDefault();
+// 				  var sDate = moment($("#startDate").val());
+// 				  var eDate = moment($("#endDate").val());
+// 				  var scheduleDetail = $("#scheduleDetail").val();
+// 				  });
 			  });
 	        }
 	      //---새일정 추가 버튼 완료
