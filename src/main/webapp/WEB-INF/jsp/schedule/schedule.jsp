@@ -282,6 +282,7 @@ $(document).ready(function() {
 				  e.preventDefault();
 				  console.log($("#addNewSchedule").serialize());
 			          $("#newScheModal").modal('hide');
+			          //<--waitme plugin
 						$("body").waitMe({
 							effect : "win8",
 							text :"please wait",
@@ -291,6 +292,7 @@ $(document).ready(function() {
 						setTimeout(() => {
 							$("body").waitMe("hide");
 						}, 3000);
+			          //waitme plugin-->
 				  $.ajax({
 					 url:"/maven_project_lac/schedule/newSchedule.json",
 					 type:"POST",
@@ -328,65 +330,81 @@ $(document).ready(function() {
       editable: true,
       eventLimit: true, // allow "more" link when too many events
       //이벤트들
-      events: [
-        {
-          title: 'All Day Event',
-          start: '2018-03-01',
-        },
-        {
-          title: 'Long Event',
-          start: '2018-03-07',
-          end: '2018-03-10'
-        },
-        {
-          id: 999,
-          title: 'Repeating Event',
-          start: '2018-03-09T16:00:00'
-        },
-        {
-          id: 999,
-          title: 'Repeating Event',
-          start: '2018-03-16T16:00:00'
-        },
-        {
-          title: 'Conference',
-          start: '2018-05-30',
-          end: '2018-06-02'
-        },
-        {
-          title: 'Meeting',
-          start: '2018-03-12T10:30:00',
-          end: '2018-03-12T12:30:00'
-        },
-        {
-          title: 'Lunch',
-          start: '2018-03-12T12:00:00'
-        },
-        {
-          title: 'Meeting',
-          start: '2018-03-12T14:30:00'
-        },
-        {
-          title: 'Happy Hour',
-          start: '2018-03-12T17:30:00'
-        },
-        {
-          title: 'Dinner',
-          start: '2018-03-12T20:00:00'
-        },
-        {
-          title: 'Birthday Party',
-          start: '2018-03-13T07:00:00'
-        },
-        {
-          title: 'Click for Google',
-//           url: 'http://google.com/',
-          start: '2018-03-28'
-        }
-      ]
+      events: eventArray
     });
 
   });
+  
+  function eventArray(){
+	  $.ajax({
+		  url:"/maven_project_lac/schedule/newSchedule.json",
+		  dataType:"json"
+		  type:"POST",
+		  success:function(){
+			  
+		  },
+		  error:function(e){
+			  console.log(e);
+		  }
+		  
+	  })
+	  return [
+	        {
+	          title: 'All Day Event',
+	          start: '2018-03-01',
+	        },
+	        {
+	          title: 'Long Event',
+	          start: '2018-03-07',
+	          end: '2018-03-10'
+	        },
+	        {
+	          id: 999,
+	          title: 'Repeating Event',
+	          start: '2018-03-09T16:00:00'
+	        },
+	        {
+	          id: 999,
+	          title: 'Repeating Event',
+	          start: '2018-03-16T16:00:00'
+	        },
+	        {
+	          title: 'Conference',
+	          start: '2018-05-30',
+	          end: '2018-06-02'
+	        },
+	        {
+	          title: 'Meeting',
+	          start: '2018-03-12T10:30:00',
+	          end: '2018-03-12T12:30:00'
+	        },
+	        {
+	          title: 'Lunch',
+	          start: '2018-03-12T12:00:00'
+	        },
+	        {
+	          title: 'Meeting',
+	          start: '2018-03-12T14:30:00'
+	        },
+	        {
+	          title: 'Happy Hour',
+	          start: '2018-03-12T17:30:00'
+	        },
+	        {
+	          title: 'Dinner',
+	          start: '2018-03-12T20:00:00'
+	        },
+	        {
+	          title: 'Birthday Party',
+	          start: '2018-03-13T07:00:00'
+	        },
+	        {
+	          title: 'Click for Google',
+//	           url: 'http://google.com/',
+	          start: '2018-03-28'
+	        }
+	      ]
+  };
   
 $(function() {
 	setTimeout(() => {

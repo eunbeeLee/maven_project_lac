@@ -15,8 +15,8 @@ public class ScheduleServiceImpl implements ScheduleService{
 	@Autowired
 	private ScheduleMapper mapper;
 	
-	public List<Schedule>selectScheduleByDate(int month) throws Exception{
-		return mapper.selectScheduleByDate(month);
+	public Schedule[] selectScheduleByMonth(String month) throws Exception{
+		return mapper.selectScheduleByMonth(month);
 	}
 	public void insertSchedule(Schedule schedule) throws Exception{
 		mapper.insertSchedule(schedule);

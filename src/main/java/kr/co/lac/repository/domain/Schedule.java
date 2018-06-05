@@ -15,6 +15,7 @@ public class Schedule {
 	private String endDate;
 	private String schDetail;
 	private String schColor;
+	private int eventMonth;
 	public String getUserNo() {
 		return userNo;
 	}
@@ -24,8 +25,15 @@ public class Schedule {
 	public String getSchDetail() {
 		return schDetail;
 	}
+	
 	public String getStartDate() {
 		return startDate;
+	}
+	public int getEventMonth() {
+		return eventMonth;
+	}
+	public void setEventMonth(int eventMonth) {
+		this.eventMonth = eventMonth;
 	}
 	public void setStartDate(String startDate) {
 		this.startDate = startDate;
