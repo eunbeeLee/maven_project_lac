@@ -1,4 +1,4 @@
-package kr.co.lac.repository.vo;
+package kr.co.lac.repository.domain;
 
 import java.util.Date;
 
