@@ -9,14 +9,12 @@
 		<result column="end_date" property="endDate"></result>
 		<result column="sch_detail" property="schDetail"></result>
 		<result column="sch_color" property="schColor"></result>
-		<result column="event_month" property="eventMonth"></result>
 	</resultMap>
 	<select id="selectScheduleByMonth" parameterType="string" resultMap="scheduleMap">
 		select *
-		from
-		tb_schedule
-		where substr(start_date,6,2)=#{eventMonth} or substr(end_date,6,2)=#{eventMonth}
-		order by start_date;
+		  from tb_schedule
+		 where substr(start_date,6,2)=#{eventMonth} or substr(end_date,6,2)=#{eventMonth}
+		 order by start_date
 	</select>
 
 	<!--새 일정 추가 -->

@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import kr.co.lac.repository.domain.Event;
 import kr.co.lac.repository.domain.Schedule;
 import kr.co.lac.schedule.service.ScheduleService;
 
@@ -29,14 +30,28 @@ public class ScheduleController {
 	}
 	@RequestMapping("/selectSchedule.json")
 	@ResponseBody
-	public Schedule[] selectScheduleByMonth(String month) {
+	public Event[] selectScheduleByMonth(String month) {
 		Schedule[] sArray = null;
+		Event[] eArr = null;
 		try {
 			sArray = scheduleService.selectScheduleByMonth(month);
+			eArr = new Event[sArray.length];
+			Schedule s = null;
+			for(int i=0; i<sArray.length; i++) {
+				s = sArray[i];
+//				System.out.println(sArray.length);
+//				System.out.println(s.getStartDate());
+//				System.out.println(s.getEndDate());
+//				System.out.println(s.getSchDetail());
+				eArr[i].setStart(s.getStartDate());
+				eArr[i].setEnd(s.getEndDate());
+				eArr[i].setTitle(s.getSchDetail());
+			}
+			System.out.println(eArr[0].getStart());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return sArray;
+		return eArr;
 	}
 //	
 }
