@@ -17,9 +17,21 @@
 		 order by start_date
 	</select>
 
+	<select id="selectEventById" parameterType="int" resultMap="scheduleMap">
+		select *
+		  from tb_schedule
+		 where sch_no=#{schNo}
+	</select>
+	<!-- 인덱스 값 가져오기 -->
+	<select id="selectIndex" resultType="int">
+		select max(sch_no)
+		  from tb_schedule
+	</select>
+
 	<!--새 일정 추가 -->
 	<insert id="insertSchedule" parameterType="schedule">
 		insert into tb_schedule(
+			sch_no,
 			user_no, 
 			start_date,  
 			end_date, 
@@ -27,6 +39,7 @@
 			sch_color
 		)
 		values(
+			#{schNo},
 			#{userNo},
 			#{startDate}, 
 			#{endDate}, 
@@ -50,6 +63,6 @@
 	<delete id="deleteSchedule" parameterType="int">
 		delete
 		from tb_schedule
-		where sch_no = #{schNo}
+		where sch_no = #{schNo}	
 	</delete>
 </mapper>
