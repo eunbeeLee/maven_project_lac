@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.lac.repository.mapper.ChattingMapper">
+	<resultMap id="chattingMap" type="chatting">
+		<result column="user_no" property="userNo"></result>
+		<result column="nickname" property="nickname"></result>
+		<result column="profile_pic" property="profilePic"></result>
+		<result column="chatting_no" property="chattingNo"></result>
+		<result column="project_no" property="projectNo"></result>
+		<result column="send_user_no" property="sendUserNo"></result>
+		<result column="message" property="message"></result>
+		<result column="msg_type_code" property="msgTypeCode"></result>
+		<result column="send_date" property="sendDate"></result>
+	</resultMap>
+    <select id="selectChattingList" parameterType="int" resultMap="chattingMap">
+		select c.*,u.user_no,u.nickname,u.profile_pic
+          from tb_chatting as c
+         inner join tb_user as u
+            on c.send_user_no = u.user_no
+         where c.project_no = #{projectNo}
+         order by c.chatting_no
+	</select>
+	<insert id="insertChatting" parameterType="chatting">
+		insert into tb_chatting(
+		project_no,
+		send_user_no,
+		message,
+		msg_type_code
+		)
+		values(
+		#{projectNo},
+		#{sendUserNo},
+		#{message},
+		#{msgTypeCode}
+		)
+	</insert>
+</mapper>
