@@ -276,52 +276,10 @@ $(document).ready(function() {
 	        click: function() {
 	          $("#newScheModal").modal();
 	          $("#newScheModal").attr({"diplay":"block"});
+// 	        }
+
 	          
-	      //----일정 추가 버튼 클릭시
-			  $("#addSchBtn").click(function(e){
-				  e.preventDefault();
-				  console.log($("#addNewSchedule").serialize());
-			          $("#newScheModal").modal('hide');
-			          //<--waitme plugin
-						$("body").waitMe({
-							effect : "win8",
-							text :"please wait",
-							bg : "rgba(255,255,255,0.7)",
-							color : "#000"
-						});
-						setTimeout(() => {
-							$("body").waitMe("hide");
-						}, 3000);
-			          //waitme plugin-->
-				  $.ajax({
-					 url:"/maven_project_lac/schedule/newSchedule.json",
-					 type:"POST",
-					 dataType:"json",
-					 data:$("#addNewSchedule").serialize(),
-					 success : function(result){
-						  var sDate = moment(result.startDate);
-						  var eDate = moment(result.endDate);
-						  var schDetail = moment(result.schDetail);
-						  var schDetail = result.schDetail;
-						 $.fullCalendar.formatRange(sDate, eDate, 'MMMM D YYYY');
-						 
-			            $('#calendar').fullCalendar('renderEvent', {
-			              title: schDetail,
-			              start: sDate,
-			              end:   eDate,
-			              allDay: true
-			            });
-			            alert('일정이 등록 완료되었습니다');
-					  },
-					  error:function(e){
-						  console.log(e);
-					  }
-				  });
-			  });
-	        }
-	      //---새일정 추가 버튼 완료
-	          
-	          
+	      	}  
 	      }
 	    },
 	  //오늘날짜
@@ -330,11 +288,52 @@ $(document).ready(function() {
       editable: true,
       eventLimit: true, // allow "more" link when too many events
       //이벤트들
-      events: eventArray
+      events: eventArray()
     });
 
   });
-  
+//----일정 추가 버튼 클릭시
+$("#addSchBtn").click(function(e){
+	  e.preventDefault();
+	  console.log($("#addNewSchedule").serialize());
+        $("#newScheModal").modal('hide');
+        //<--waitme plugin
+			$("body").waitMe({
+				effect : "win8",
+				text :"please wait",
+				bg : "rgba(255,255,255,0.7)",
+				color : "#000"
+			});
+			setTimeout(() => {
+				$("body").waitMe("hide");
+			}, 3000);
+        //waitme plugin-->
+	  $.ajax({
+		 url:"/maven_project_lac/schedule/newSchedule.json",
+		 type:"POST",
+		 dataType:"json",
+		 data:$("#addNewSchedule").serialize(),
+		 success : function(result){
+			  var sDate = moment(result.startDate);
+			  var eDate = moment(result.endDate);
+			  var schDetail = moment(result.schDetail);
+			  var schDetail = result.schDetail;
+			 $.fullCalendar.formatRange(sDate, eDate, 'MMMM D YYYY');
+			 
+          $('#calendar').fullCalendar('renderEvent', {
+            title: schDetail,
+            start: sDate,
+            end:   eDate,
+            allDay: true
+          });
+          alert('일정이 등록 완료되었습니다');
+		  },
+		  error:function(e){
+			  console.log(e);
+		  }
+	  });
+});
+//---새일정 추가 버튼 완료
   function eventArray(){
 	  $.ajax({
 		  url:"/maven_project_lac/schedule/selectSchedule.json",
@@ -349,21 +348,9 @@ $(document).ready(function() {
 		  error:function(e){
 			  console.log(e);
 		  }
-		  
 	  })
+// 	  console.log("리턴값:",a);
 	  return a;
-// 	  return 
-// 	  [
-// 	        {
-// 	          title: 'All Day Event',
-// 	          start: '2018-03-01',
-// 	        },
-// 	        {
-// 	          title: 'Long Event',
-// 	          start: '2018-03-07',
-// 	          end: '2018-03-10'
-// 	        }
-// 	 ]
   };
   
 $(function() {

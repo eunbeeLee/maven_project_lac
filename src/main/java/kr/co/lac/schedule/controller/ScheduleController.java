@@ -31,18 +31,14 @@ public class ScheduleController {
 	@RequestMapping("/selectSchedule.json")
 	@ResponseBody
 	public Event[] selectScheduleByMonth(String month) {
-		Schedule[] sArray = null;
 		Event[] eArr = null;
 		try {
-			sArray = scheduleService.selectScheduleByMonth(month);
+			Schedule[] sArray = scheduleService.selectScheduleByMonth(month);
 			eArr = new Event[sArray.length];
-			Schedule s = null;
+			
 			for(int i=0; i<sArray.length; i++) {
-				s = sArray[i];
-//				System.out.println(sArray.length);
-//				System.out.println(s.getStartDate());
-//				System.out.println(s.getEndDate());
-//				System.out.println(s.getSchDetail());
+				Schedule s = sArray[i];
+				eArr[i] = new Event();
 				eArr[i].setStart(s.getStartDate());
 				eArr[i].setEnd(s.getEndDate());
 				eArr[i].setTitle(s.getSchDetail());
