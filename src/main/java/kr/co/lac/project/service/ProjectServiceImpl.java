@@ -1,5 +1,7 @@
 package kr.co.lac.project.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,6 +20,11 @@ public class ProjectServiceImpl implements ProjectService {
 	public void createProject(Project project) {
 		mapper.insertProject(project);
 		mapper.insertProjectParticipant(project);
+	}
+
+	@Override
+	public List<Project> retrieveProjectList(int userNo) {
+		return mapper.selectProjectList(userNo);
 	}
 
 	

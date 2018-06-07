@@ -174,7 +174,8 @@
         <div id="chatting_area" class="col-md-4 row"> <!-- start #chatting_area -->
 
             <div class="chatting_box" id="chatting_content">    <!-- start #chatting_content -->
-                채팅방 내용
+                	프로젝트 번호 제대로 가져왔나 테스트 : ${projectNo}
+              
 
             </div>                                              <!-- end #chatting_content -->
 

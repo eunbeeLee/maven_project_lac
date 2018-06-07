@@ -9,6 +9,8 @@
 		<result column="project_info" property="projectInfo"></result>
 		<result column="project_name" property="projectName"></result>
 		<result column="project_pic" property="projectPic"></result>
+		<result column="maseter_user_nickname" property="maseterUserNickname"></result>
+		<result column="user_count" property="userCount"></result>
 	</resultMap>
 
 	<insert id="insertProject" parameterType="project">
@@ -34,5 +36,17 @@
 		#{userNo}
 		)
 	</insert>
+	<select id="selectProjectList" parameterType="int" resultMap="projectMap">
+		select p.*, u.nickname as maseter_user_nickname, count(pp.user_no) as user_count
+		  from tb_project as p
+		 inner join tb_user as u
+		    on p.maseter_user_no = u.user_no
+		 inner join tb_project_participant as pp
+		    on p.project_no = pp.project_no
+		 where p.project_no in (select project_no
+								from tb_project_participant
+							   where user_no = 2)
+		 group by p.project_no
+	</select>
 
 </mapper>

@@ -45,7 +45,7 @@
     <div id="menu_bar_row" class="row">
         <div class="menu_btn btn btn-default"><i class="material-icons" style="font-size:36px">vpn_key</i></div>
         <div id="my_info_btn_button" class="menu_btn btn btn-default"><i class="fa fa-cog"></i></div>
-        <a href="<c:url value="/coding/waitRoom.do"/>"><div id="exit_btn_button" class="menu_btn btn btn-default">Exit</div></a>
+        <a href="<c:url value="/project/lobby.do"/>"><div id="exit_btn_button" class="menu_btn btn btn-default">Exit</div></a>
         <div id="create_btn_button" class="menu_btn btn btn-default">New</div>
         <div id="friends_btn_button" class="menu_btn btn btn-default"><i class="fa fa-address-book friends_addr friends_addr_side"></i></div>
         <a href="<c:url value="/schedule/schedule.do"/>"><div id="calendar_btn_button" class="menu_btn btn btn-default"><span class="glyphicon glyphicon-calendar"></span></div></a>
@@ -564,6 +564,9 @@
 			data: {"userNo":userNo,"projectName":projectName.text()}
 		}).done(function () {
 				projectName.text("");
+				$("#create_class").fadeOut(300);
+				$("#back_ground_shadow").fadeOut(300);
+				$(refresh)
 			})
 		})
 </script>

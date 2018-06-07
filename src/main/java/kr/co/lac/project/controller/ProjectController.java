@@ -1,7 +1,13 @@
 package kr.co.lac.project.controller;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -15,14 +21,19 @@ public class ProjectController {
 	private ProjectService projectService;
 	
 	@RequestMapping("/lobby.do")
-	public void lobby() throws Exception {
-		
+	public void lobby() throws Exception {}
+	
+	@RequestMapping("/{projectNo}/codingRoom.do")
+	public String codingRoom(@PathVariable int projectNo, Model model) {
+		model.addAttribute("projectNo", projectNo);
+		return "project/codingRoom";
 	}
+	
 	
 	@RequestMapping("/refreshList.json")
 	@ResponseBody
-	public void refreshList(int userNo) throws Exception {
-		
+	public List<Project> refreshList(int userNo) throws Exception {
+		return projectService.retrieveProjectList(userNo);
 	}
 	
 	@RequestMapping("/createProject.json")

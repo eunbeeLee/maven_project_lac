@@ -67,230 +67,31 @@
     .room{
     	cursor: pointer;
     }
-    p{
+    span{
     	color:rgba(0,0,0,.68);
    	    margin: 0 0 10px 10px;
     }
-    
+    .projectImg{
+    	width: 100%;
+    	height: 100%;
+    }
+    .projectName{
+		text-overflow:ellipsis;
+		white-space:nowrap;
+		word-wrap:normal;
+		width:250px;
+		overflow:hidden;
+		display: inline-block;
+    }
     </style>
 </head>
 <body>
 	<div class="room-title">
 		<div class="room-titleTop">
-			<h2 class="room-titleTop-title">홍길동의 프로젝트</h2>
+			<h2 class="room-titleTop-title">${user.nickname} 의 프로젝트</h2>
 		</div>
-	    <div class="room-list">
-	    <!-- 개설된 방  -->
-	    	<div class="room">
-				<div class="room-top"><h3 class="glyphicon glyphicon-book"></h3></div>
-			    <div class="room-common">
-			    	<h3><span>프로젝트 이름(방 제목)</span></h3>
-			    	<p>생성자</p>
-			    	<p>참여자 수</p>
-			    </div>
-			</div>
-	    	<div class="room">
-				<div class="room-top"><h3 class="glyphicon glyphicon-book"></h3></div>
-			    <div class="room-common">
-			    	<h3><span>프로젝트 이름(방 제목)</span></h3>
-			    	<p>생성자</p>
-			    	<p>참여자 수</p>
-			    </div>
-			</div>
-	    	<div class="room">
-				<div class="room-top"><h3 class="glyphicon glyphicon-book"></h3></div>
-			    <div class="room-common">
-			    	<h3><span>프로젝트 이름(방 제목)</span></h3>
-			    	<p>생성자</p>
-			    	<p>참여자 수</p>
-			    </div>
-			</div>
-	    	<div class="room">
-				<div class="room-top"><h3 class="glyphicon glyphicon-book"></h3></div>
-			    <div class="room-common">
-			    	<h3><span>프로젝트 이름(방 제목)</span></h3>
-			    	<p>생성자</p>
-			    	<p>참여자 수</p>
-			    </div>
-			</div>
-	    	<div class="room">
-				<div class="room-top"><h3 class="glyphicon glyphicon-book"></h3></div>
-			    <div class="room-common">
-			    	<h3><span>프로젝트 이름(방 제목)</span></h3>
-			    	<p>생성자</p>
-			    	<p>참여자 수</p>
-			    </div>
-			</div>
-	    	<div class="room">
-				<div class="room-top"><h3 class="glyphicon glyphicon-book"></h3></div>
-			    <div class="room-common">
-			    	<h3><span>프로젝트 이름(방 제목)</span></h3>
-			    	<p>생성자</p>
-			    	<p>참여자 수</p>
-			    </div>
-			</div>
-	    	<div class="room">
-				<div class="room-top"><h3 class="glyphicon glyphicon-book"></h3></div>
-			    <div class="room-common">
-			    	<h3><span>프로젝트 이름(방 제목)</span></h3>
-			    	<p>생성자</p>
-			    	<p>참여자 수</p>
-			    </div>
-			</div>
-	    	<div class="room">
-				<div class="room-top"><h3 class="glyphicon glyphicon-book"></h3></div>
-			    <div class="room-common">
-			    	<h3><span>프로젝트 이름(방 제목)</span></h3>
-			    	<p>생성자</p>
-			    	<p>참여자 수</p>
-			    </div>
-			</div>
-	    	<div class="room">
-				<div class="room-top"><h3 class="glyphicon glyphicon-book"></h3></div>
-			    <div class="room-common">
-			    	<h3><span>프로젝트 이름(방 제목)</span></h3>
-			    	<p>생성자</p>
-			    	<p>참여자 수</p>
-			    </div>
-			</div>
-	    	<div class="room">
-				<div class="room-top"><h3 class="glyphicon glyphicon-book"></h3></div>
-			    <div class="room-common">
-			    	<h3><span>프로젝트 이름(방 제목)</span></h3>
-			    	<p>생성자</p>
-			    	<p>참여자 수</p>
-			    </div>
-			</div>
-	    	<div class="room">
-				<div class="room-top"><h3 class="glyphicon glyphicon-book"></h3></div>
-			    <div class="room-common">
-			    	<h3><span>프로젝트 이름(방 제목)</span></h3>
-			    	<p>생성자</p>
-			    	<p>참여자 수</p>
-			    </div>
-			</div>
-	    	<div class="room">
-				<div class="room-top"><h3 class="glyphicon glyphicon-book"></h3></div>
-			    <div class="room-common">
-			    	<h3><span>프로젝트 이름(방 제목)</span></h3>
-			    	<p>생성자</p>
-			    	<p>참여자 수</p>
-			    </div>
-			</div>
-	    	<div class="room">
-				<div class="room-top"><h3 class="glyphicon glyphicon-book"></h3></div>
-			    <div class="room-common">
-			    	<h3><span>프로젝트 이름(방 제목)</span></h3>
-			    	<p>생성자</p>
-			    	<p>참여자 수</p>
-			    </div>
-			</div>
-	    	<div class="room">
-				<div class="room-top"><h3 class="glyphicon glyphicon-book"></h3></div>
-			    <div class="room-common">
-			    	<h3><span>프로젝트 이름(방 제목)</span></h3>
-			    	<p>생성자</p>
-			    	<p>참여자 수</p>
-			    </div>
-			</div>
-	    	<div class="room">
-				<div class="room-top"><h3 class="glyphicon glyphicon-book"></h3></div>
-			    <div class="room-common">
-			    	<h3><span>프로젝트 이름(방 제목)</span></h3>
-			    	<p>생성자</p>
-			    	<p>참여자 수</p>
-			    </div>
-			</div>
-	    	<div class="room">
-				<div class="room-top"><h3 class="glyphicon glyphicon-book"></h3></div>
-			    <div class="room-common">
-			    	<h3><span>프로젝트 이름(방 제목)</span></h3>
-			    	<p>생성자</p>
-			    	<p>참여자 수</p>
-			    </div>
-			</div>
-	    	<div class="room">
-				<div class="room-top"><h3 class="glyphicon glyphicon-book"></h3></div>
-			    <div class="room-common">
-			    	<h3><span>프로젝트 이름(방 제목)</span></h3>
-			    	<p>생성자</p>
-			    	<p>참여자 수</p>
-			    </div>
-			</div>
-	    	<div class="room">
-				<div class="room-top"><h3 class="glyphicon glyphicon-book"></h3></div>
-			    <div class="room-common">
-			    	<h3><span>프로젝트 이름(방 제목)</span></h3>
-			    	<p>생성자</p>
-			    	<p>참여자 수</p>
-			    </div>
-			</div>
-	    	<div class="room">
-				<div class="room-top"><h3 class="glyphicon glyphicon-book"></h3></div>
-			    <div class="room-common">
-			    	<h3><span>프로젝트 이름(방 제목)</span></h3>
-			    	<p>생성자</p>
-			    	<p>참여자 수</p>
-			    </div>
-			</div>
-	    	<div class="room">
-				<div class="room-top"><h3 class="glyphicon glyphicon-book"></h3></div>
-			    <div class="room-common">
-			    	<h3><span>프로젝트 이름(방 제목)</span></h3>
-			    	<p>생성자</p>
-			    	<p>참여자 수</p>
-			    </div>
-			</div>
-	    	<div class="room">
-				<div class="room-top"><h3 class="glyphicon glyphicon-book"></h3></div>
-			    <div class="room-common">
-			    	<h3><span>프로젝트 이름(방 제목)</span></h3>
-			    	<p>생성자</p>
-			    	<p>참여자 수</p>
-			    </div>
-			</div>
-	    	<div class="room">
-				<div class="room-top"><h3 class="glyphicon glyphicon-book"></h3></div>
-			    <div class="room-common">
-			    	<h3><span>프로젝트 이름(방 제목)</span></h3>
-			    	<p>생성자</p>
-			    	<p>참여자 수</p>
-			    </div>
-			</div>
-	    	<div class="room">
-				<div class="room-top"><h3 class="glyphicon glyphicon-book"></h3></div>
-			    <div class="room-common">
-			    	<h3><span>프로젝트 이름(방 제목)</span></h3>
-			    	<p>생성자</p>
-			    	<p>참여자 수</p>
-			    </div>
-			</div>
-	    	<div class="room">
-				<div class="room-top"><h3 class="glyphicon glyphicon-book"></h3></div>
-			    <div class="room-common">
-			    	<h3><span>프로젝트 이름(방 제목)</span></h3>
-			    	<p>생성자</p>
-			    	<p>참여자 수</p>
-			    </div>
-			</div>
-	    	<div class="room">
-				<div class="room-top"><h3 class="glyphicon glyphicon-book"></h3></div>
-			    <div class="room-common">
-			    	<h3><span>프로젝트 이름(방 제목)</span></h3>
-			    	<p>생성자</p>
-			    	<p>참여자 수</p>
-			    </div>
-			</div>
-	    	<div class="room">
-				<div class="room-top"><h3 class="glyphicon glyphicon-book"></h3></div>
-			    <div class="room-common">
-			    	<h3><span>프로젝트 이름(방 제목)</span></h3>
-			    	<p>생성자</p>
-			    	<p>참여자 수</p>
-			    </div>
-			</div>
-			
-			
+	    <div id="myProject" class="room-list">
+	
 	    </div>
 	</div>
     
@@ -309,6 +110,37 @@
 			$("#create_btn_button").fadeIn(1000);
 		}, 100);
 	});
+	$(refresh)
+	
+	function refresh() {
+		let myProject = $("#myProject");
+		loding();
+		$.ajax({
+			url:'${pageContext.request.contextPath}/project/refreshList.json',
+			type:"POST",
+			data: {"userNo":userNo}
+		}).done(function (projectList) {
+				myProject.html("")
+				for(project of projectList){
+					myProject.append(`
+						<a href="${pageContext.request.contextPath}/project/`+project.projectNo+`/codingRoom.do">
+					    <div class="room">
+							<input type="hidden" value="`+project.projectNo+`"/>
+							<div class="room-top"><img class="projectImg" src="${pageContext.request.contextPath}/`+project.projectPic+`"/></div>
+						    <div class="room-common">
+						    	<h2><span class="projectName" title="`+project.projectName+`">`+project.projectName+`</span></h2>
+						    	<span>마스터 : </span><span class="master">`+project.maseterUserNickname+`</span><br>
+						    	<span>참여자 수 : </span><span class="userCount">`+project.userCount+`</span>
+						    </div>
+						</div>
+						</a>
+					`)
+				}
+			})
+	}
+	
+
+	
     </script>
 </body>
 

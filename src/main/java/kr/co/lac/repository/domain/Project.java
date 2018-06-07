@@ -7,9 +7,25 @@ public class Project {
 	private String projectInfo;
 	private String projectPic;
 	private String projectName;
+	private String maseterUserNickname;
+	private int userCount;
 	private int userNo;
 	
 	
+	public String getMaseterUserNickname() {
+		return maseterUserNickname;
+	}
+	public Project setMaseterUserNickname(String maseterUserNickname) {
+		this.maseterUserNickname = maseterUserNickname;
+		return this;
+	}
+	public int getUserCount() {
+		return userCount;
+	}
+	public Project setUserCount(int userCount) {
+		this.userCount = userCount;
+		return this;
+	}
 	public int getUserNo() {
 		return userNo;
 	}

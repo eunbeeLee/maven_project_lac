@@ -31,7 +31,7 @@ public class UserController {
 		}else if(user.getPassword().equals(login.getPassword())){
 			session.removeAttribute("errMsg");
 			session.setAttribute("user", user);	// 세션에 로그인 정보 담기
-			return "redirect:/coding/waitRoom.do";
+			return "redirect:/project/lobby.do";
 		}else {
 			session.setAttribute("errMsg", "패스워드를 확인하세요");
 		}
