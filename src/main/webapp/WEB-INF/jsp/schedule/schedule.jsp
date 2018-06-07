@@ -5,9 +5,9 @@
 <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css"> -->
 <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css"> -->
 <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script> -->
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/resources/css/waitMe.css">
-<script src="${pageContext.request.contextPath}/resources/js/waitMe.js"></script>
+<!-- <link rel="stylesheet" -->
+<%-- 	href="${pageContext.request.contextPath}/resources/css/waitMe.css"> --%>
+<%-- <script src="${pageContext.request.contextPath}/resources/js/waitMe.js"></script> --%>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 
@@ -321,17 +321,6 @@ $("#addSchBtn").click(function(e){
 	  e.preventDefault();
 	  console.log($("#addNewSchedule").serialize());
         $("#newScheModal").modal('hide');
-        //<--waitme plugin
-// 			$("body").waitMe({
-// 				effect : "win8",
-// 				text :"please wait",
-// 				bg : "rgba(255,255,255,0.7)",
-// 				color : "#000"
-// 			});
-// 			setTimeout(() => {
-// 				$("body").waitMe("hide");
-// 			}, 3000);
-        //waitme plugin-->
 	  $.ajax({
 		 url:"/maven_project_lac/schedule/newSchedule.json",
 		 type:"POST",
@@ -369,15 +358,15 @@ $("#addSchBtn").click(function(e){
 			console.log("번호",  no);
 			   $("#editScheModal").modal('hide');
 		        //<--waitme plugin
-					$("body").waitMe({
-						effect : "win8",
-						text :"please wait",
-						bg : "rgba(255,255,255,0.7)",
-						color : "#000"
-					});
-					setTimeout(() => {
-						$("body").waitMe("hide");
-					}, 3000);
+// 					$("body").waitMe({
+// 						effect : "win8",
+// 						text :"please wait",
+// 						bg : "rgba(255,255,255,0.7)",
+// 						color : "#000"
+// 					});
+// 					setTimeout(() => {
+// 						$("body").waitMe("hide");
+// 					}, 3000);
 					
 		$('#calendar').fullCalendar('removeEventSource',e);
 		$.ajax({
@@ -388,7 +377,7 @@ $("#addSchBtn").click(function(e){
 			type:"POST",
 			success:function(result){
 				console.log("에이작스 성공",result); 
-// 				fullCalendar();
+// 				fullCalendar;
 			 $('#calendar').fullCalendar('renderEvents', eventArray());
 			alert("일정 삭제가 완료되었습니다.");
 			},
