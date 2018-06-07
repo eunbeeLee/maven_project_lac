@@ -45,7 +45,7 @@
 		    on p.project_no = pp.project_no
 		 where p.project_no in (select project_no
 								from tb_project_participant
-							   where user_no = 2)
+							   where user_no = #{userNo})
 		 group by p.project_no
 	</select>
 

@@ -16,6 +16,7 @@
 
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/coding.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/menu.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/chatting/css/chatting.css">
 <script src="${pageContext.request.contextPath}/resources/js/jquery.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/bootstrap/js/bootstrap.min.js"></script>
 <script src="http://code.jquery.com/jquery-1.11.1.js"></script>

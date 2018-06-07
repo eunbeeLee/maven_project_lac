@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -174,8 +175,7 @@
         <div id="chatting_area" class="col-md-4 row"> <!-- start #chatting_area -->
 
             <div class="chatting_box" id="chatting_content">    <!-- start #chatting_content -->
-                	프로젝트 번호 제대로 가져왔나 테스트 : ${projectNo}
-              
+
 
             </div>                                              <!-- end #chatting_content -->
 
@@ -228,15 +228,76 @@
         </div>  <!-- end #chatting_area -->
 
     </div>  <!-- end #main_area -->
-    <script type="text/javascript" src="../../assets/js/coding.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.1.1/socket.io.dev.js"></script>
+   <!--  
+    <script src="${pageContext.request.contextPath}/resources/js/chatting.js"></script>
+   -->
 <script>
+	var socket = io.connect('http://localhost:3000');
+	var user = {};
+	
+	
+	$(()=>{
+		user["userNo"] = ${user.userNo};
+		user["nickname"] = "${user.nickname}";
+		user["email"] = "${user.email}";
+		user["profilePic"] = "${user.profilePic}";
+		user["loginStateCode"] = "${user.loginStateCode}";
+		socket.emit("join",{"user":user,projectNo:${projectNo}});
+	})
+	
+    socket.on(${projectNo}+"join",function(result){
+        $("#chatting_content").append(`<div class="joinMsg"><span>[ `+result.nickname+` ]님이 </span><span>입장하셨습니다.</span></div>`);
+    })
+	
+    
+    $("#onchat").on("click",()=>{
+    	onMsg();
+    })
+    
+    function onMsg(){
+    	let msg = $("#text_box");
+    	socket.emit("msg",{"user":user,"projectNo":${projectNo},"msg":msg.html()});
+    	msg.html("");
+	}
+	socket.on(${projectNo}+"msg",function(result){
+		console.log(${user.userNo})
+		if(${user.userNo}==result.user.userNo){
+	        $("#chatting_content").append(`
+	             <div class="myChatView chatView">
+	              	<div class="myMsgArea">
+		              	<div class="myUserMsg userMsg">
+		              		`+result.msg+`
+		              	</div>
+		              	<span class="msgTri"></span>
+	              	</div>
+	              </div>
+	        		`);
+		}else{
+			$("#chatting_content").append(`
+		          <div class="unknownChatView chatView">
+	              	  <h6><span class="userNickname">`+result.user.nickname+`</span></h6>
+	              	  <div class="profilePic">
+	              		  <img src="${pageContext.request.contextPath}`+result.user.profilePic+`"/>
+	              	  </div>
+	              	  <div class="unknownUserMsg userMsg">
+	              	      `+result.msg+`
+	              	  </div>
+	              </div>
+    		`);
+		}
+	})
+    
+    
+    
+    
 	$(function() {
 		setTimeout(() => {
 			$("#exit_btn_button").fadeIn(1000);
 			$("#create_btn_button").fadeOut(1000);
 		}, 100);
 	});
-
+	
     var side_bar_btn = false;
     var side_box = $("#side_bar_row");
     var side_btn = $("#side_bar_btn");
