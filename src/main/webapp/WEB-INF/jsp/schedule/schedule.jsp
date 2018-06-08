@@ -180,6 +180,9 @@ body {
 	</div>
 	<!-- /.modal -->
 
+	<button style="display:none;" type="button" id="editModalOpen"class="btn btn-info btn-lg" data-toggle="modal" data-target="#editScheModal">
+		Open Modal
+	</button>
 	<!-- 일정 편집 모달 -->
 	<div class="modal fade in" id="editScheModal" role="modal">
 		<div class="modal-dialog">
@@ -235,6 +238,7 @@ body {
 	<script>
 var index = null;
 $(document).ready(function() {
+	eventArray();
 	fullCalendar();
   });
   function fullCalendar(){
@@ -250,7 +254,6 @@ $(document).ready(function() {
 			error:function(e){
 				  console.dir(e);
 			  }
-// 	 		return index;
 		});
 		
 	    $('#calendar').fullCalendar({ 
@@ -260,33 +263,81 @@ $(document).ready(function() {
 	        center: 'title',
 	        right: 'addEventButton'
 	      },
-	      //일정클릭이벤트
-	      eventClick: eventClickEvent,
+	      //일정클릭이벤트  
+	      eventClick: function( event, jsEvent, view ){
+// 	    	  event.preventDefault();\
+			  console.log("이벤트 클릭 들어옴");
+			  console.log("클릭후 ", event);
+	    	  eventClickEvent(event);
+// 	    	  addSchBtn();
+	    	  $("#editModalOpen").trigger("click", function(){
+	    	  });	
+	      },
 		    //새일정 추가
 		    customButtons: {
 		      addEventButton: {
 		        text: '+',
 		        click: function() {
 		          $("#newScheModal").modal();
-		          $("#newScheModal").attr({"diplay":"block"});
+		          $("#newScheModal").attr({"diplay":"block"} );
+		          
+		      	  $("#addSchBtn").click(function(e){
+		      	  $("#schNo").attr({"value":++index});
+		      	  e.preventDefault();
+		      	  console.log($("#addNewSchedule").serialize());
+		              $("#newScheModal").modal('hide');
+		      	  $.ajax({
+		      		 url:"/maven_project_lac/schedule/newSchedule.json",
+		      		 type:"POST",
+		      		 dataType:"json",
+		      		 data:$("#addNewSchedule").serialize(),
+		      		 success : function(result){
+		      			  var sDate = moment(result.startDate);
+		      			  var eDate = moment(result.endDate);
+		      			  var schDetail = moment(result.schDetail);
+		      			  var schDetail = result.schDetail;
+		      			  var schColor = result.schColor;
+		      			  var schNo = result.schNo;
+		      			 $.fullCalendar.formatRange(sDate, eDate, 'MMMM D YYYY');
+		      			 
+		                $('#calendar').fullCalendar('renderEvent', {
+		               	  id : schNo,
+		                  title: schDetail,
+		                  start: sDate,
+		                  end:   eDate,
+		                  backgroundColor : schColor,
+		                  allDay: true
+		                });
+		                alert('일정이 등록 완료되었습니다');
+		      		  },
+		      		  error:function(e){
+		      			  console.log(e);
+		      		  }
+		      	  });
+		      });
 		      	}  
 		      }
 		    },
-		  //오늘날짜
+		    
+		  //오늘날짜	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      
 //	       defaultDate: '2018-06-05',
 	      navLinks: true, // can click day/week names to navigate views
 	      editable: true,
+	      eventDrop: function( event, delta, revertFunc, jsEvent, ui, view ) { 
+	    	  
+	      },
 	      eventLimit: true, // allow "more" link when too many events
 	      //이벤트들
 	      events: eventArray()
+	    	  
 	    });
   };
- var e;
-function eventClickEvent(eventObj){
+//  var eventSource;
+ function eventClickEvent(eventObj){
+	 	  console.log("클릭이벤트 함수");
 		  $("#editSchNo").attr({"value":eventObj.id});
-// 		  console.dir(eventObj);
-		  e=eventObj.source;
-		  console.dir(e);
+		  console.dir(eventObj);
+		  eventSources=eventObj.source;
   	  $("#updateScheduleDetail").attr({"placeholder":eventObj.title});
   	  let start = new Date(eventObj.start);
 		  let month = start.getMonth()+1;
@@ -312,72 +363,21 @@ function eventClickEvent(eventObj){
   	  }else{
      	  	$("#editEndDate").attr({"value":eDateval});    	      	  
   	  }
-  	  
-  	  $("#editScheModal").modal();	
-};
-//----일정 추가 버튼 클릭시
-$("#addSchBtn").click(function(e){
-	  $("#schNo").attr({"value":++index});
-	  e.preventDefault();
-	  console.log($("#addNewSchedule").serialize());
-        $("#newScheModal").modal('hide');
-	  $.ajax({
-		 url:"/maven_project_lac/schedule/newSchedule.json",
-		 type:"POST",
-		 dataType:"json",
-		 data:$("#addNewSchedule").serialize(),
-		 success : function(result){
-			  var sDate = moment(result.startDate);
-			  var eDate = moment(result.endDate);
-			  var schDetail = moment(result.schDetail);
-			  var schDetail = result.schDetail;
-			  var schColor = result.schColor;
-			  var schNo = result.schNo;
-			 $.fullCalendar.formatRange(sDate, eDate, 'MMMM D YYYY');
-			 
-          $('#calendar').fullCalendar('renderEvent', {
-        	id : schNo,
-            title: schDetail,
-            start: sDate,
-            end:   eDate,
-            backgroundColor : schColor,
-            allDay: true
-          });
-          alert('일정이 등록 완료되었습니다');
-		  },
-		  error:function(e){
-			  console.log(e);
-		  }
-	  });
-});
-//---새일정 추가 버튼 완료
-
-//---일정 삭제 시작
-	$("#delEventBtn").click(function(){
+		$("#delEventBtn").click(function(){
 			var no = $("#editSchNo").val();
 			console.log("번호",  no);
 			   $("#editScheModal").modal('hide');
-		        //<--waitme plugin
-// 					$("body").waitMe({
-// 						effect : "win8",
-// 						text :"please wait",
-// 						bg : "rgba(255,255,255,0.7)",
-// 						color : "#000"
-// 					});
-// 					setTimeout(() => {
-// 						$("body").waitMe("hide");
-// 					}, 3000);
-					
-		$('#calendar').fullCalendar('removeEventSource',e);
 		$.ajax({
 			url:"/maven_project_lac/schedule/deleteSchedule.json",
 			dataType:"json",
-			async: false,
+// 			async: false,
 			data:{'schNo':no},
 			type:"POST",
 			success:function(result){
-				console.log("에이작스 성공",result); 
-// 				fullCalendar;
+				console.log("일정삭제 에이작스 성공",result); 
+ 			 $('#calendar').fullCalendar('removeEvents');
+ 			 $('#calendar').fullCalendar('rerenderEvents');
+			 $('#calendar').fullCalendar('refetchEvents');
 			 $('#calendar').fullCalendar('renderEvents', eventArray());
 			alert("일정 삭제가 완료되었습니다.");
 			},
@@ -386,7 +386,13 @@ $("#addSchBtn").click(function(e){
 			  }
 		});
 	});
-//일정 삭제 완료
+};
+//----일정 추가 버튼 클릭시
+function addSchBtn(){
+
+}
+//---새일정 추가 버튼 완료
+
 
   function eventArray(){
 	  $.ajax({
