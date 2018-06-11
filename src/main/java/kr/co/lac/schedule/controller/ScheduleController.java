@@ -1,6 +1,8 @@
 package kr.co.lac.schedule.controller;
 
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -35,9 +37,9 @@ public class ScheduleController {
 	}
 	@RequestMapping("/selectSchedule.json")
 	@ResponseBody
-	public Event[] selectScheduleByMonth(String month)throws Exception {
+	public Event[] selectSchedule()throws Exception {
 		Event[] eArr = null;
-			Schedule[] sArray = scheduleService.selectScheduleByMonth(month);
+			Schedule[] sArray = scheduleService.selectSchedule();
 			eArr = new Event[sArray.length];
 			
 			for(int i=0; i<sArray.length; i++) {
@@ -69,6 +71,35 @@ public class ScheduleController {
 		eArr[0].setBackgroundColor(s.getSchColor());
 //		eArr[0].setUrl("");
 		return eArr;
+	}
+	
+	@RequestMapping("/updateSchedule.json")
+	@ResponseBody
+	public void updateSchedule(Schedule schedule) throws Exception{
+		System.out.println(schedule.getSchNo());
+		scheduleService.updateSchedule(schedule);
+	}
+	@RequestMapping("/updateScheduleDate.json")
+	@ResponseBody
+	public void updateScheduleDate(Schedule schedule, int delta) throws Exception{
+		String calStart =  String.format("%02d",Integer.parseInt(schedule.getStartDate().substring(8, 10))+delta);
+		String start =schedule.getStartDate().substring(0, 8)+calStart;
+		String calEnd =  String.format("%02d",Integer.parseInt(schedule.getEndDate().substring(8, 10))+delta);
+		String end =schedule.getEndDate().substring(0, 8)+calEnd;
+		
+		System.out.println(start);
+		System.out.println(end);
+		schedule.setStartDate(start);
+		schedule.setEndDate(end);
+		
+		scheduleService.updateDateByDrag(schedule);
+	}
+	
+	@RequestMapping("/selectScheduleByMonth.json")
+	@ResponseBody
+	public List<Schedule> selectScheduleByMonth(int month)throws Exception{
+		String eventMonth=String.format("%02d", month);
+		return scheduleService.selectScheduleByMonth(eventMonth);
 	}
 	
 }

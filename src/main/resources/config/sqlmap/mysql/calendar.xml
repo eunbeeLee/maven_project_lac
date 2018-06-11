@@ -9,11 +9,17 @@
 		<result column="end_date" property="endDate"></result>
 		<result column="sch_detail" property="schDetail"></result>
 		<result column="sch_color" property="schColor"></result>
+		<result column="event_month" property="eventMonth"></result>
 	</resultMap>
+	<select id="selectSchedule" resultMap="scheduleMap">
+		select *
+		  from tb_schedule
+		 order by start_date
+	</select>
 	<select id="selectScheduleByMonth" parameterType="string" resultMap="scheduleMap">
 		select *
 		  from tb_schedule
-		 where substr(start_date,6,2)=#{eventMonth} or substr(end_date,6,2)=#{eventMonth}
+		 where substr(start_date, 6, 2) = #{eventMonth} or substr(end_date, 6, 2) = #{eventMonth}
 		 order by start_date
 	</select>
 
@@ -48,18 +54,23 @@
 		);
 	</insert>
 
-	<!-- /*일정편집*/ -->
+	<!-- 일정편집 -->
 	<update id="updateSchedule" parameterType="schedule">
 		update tb_schedule
 		set start_date = #{startDate},
 		end_date = #{endDate},
 		sch_detail = #{schDetail},
-		sch_color =
-		#{schColor}
+		sch_color = #{schColor}
 		where sch_no = #{schNo}
 	</update>
-
-	<!-- /*일정삭제*/ -->
+	<!-- 일정날짜 드래그 수정 -->
+	<update id="updateDateByDrag" parameterType="schedule">
+		update tb_schedule
+		set start_date = #{startDate},
+		end_date = #{endDate}
+		where sch_no = #{schNo}
+	</update>
+	<!-- 일정삭제 -->
 	<delete id="deleteSchedule" parameterType="int">
 		delete
 		from tb_schedule

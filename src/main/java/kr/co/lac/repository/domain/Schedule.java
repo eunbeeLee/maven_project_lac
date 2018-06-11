@@ -10,16 +10,16 @@ public class Schedule {
 	public void setSchNo(int schNo) {
 		this.schNo = schNo;
 	}
-	private String userNo;
+	private int userNo;
 	private String startDate;
 	private String endDate;
 	private String schDetail;
 	private String schColor;
 	private int eventMonth;
-	public String getUserNo() {
+	public int getUserNo() {
 		return userNo;
 	}
-	public void setUserNo(String userNo) {
+	public void setUserNo(int userNo) {
 		this.userNo = userNo;
 	}
 	public String getSchDetail() {
