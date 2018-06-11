@@ -5,9 +5,9 @@
 <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css"> -->
 <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css"> -->
 <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script> -->
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/resources/css/waitMe.css">
-<script src="${pageContext.request.contextPath}/resources/js/waitMe.js"></script>
+<!-- <link rel="stylesheet" -->
+<%-- 	href="${pageContext.request.contextPath}/resources/css/waitMe.css"> --%>
+<%-- <script src="${pageContext.request.contextPath}/resources/js/waitMe.js"></script> --%>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 
@@ -80,48 +80,13 @@ body {
 							<th>일정 내용</th>
 						</tr>
 					</thead>
-					<tbody>
+					<tbody id="scheuleList">
 						<!-- 일정리스트 -->
-						<tr>
-							<td>2018-01-01</td>
-							<td>2018-01-01</td>
-							<td>미니 프로젝트</td>
-						</tr>
-						<tr>
-							<td>2018-01-01</td>
-							<td>2018-01-01</td>
-							<td>미니 프로젝트</td>
-						</tr>
-						<tr>
-							<td>2018-01-01</td>
-							<td>2018-01-01</td>
-							<td>미니 프로젝트</td>
-						</tr>
-						<tr>
-							<td>2018-01-01</td>
-							<td>2018-01-01</td>
-							<td>미니 프로젝트</td>
-						</tr>
-						<tr>
-							<td>2018-01-01</td>
-							<td>2018-01-01</td>
-							<td>미니 프로젝트</td>
-						</tr>
-						<tr>
-							<td>2018-01-01</td>
-							<td>2018-01-01</td>
-							<td>미니 프로젝트</td>
-						</tr>
-						<tr>
-							<td>2018-01-01</td>
-							<td>2018-01-01</td>
-							<td>미니 프로젝트</td>
-						</tr>
-						<tr>
-							<td>2018-01-01</td>
-							<td>2018-01-01</td>
-							<td>미니 프로젝트</td>
-						</tr>
+<!-- 						<tr> -->
+<!-- 							<td>2018-01-01</td> -->
+<!-- 							<td>2018-01-01</td> -->
+<!-- 							<td>미니 프로젝트</td> -->
+<!-- 						</tr> -->
 					</tbody>
 				</table>
 			</div>
@@ -132,12 +97,15 @@ body {
 	</div>
 
 	<!-- 새 일정 모달 -->
+		<button style="display:none;" type="button" id="newModalOpen"class="btn btn-info btn-lg" data-toggle="modal" data-target="#editScheModal">
+		Open Modal
+	</button>
 	<div class="modal fade in" id="newScheModal" role="modal" tabindex="-1"
 		aria-labelledby="newScheModalLabel" aria-hidden="true">
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal"
+					<button type="button" id="newModalClose" class="close" data-dismiss="modal"
 						aria-label="Close">
 						<span aria-hidden="true">&times;</span>
 					</button>
@@ -148,7 +116,7 @@ body {
 				<div class="modal-body">
 					<div class="contact-clean">
 						<form method="post" id="addNewSchedule">
-							<input type="hidden" name="userNo" value='1'>
+							<input type="hidden" name="userNo" value=${sessionScope.userNo}>
 							<input type="hidden" name="schNo" id="schNo">
 							<div class="form-group col-md-5 startDay">
 								<span>시작일</span> <input type="date" class="form-control"
@@ -180,12 +148,15 @@ body {
 	</div>
 	<!-- /.modal -->
 
+	<button style="display:none;" type="button" id="editModalOpen"class="btn btn-info btn-lg" data-toggle="modal" data-target="#editScheModal">
+		Open Modal
+	</button>
 	<!-- 일정 편집 모달 -->
 	<div class="modal fade in" id="editScheModal" role="modal">
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal"
+					<button id="editModalClose"type="button" class="close" data-dismiss="modal"
 						aria-label="Close">
 						<span aria-hidden="true">&times;</span>
 					</button>
@@ -197,21 +168,21 @@ body {
 					<div class="contact-clean">
 						<form method="post" id="editSechedule">
 							<input type="hidden" name="userNo" value='1'>
-							<input type="hidden" name="editSchNo" id="editSchNo">
+							<input type="hidden" name="schNo" id="editSchNo">
 							<div class="form-group col-md-5 startDay">
 								<span>시작일</span> 
-								<input type="date" class="form-control" id="editStartDate" />
+								<input type="date" class="form-control" name="startDate" id="editStartDate" />
 							</div>
 							<div class="form-group col-md-5 endDay">
 								<span>종료일</span>
-								<input type="date" class="form-control" id="editEndDate" />
+								<input type="date" class="form-control" name="endDate" id="editEndDate" />
 							</div>
 							<div class="form-group col-md-2">
 								<span style="visibility: hidden;">일정색</span> 
-								<input id="editscheColor" type="color" value="#41c7f4">
+								<input name="schColor" id="editscheColor" type="color" value="#41c7f4">
 							</div>
 							<div class="form-group">
-								<textarea id="updateScheduleDetail" rows="14" name="message"
+								<textarea id="updateScheduleDetail" rows="14" name="schDetail"
 									placeholder="미니프로젝트 2-회의" class="form-control"></textarea>
 							</div>
 							<div class="form-group">
@@ -234,70 +205,121 @@ body {
 
 	<script>
 var index = null;
+var today = new Date();
+var month= today.getMonth()+1;
 $(document).ready(function() {
-	fullCalendar();
-  });
-  function fullCalendar(){
-		$.ajax({
-			url:"/maven_project_lac/schedule/selectIndex.json",
-			dataType:"json",
-			type:"POST",
-			async: false,
-			success:function(result){
-				console.dir(result);
-				index = result;
-			},
-			error:function(e){
-				  console.dir(e);
-			  }
-// 	 		return index;
-		});
-		
-	    $('#calendar').fullCalendar({ 
-	    //캘린더 상단
-	      header: {
-	        left: 'prev,next today',
-	        center: 'title',
-	        right: 'addEventButton'
-	      },
-	      //일정클릭이벤트
-	      eventClick: eventClickEvent,
-		    //새일정 추가
-		    customButtons: {
+	scheduleList();
+	$.ajax({
+		url:"/maven_project_lac/schedule/selectIndex.json",
+		dataType:"json",
+		type:"POST",
+		success:function(result){
+			console.dir(result);
+			index = result;
+		},
+		error:function(e){
+			  console.dir(e);
+		  }
+	});
+		    $('#calendar').fullCalendar({ 
+		    //캘린더 상단
+		      header: {
+		        left: 'prev,next today',
+		        center: 'title',
+		        right: 'addEventButton'
+		      },
+		      //새일정 추가
+		      	    customButtons: {
 		      addEventButton: {
 		        text: '+',
 		        click: function() {
 		          $("#newScheModal").modal();
-		          $("#newScheModal").attr({"diplay":"block"});
+		          $("#newScheModal").attr({"diplay":"block"} );
 		      	}  
 		      }
 		    },
-		  //오늘날짜
-//	       defaultDate: '2018-06-05',
-	      navLinks: true, // can click day/week names to navigate views
-	      editable: true,
-	      eventLimit: true, // allow "more" link when too many events
-	      //이벤트들
-	      events: eventArray()
-	    });
-  };
- var e;
-function eventClickEvent(eventObj){
-		  $("#editSchNo").attr({"value":eventObj.id});
-// 		  console.dir(eventObj);
-		  e=eventObj.source;
-		  console.dir(e);
+		      //일정클릭이벤트  
+		      eventClick: function( event, jsEvent, view ){
+		    	  eventClickEvent(event);
+		    	  $("#editScheModal").modal();
+// 		    	  $("#editModalOpen").trigger("click", function(){
+// 		    	  });	
+		      },
+
+			  //오늘날짜	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      
+		      navLinks: true, // can click day/week names to navigate views
+		      editable: true,
+		      
+		      eventDrop: function( event, delta, revertFunc, jsEvent, ui, view ) { 
+		    	  dragEvent(event, delta._days);
+		      },
+		      eventLimit: true, // allow "more" link when too many events
+		      //이벤트들
+		      events: "selectSchedule.json"
+		    	  
+		    });
+// 		    $(".fc-button fc-state-default fc-corner-left").attr({'id':prevBtn});
+  });
+  //이벤트 리스트 출력
+  	function scheduleList(){
+		var html="";
+		$("#scheuleList").html(html);
+		
+		console.log("달",month);
+		$.ajax({
+			url:"selectScheduleByMonth.json", 
+			dataType:"json",
+			data:{month:month},
+			type:"POST", 
+			success:function(result){
+				console.log("에이작스 성공 값",result);
+				for(let i = 0; i < result.length; i++){
+				html="<tr>"
+					 +"<td>"+result[i].startDate+"</td>"				
+					 +"<td>"+result[i].endDate+"</td>"				
+					 +"<td>"+result[i].schDetail+"</td>"				
+					 +"</tr>";		
+					 $("#scheuleList").append(html);
+				}
+			},
+			error:function(e){
+				console.log(e);
+			}
+		});
+	}
+  	$('body').on('click', 'button.fc-prev-button', function() {
+  		month = month-1;
+  		scheduleList();
+  	});
+  	$('body').on('click', 'button.fc-next-button', function() {
+  		month = month+1;
+  		scheduleList();
+  	});
+//   	$('.fc-button-prev span').click(function(){
+//   		scheduleList();
+//   	});
+//   	$('.fc-button-next span').click(function(){
+//   		scheduleList();
+//   	});
+//이벤트 수정 클릭
+ function eventClickEvent(eventObj){
+	  console.log("클릭이벤트 함수");
+	  $("#editSchNo").attr({"value":eventObj.id});
+	  console.dir(eventObj);
+	  eventSources=eventObj.source;
   	  $("#updateScheduleDetail").attr({"placeholder":eventObj.title});
+  	  $("#updateScheduleDetail").attr({"value":eventObj.title});
+  	  $("#editscheColor").attr({"value":eventObj.backgroundColor});
+  	  
+  	  
   	  let start = new Date(eventObj.start);
 		  let month = start.getMonth()+1;
 		  if(month.toString().length < 2){var sMonth = '0'+month;}
 		  else{sMonth =month;}
-//		  alert(start.getDate().toString().length);
 		  if(start.getDate().toString().length < 2){var sDate = '0'+start.getDate();}
 		  else{sDate =start.getDate();}
   	  let sDateFormat = start.getFullYear()+'-'+sMonth+'-'+sDate;
-//   	  alert(dateFormat);
-  	  $("#editStartDate").attr({"value":sDateFormat});
+  	  $("#editStartDate").attr({"value":sDateFormat});	
   	  
   	  let end = new Date(eventObj.end);
   	  let eMonth = end.getMonth()+1;
@@ -313,25 +335,15 @@ function eventClickEvent(eventObj){
      	  	$("#editEndDate").attr({"value":eDateval});    	      	  
   	  }
   	  
-  	  $("#editScheModal").modal();	
 };
-//----일정 추가 버튼 클릭시
+
+//새 일정 추가
 $("#addSchBtn").click(function(e){
 	  $("#schNo").attr({"value":++index});
 	  e.preventDefault();
 	  console.log($("#addNewSchedule").serialize());
-        $("#newScheModal").modal('hide');
-        //<--waitme plugin
-// 			$("body").waitMe({
-// 				effect : "win8",
-// 				text :"please wait",
-// 				bg : "rgba(255,255,255,0.7)",
-// 				color : "#000"
-// 			});
-// 			setTimeout(() => {
-// 				$("body").waitMe("hide");
-// 			}, 3000);
-        //waitme plugin-->
+	  $("#newModalClose").trigger("click",function(){});
+//         $("#newScheModal").modal('hide');
 	  $.ajax({
 		 url:"/maven_project_lac/schedule/newSchedule.json",
 		 type:"POST",
@@ -347,7 +359,7 @@ $("#addSchBtn").click(function(e){
 			 $.fullCalendar.formatRange(sDate, eDate, 'MMMM D YYYY');
 			 
           $('#calendar').fullCalendar('renderEvent', {
-        	id : schNo,
+         	id : schNo,
             title: schDetail,
             start: sDate,
             end:   eDate,
@@ -355,69 +367,95 @@ $("#addSchBtn").click(function(e){
             allDay: true
           });
           alert('일정이 등록 완료되었습니다');
+          scheduleList();
 		  },
 		  error:function(e){
 			  console.log(e);
 		  }
 	  });
+	  
+	  //새일정 추가 모달 초기화
+	  $("#startDate").attr({"value":""});
+	  $("#endDate").attr({"value":""});
+	  
+// 	  scheduleList;
 });
-//---새일정 추가 버튼 완료
 
-//---일정 삭제 시작
-	$("#delEventBtn").click(function(){
-			var no = $("#editSchNo").val();
-			console.log("번호",  no);
-			   $("#editScheModal").modal('hide');
-		        //<--waitme plugin
-					$("body").waitMe({
-						effect : "win8",
-						text :"please wait",
-						bg : "rgba(255,255,255,0.7)",
-						color : "#000"
-					});
-					setTimeout(() => {
-						$("body").waitMe("hide");
-					}, 3000);
-					
-		$('#calendar').fullCalendar('removeEventSource',e);
-		$.ajax({
-			url:"/maven_project_lac/schedule/deleteSchedule.json",
-			dataType:"json",
-			async: false,
-			data:{'schNo':no},
-			type:"POST",
-			success:function(result){
-				console.log("에이작스 성공",result); 
-// 				fullCalendar();
-			 $('#calendar').fullCalendar('renderEvents', eventArray());
-			alert("일정 삭제가 완료되었습니다.");
-			},
-			error:function(e){
-				  console.dir(e);
-			  }
-		});
+//일정편집버튼 클릭
+$("#eddEventBtn").click(function(){
+	 $("#editModalClose").trigger("click",function(){});
+	 
+	if($("#updateScheduleDetail").val()==""){
+// 		var placeHolder = $("#updateScheduleDetail").attr("placeholder");
+		$("#updateScheduleDetail").attr({"value":$("#updateScheduleDetail").attr("placeholder")});
+		
+	}
+	 console.log($("#editSechedule").serialize());
+	 $.ajax({
+		url:"/maven_project_lac/schedule/updateSchedule.json",
+// 		dataType:"json",
+		type:"POST",
+		data:$("#editSechedule").serialize(),
+		success:function(result){
+			console.log(result,"편집에이작스 성공");
+			 $('#calendar').fullCalendar('removeEvents');
+		 	 $('#calendar').fullCalendar('refetchEvents');
+			 $('#calendar').fullCalendar('rerenderEvents');
+		 	 alert("일정 수정 완료되었습니다.");
+			 scheduleList();
+		},
+		error:function(e){
+			console.log(e);
+		}
+	 });
+});
+
+
+//일정 삭제
+$("#delEventBtn").click(function(){
+	var no = $("#editSchNo").val();
+	console.log("번호",  no);
+	   $("#editScheModal").modal('hide');
+$.ajax({
+	url:"/maven_project_lac/schedule/deleteSchedule.json",
+	dataType:"json",
+	data:{'schNo':no},
+	type:"POST",
+	success:function(result){
+		console.log("일정삭제 에이작스 성공",result); 
+		 $('#calendar').fullCalendar('removeEvents');
+		 $('#calendar').fullCalendar('rerenderEvents');
+	 	 $('#calendar').fullCalendar('refetchEvents');
+		 alert("일정 삭제가 완료되었습니다.");
+		 scheduleList();
+	},
+	error:function(e){
+		  console.dir(e);
+	  }
 	});
-//일정 삭제 완료
+});
 
-  function eventArray(){
-	  $.ajax({
-		  url:"/maven_project_lac/schedule/selectSchedule.json",
-		  dataType:"json",
-		  data:{'month':'06'},
-		  type:"POST",
-		  async: false,
-		  success:function(result){
-			  console.log(result);
-			 a= result;
-		  },
-		  error:function(e){
-			  console.log(e);
-		  }
-	  })
-// 	  console.log("리턴값:",a);
-	  return a;
-  };
-  
+function dragEvent(event, delta){
+// 	console.log(event);
+	console.log(event.start._i);
+	console.log(event.end._i);
+	console.log(event.id);
+	
+	$.ajax({
+		url:"updateScheduleDate.json",
+		data:{'startDate' : event.start._i, 'endDate' : event.end._i, 'schNo':event.id, 'delta': delta},
+		type:"POST",
+		success:function(){
+			alert("일정수정완료");
+			scheduleList();
+		},
+		error:function(e){
+			
+			console.dir(e);
+		}
+		
+	});
+}
 $(function() {
 	setTimeout(() => {
 		$("#exit_btn_button").fadeIn(1000);

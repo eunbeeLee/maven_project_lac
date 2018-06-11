@@ -35,13 +35,13 @@
 		</mvc:message-converters>
 	</mvc:annotation-driven>
 
-<!-- 	<mvc:interceptors> -->
-<!-- 		<mvc:interceptor> -->
-<!-- 			<mvc:mapping path="/interceptor/**" /> -->
-<!-- 			<mvc:exclude-mapping path="/interceptor/login*.do" /> -->
-<!-- 			<bean class="kr.co.mlec.interceptor.AuthInterceptor" /> -->
-<!-- 		</mvc:interceptor> -->
-<!-- 	</mvc:interceptors> -->
+	<mvc:interceptors>
+		<mvc:interceptor>
+			<mvc:mapping path="/**" />
+			<mvc:exclude-mapping path="/main/*.do" />
+			<bean class="kr.co.lac.user.controller.AuthInterceptor" />
+		</mvc:interceptor>
+	</mvc:interceptors>
 
 	<mvc:view-controller path="/file/uploadForm.do"
 		view-name="file/fileUploadForm" />

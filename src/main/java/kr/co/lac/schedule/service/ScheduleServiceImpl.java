@@ -16,14 +16,20 @@ public class ScheduleServiceImpl implements ScheduleService{
 	@Autowired
 	private ScheduleMapper mapper;
 	
-	public Schedule[] selectScheduleByMonth(String month) throws Exception{
-		return mapper.selectScheduleByMonth(month);
+	public Schedule[] selectSchedule() throws Exception{
+		return mapper.selectSchedule();
+	}
+		public List<Schedule> selectScheduleByMonth(String eventMonth) throws Exception{
+			return mapper.selectScheduleByMonth(eventMonth);
 	}
 	public void insertSchedule(Schedule schedule) throws Exception{
 		mapper.insertSchedule(schedule);
 	}
 	public void updateSchedule(Schedule schedule) throws Exception{
 		mapper.updateSchedule(schedule);
+	}
+	public void updateDateByDrag(Schedule schedule) throws Exception{
+		mapper.updateDateByDrag(schedule);
 	}
 	public void deleteSchedule(int schNo) throws Exception{
 		mapper.deleteSchedule(schNo);

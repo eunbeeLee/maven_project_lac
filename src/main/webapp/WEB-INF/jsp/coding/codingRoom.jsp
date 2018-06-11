@@ -6,6 +6,17 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/coding/css/coding.css">
+<!-- blockly 스크립트  -->
+<script src="${pageContext.request.contextPath}/blockly-master/blockly_compressed.js"></script>
+<script src="${pageContext.request.contextPath}/blockly-master/blocks_compressed.js"></script>
+<script src="${pageContext.request.contextPath}/blockly-master/java_compressed.js"></script>
+<script src="${pageContext.request.contextPath}/blockly-master/msg/js/ko.js"></script>
+<script src="http://code.jquery.com/jquery-1.11.1.js"></script>
+
+<!-- 코드미러 스크립트 -->
+<link rel="stylesheet" href="${pageContext.request.contextPath}/codemirror/lib/codemirror.css">
+<script src="${pageContext.request.contextPath}/codemirror/lib/codemirror.js"></script>
+<script src="${pageContext.request.contextPath}/codemirror/mode/xml/xml.js"></script>
 </head>
 <body>
 
@@ -19,7 +30,6 @@
                 <span class="update_btns btn btn-default"><i class="material-icons">create</i></span>
                 </div>
 				<div id="side_img">
-					<img src="/project_lac/jsp/template/The-Burning-Blue-computers-wallpapers-windows-7.jpg">
 					<span class="side_img_btns btn btn-default"><i class="material-icons">wallpaper</i></span>
 				</div>
 				<div id="side_board">
@@ -28,58 +38,6 @@
 				<div id="side_member_list">
 					<div id="side_member_text">참여목록</div>
 					<div id="side_member_info">
-					
-					
-						<div class="side_member_icon friedns_icon">
-							<img src="/project_lac/jsp/template/defalutImg.jpg">
-							<span>닉네임#1223</span>
-						</div>
-					
-						<div class="side_member_icon friedns_icon">
-							<img src="/project_lac/jsp/template/defalutImg.jpg">
-							<span>닉네임#1223</span>
-						</div>
-					
-						<div class="side_member_icon friedns_icon">
-							<img src="/project_lac/jsp/template/defalutImg.jpg">
-							<span>닉네임#1223</span>
-						</div>
-					
-						<div class="side_member_icon friedns_icon">
-							<img src="/project_lac/jsp/template/defalutImg.jpg">
-							<span>닉네임#1223</span>
-						</div>
-					
-						<div class="side_member_icon friedns_icon">
-							<img src="/project_lac/jsp/template/defalutImg.jpg">
-							<span>닉네임#1223</span>
-						</div>
-					
-						<div class="side_member_icon friedns_icon">
-							<img src="/project_lac/jsp/template/defalutImg.jpg">
-							<span>닉네임#1223</span>
-						</div>
-					
-						<div class="side_member_icon friedns_icon">
-							<img src="/project_lac/jsp/template/defalutImg.jpg">
-							<span>닉네임#1223</span>
-						</div>
-					
-						<div class="side_member_icon friedns_icon">
-							<img src="/project_lac/jsp/template/defalutImg.jpg">
-							<span>닉네임#1223</span>
-						</div>
-					
-						<div class="side_member_icon friedns_icon">
-							<img src="/project_lac/jsp/template/defalutImg.jpg">
-							<span>닉네임#1223</span>
-						</div>
-					
-						<div class="side_member_icon friedns_icon">
-							<img src="/project_lac/jsp/template/defalutImg.jpg">
-							<span>닉네임#1223</span>
-						</div>
-						
 						
 					</div>
 				</div>
@@ -99,30 +57,14 @@
         <div class="screen row">   <!-- start .screen -->
 
             <div id="coding_area" class="col-md-8"> <!-- start #coding_area -->
-                
-                <div id="search_order" class="row"> <!-- start #search_order -->
-                    <span class="btn btn-default">조건문</span>
-                    <span class="btn btn-default">연산자</span>
-                    <span class="btn btn-default">변수</span>
-                </div>  <!-- end #search_order -->
-
-                <div id="order_box" class="row">    <!-- start #order_box -->
-                        <div  id="draggable" class="draggable box btn btn-primary">
-                        ds
-                        </div>
-                </div>  <!-- end #order_box -->       
                 <div class="content_box row">
-	                <div class="block_box col-md-6">   <!-- start .content_box -->
-	                    <div class="entryMouseViewWorkspace"></div>
-	                </div>  
+	                <div id="blocklyDiv" class="blocklyDiv col-md-6">   <!-- start .content_box -->
+	                </div>
 	                <div class="text_line col-md-6">   <!-- 소스 작성 부분-->
-	                
-	                	<div class="source_box"> <!-- 소스 -->
-	                	</div>
-	                	
-	                	<div class="compile_box"> <!-- 컴파일 결과 -->
-	                	</div>
-	                	
+	                	<textarea class="source_box" id="importExport" readonly="readonly" wrap="off">
+	                	</textarea>
+	                	<textarea class="compile_box" readonly="readonly" wrap="off">
+	                	</textarea>
 	                </div>  
                     <button id="compile" type="button" class="btn btn-default btn-sm">
 			          <span class="glyphicon glyphicon-play"></span> Compile
@@ -191,48 +133,254 @@
         </div>  <!-- end #chatting_area -->
 
     </div>  <!-- end #main_area -->
+  <xml id="toolbox" style="display: none">
+    <category name="조건문">
+      <category name="If">
+        <block type="controls_if"></block>
+        <block type="controls_if">
+          <mutation else="1"></mutation>
+        </block>
+        <block type="controls_if">
+          <mutation elseif="1" else="1"></mutation>
+        </block>
+      </category>
+      <category name="Boolean">
+        <block type="logic_compare"></block>
+        <block type="logic_operation"></block>
+        <block type="logic_negate"></block>
+        <block type="logic_boolean"></block>
+        <block type="logic_null"></block>
+        <block type="logic_ternary"></block>
+      </category>
+    </category>
+    <category name="반복문">
+      <block type="controls_repeat_ext">
+        <value name="TIMES">
+          <block type="math_number">
+            <field name="NUM">10</field>
+          </block>
+        </value>
+      </block>
+      <block type="controls_whileUntil"></block>
+      <block type="controls_for">
+        <field name="VAR">i</field>
+        <value name="FROM">
+          <block type="math_number">
+            <field name="NUM">1</field>
+          </block>
+        </value>
+        <value name="TO">
+          <block type="math_number">
+            <field name="NUM">10</field>
+          </block>
+        </value>
+        <value name="BY">
+          <block type="math_number">
+            <field name="NUM">1</field>
+          </block>
+        </value>
+      </block>
+      <block type="controls_forEach"></block>
+      <block type="controls_flow_statements"></block>
+    </category>
+    <category name="연산">
+      <block type="math_number">
+        <field name="NUM">123</field>
+      </block>
+      <block type="math_arithmetic"></block>
+      <block type="math_single"></block>
+      <block type="math_trig"></block>
+      <block type="math_constant"></block>
+      <block type="math_number_property"></block>
+      <block type="math_round"></block>
+      <block type="math_on_list"></block>
+      <block type="math_modulo"></block>
+      <block type="math_constrain">
+        <value name="LOW">
+          <block type="math_number">
+            <field name="NUM">1</field>
+          </block>
+        </value>
+        <value name="HIGH">
+          <block type="math_number">
+            <field name="NUM">100</field>
+          </block>
+        </value>
+      </block>
+      <block type="math_random_int">
+        <value name="FROM">
+          <block type="math_number">
+            <field name="NUM">1</field>
+          </block>
+        </value>
+        <value name="TO">
+          <block type="math_number">
+            <field name="NUM">100</field>
+          </block>
+        </value>
+      </block>
+      <block type="math_random_float"></block>
+    </category>
+    <category name="리스트">
+      <block type="lists_create_empty"></block>
+      <block type="lists_create_with"></block>
+      <block type="lists_repeat">
+        <value name="NUM">
+          <block type="math_number">
+            <field name="NUM">5</field>
+          </block>
+        </value>
+      </block>
+      <block type="lists_length"></block>
+      <block type="lists_isEmpty"></block>
+      <block type="lists_indexOf"></block>
+      <block type="lists_getIndex"></block>
+      <block type="lists_setIndex"></block>
+    </category>
+    <category name="변수" custom="VARIABLE"></category>
+    <category name="함수" custom="PROCEDURE"></category>
+    <sep></sep>
+    <category name="Library" expanded="true">
+      <category name="Randomize">
+        <block type="procedures_defnoreturn">
+          <mutation>
+            <arg name="list"></arg>
+          </mutation>
+          <field name="NAME">randomize</field>
+          <statement name="STACK">
+            <block type="controls_for" inline="true">
+              <field name="VAR">x</field>
+              <value name="FROM">
+                <block type="math_number">
+                  <field name="NUM">1</field>
+                </block>
+              </value>
+              <value name="TO">
+                <block type="lists_length" inline="false">
+                  <value name="VALUE">
+                    <block type="variables_get">
+                      <field name="VAR">list</field>
+                    </block>
+                  </value>
+                </block>
+              </value>
+              <value name="BY">
+                <block type="math_number">
+                  <field name="NUM">1</field>
+                </block>
+              </value>
+              <statement name="DO">
+                <block type="variables_set" inline="false">
+                  <field name="VAR">y</field>
+                  <value name="VALUE">
+                    <block type="math_random_int" inline="true">
+                      <value name="FROM">
+                        <block type="math_number">
+                          <field name="NUM">1</field>
+                        </block>
+                      </value>
+                      <value name="TO">
+                        <block type="lists_length" inline="false">
+                          <value name="VALUE">
+                            <block type="variables_get">
+                              <field name="VAR">list</field>
+                            </block>
+                          </value>
+                        </block>
+                      </value>
+                    </block>
+                  </value>
+                  <next>
+                    <block type="variables_set" inline="false">
+                      <field name="VAR">temp</field>
+                      <value name="VALUE">
+                        <block type="lists_getIndex" inline="true">
+                          <mutation statement="false" at="true"></mutation>
+                          <field name="MODE">GET</field>
+                          <field name="WHERE">FROM_START</field>
+                          <value name="AT">
+                            <block type="variables_get">
+                              <field name="VAR">y</field>
+                            </block>
+                          </value>
+                          <value name="VALUE">
+                            <block type="variables_get">
+                              <field name="VAR">list</field>
+                            </block>
+                          </value>
+                        </block>
+                      </value>
+                      <next>
+                        <block type="lists_setIndex" inline="false">
+                          <value name="AT">
+                            <block type="variables_get">
+                              <field name="VAR">y</field>
+                            </block>
+                          </value>
+                          <value name="LIST">
+                            <block type="variables_get">
+                              <field name="VAR">list</field>
+                            </block>
+                          </value>
+                          <value name="TO">
+                            <block type="lists_getIndex" inline="true">
+                              <mutation statement="false" at="true"></mutation>
+                              <field name="MODE">GET</field>
+                              <field name="WHERE">FROM_START</field>
+                              <value name="AT">
+                                <block type="variables_get">
+                                  <field name="VAR">x</field>
+                                </block>
+                              </value>
+                              <value name="VALUE">
+                                <block type="variables_get">
+                                  <field name="VAR">list</field>
+                                </block>
+                              </value>
+                            </block>
+                          </value>
+                          <next>
+                            <block type="lists_setIndex" inline="false">
+                              <value name="AT">
+                                <block type="variables_get">
+                                  <field name="VAR">x</field>
+                                </block>
+                              </value>
+                              <value name="LIST">
+                                <block type="variables_get">
+                                  <field name="VAR">list</field>
+                                </block>
+                              </value>
+                              <value name="TO">
+                                <block type="variables_get">
+                                  <field name="VAR">temp</field>
+                                </block>
+                              </value>
+                            </block>
+                          </next>
+                        </block>
+                      </next>
+                    </block>
+                  </next>
+                </block>
+              </statement>
+            </block>
+          </statement>
+        </block>
+      </category>
+      <category name="출력">
+        <block type="text_print">
+          <value name="TEXT">
+            <block type="text">
+              <field name="TEXT">Hello world!!!!</field>
+            </block>
+          </value>
+        </block>
+      </category>
+    </category>
+  </xml>
+  <div id="secondaryDiv"></div>
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/coding/js/coding.js"></script>
-<script>
-	$(function() {
-		setTimeout(() => {
-			$("#exit_btn_button").fadeIn(1000);
-			$("#create_btn_button").fadeOut(1000);
-		}, 100);
-	});
-
-    var side_bar_btn = false;
-    var side_box = $("#side_bar_row");
-    var side_btn = $("#side_bar_btn");
-    side_box.on("click",function(){
-        if(!side_bar_btn){ side_open() }
-        return false;
-    })
-    side_btn.on("click",function(){
-        if(!side_bar_btn){ side_open() }
-        else{
-            side_box.css({"cursor":"pointer"})
-                    .animate({"left":"-400"},130)
-                    .animate({"left":"-280"},180)
-                    .animate({"left":"-400"},100)
-                    .animate({"left":"-360"},200)
-                    .animate({"left":"-400"},100)
-                    .animate({"left":"-390"},100)
-                    .animate({"left":"-400"},100)
-            side_btn.text("open");
-            side_bar_btn = false;
-        }
-        return false;
-    })
-
-    function side_open(){
-        side_box.css({"cursor":"auto"})
-                .clearQueue()
-                .animate({"left":"0"},400)
-        side_btn.text("close");
-        side_bar_btn = true;
-    }
-
-</script>	
 
 </body>
 </html>

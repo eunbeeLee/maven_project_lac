@@ -10,7 +10,7 @@
 	<div class="register-photo" style="margin-top: 80px;">
 		<div class="form-container">
 			<div class="image-holder"></div>
-			<form method="post" id="regist" action="registUser.do">
+			<form method="post" id="regist"  onsubmit="return check()" action="registUser.do">
 				<h2 class="text-center">
 					<strong>새로운 계정을</strong>추가하세요.
 				</h2>
@@ -31,28 +31,57 @@
 						placeholder="Password (repeat)">
 				</div>
 				<div class="form-group">
-					<div class="form-check">
-						<label class="form-check-label"><input
-							class="form-check-input" type="checkbox">이용약관에 동의합니다.</label>
-					</div>
-				</div>
-				<div class="form-group">
 					<button class="btn btn-primary btn-block" type="submit">회원 가입</button>
 				</div>
 				<a href="#" class="already">이미 계정이 있으신가요? 로그인하기</a>
 			</form>
 		</div>
 	</div>
-	<script src="/project_lac/assets/js/jquery.min.js"></script>
-	<script src="/project_lac/assets/bootstrap/js/bootstrap.min.js"></script>
-	<script src="/project_lac/assets/js/theme.js"></script>
 	<script>
-// 	$("#regist").on("submit",function(e){
-// 		e.prevetdefault();
+// 	$("button").on("click",function(e){
+// 		e.preventDefault();
+// 		check();		
 		
 // 	});
-	
-	
+	function check() {
+		var regExp1 = /^[a-zA-Z0-9]{4,12}$/;
+		//id와 비밀번호의 유효성 검사
+		var regExp2 = /[a-z0-9]{2,}@[a-z0-9-]{2,}\.[a-z0-9]{2,}/i;
+		//e-mail의 유효성 검사
+		var regname = /^[가-힝]{2,}$/;
+		//이름의 유효성 검사
+
+		// 아이디가 null인지 체크 
+		if ($("input[name=email]").val() == "") {
+			alert("이메일은  필수 입력값입니다.");
+			$("input[name=email]").focus();
+			return false;
+		}
+
+		// 비밀번호 null인지 체크 
+		if ($("input[name=password]").val() == "") {
+			alert("비밀번호를 입력해주세요.");
+			$("input[name=password]").focus();
+			return false;
+		}
+		;
+		// 비밀번호 일치 하는지 체크 
+		if ($("input[name=password]").val() != $("input[name=password-repeat]").val()) {
+			alert("비밀번호가 일치하지않습니다. 다시 확인해주세요.");
+			$("input[name=password]").focus();
+			return false;
+		}
+
+		// 이름 입력체크 
+		if ($("input[name=nickname]").val() == "") {
+			alert("별명을 입력해주세요.");
+			$("#joinName").focus();
+			return false;
+		};
+		
+		alert("가입이 완료되었습니다.로그인해주세요!");
+
+	};
 	</script>
 </body>
 </html>
