@@ -6,18 +6,18 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
-import kr.co.mlec.repository.domain.Login;
+import kr.co.lac.repository.domain.User;
 
 public class AuthInterceptor extends HandlerInterceptorAdapter {
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
 		HttpSession session = request.getSession();
-		Login user = (Login) session.getAttribute("user");
+		User user = (User) session.getAttribute("user");
 		if (user != null) {
 			return true;
 		}
 		
-		response.sendRedirect(request.getContextPath()+"/login/loginForm.do");
+		response.sendRedirect(request.getContextPath()+"/main/loginForm.do");
 		return false;
 	}
 }

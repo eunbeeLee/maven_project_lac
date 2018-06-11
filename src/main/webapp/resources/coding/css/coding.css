@@ -1,28 +1,59 @@
-#compile{
-    position: fixed;
-    bottom: 0;
-    right: 29.5%;
+#compile {
+	position: fixed;
+	bottom: 0;
+	right: 29.5%;
 }
-.entryMouseViewWorkspace{
+
+.entryMouseViewWorkspace {
 	color: blue;
 	text-align: center;
-    width: 100px;
+	width: 100px;
 }
- .block_box ,.text_line{
- 	padding:0px;
-    height: 100%;
-    background-color: aliceblue;
+
+.blocklyDiv, .text_line {
+	padding: 0px;
+	height: 100%;
+	background-color: aliceblue;
+}
+
+.compile_box {
+    margin-left: 29px;
+    width: 92.5%;
+	padding: 0px;
+	height: 20%;
+    overflow: auto;
+        top: -6px;
     position: relative;
- }
- .compile_box{
- 	padding:0px;
- 	height:20%;
- }
- .source_box{
- 	padding:0px;
- 	height:80%;
- }
- .box{
- 	z-index: 3;
- }
- 
+}
+
+.source_box ,.CodeMirror{
+	padding: 0px;
+	height: 80%;
+}
+
+.box {
+	z-index: 3;
+	position: relative;
+}
+
+.content_box {
+	margin-top: 0px;
+	height: 739px;
+}
+
+.loading_img {
+	display: none;
+}
+
+div {
+	border: none;
+}
+
+.source_box {
+	width: 100%;
+	resize: none;
+}
+#showCode{
+	    float: right;
+    margin-right: 100px;
+}
