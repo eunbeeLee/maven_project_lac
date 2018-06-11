@@ -159,6 +159,15 @@
 	    <artifactId>sitemesh</artifactId>
 	    <version>3.0.1</version>
 	</dependency>	
+	
+			<!-- 구글에서 지원해주는 라이브러리입니다 진솔 -->
+			<!-- https://mvnrepository.com/artifact/com.google.guava/guava -->
+		<dependency>
+		    <groupId>com.google.guava</groupId>
+		    <artifactId>guava</artifactId>
+		    <version>25.1-jre</version>
+		</dependency>
+
 			
 	</dependencies>
 

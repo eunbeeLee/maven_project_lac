@@ -31,7 +31,7 @@
       	p:driverClassName="com.mysql.cj.jdbc.Driver"
         p:url="jdbc:mysql://project-lac.cgp1qdd6o5kc.us-east-2.rds.amazonaws.com:3306/project_lac?useUnicode=true&amp;characterEncoding=utf8"
         p:username="admin" 
-        p:password="admin!23" />
+        p:password="bitcamp!23" />
 	
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="dataSource" />

@@ -24,5 +24,15 @@ public class ChattingServiceImpl implements ChattingService {
 		return mapper.selectChattingList(projectNo);
 	}
 
+	@Override
+	public Chatting retrieveChattingByChattingNo(int chattingNo) {
+		return mapper.selectChattingByChattingNo(chattingNo);
+	}
+
+	@Override
+	public void uploadFile(Chatting chatting) {
+		mapper.uploadFile(chatting);
+	}
+
 	
 }

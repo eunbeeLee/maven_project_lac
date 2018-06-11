@@ -83,6 +83,9 @@
 		overflow:hidden;
 		display: inline-block;
     }
+    .glyphicon-calendar{
+		left: -4px;
+	}
     </style>
 </head>
 <body>

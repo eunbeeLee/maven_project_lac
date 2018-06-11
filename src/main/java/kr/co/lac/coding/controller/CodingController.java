@@ -14,11 +14,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
-import kr.co.mlec.repository.domain.AttachFile;
-import kr.co.mlec.repository.domain.Board;
-import kr.co.mlec.repository.domain.Comment;
-import kr.co.mlec.repository.domain.PageResult;
-
 
 @Controller
 @RequestMapping("/coding")
