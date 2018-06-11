@@ -5,6 +5,8 @@ import java.util.List;
 import kr.co.lac.repository.domain.Schedule;
 
 public interface ScheduleService {
+	public int selectIndex() throws Exception;
+	
 	public Schedule[] selectScheduleByMonth(String month) throws Exception;
 	
 	public void insertSchedule(Schedule schedule) throws Exception;
@@ -12,5 +14,7 @@ public interface ScheduleService {
 	public void updateSchedule(Schedule schedule) throws Exception;
 	
 	public void deleteSchedule(int schNo) throws Exception;
+	
+	public Schedule selectEventById(int schNo)throws Exception; 
 
 }

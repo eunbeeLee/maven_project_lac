@@ -114,7 +114,7 @@
 	
 	function refresh() {
 		let myProject = $("#myProject");
-		loding();
+		loading()
 		$.ajax({
 			url:'${pageContext.request.contextPath}/project/refreshList.json',
 			type:"POST",

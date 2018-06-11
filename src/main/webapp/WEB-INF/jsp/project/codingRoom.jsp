@@ -214,7 +214,7 @@
                     </div>
 
                     <div id="chatting_text_btn">
-                        <div id="onchat" class="menu_btn btn btn-default">
+                        <div id="onchat" class="menu_btn btn btn-default" title="ctrl+Enter">
                             <i class="material-icons onchat">chat</i>
                         </div>
                     </div>
@@ -236,15 +236,14 @@
 	var socket = io.connect('http://localhost:3000');
 	var user = {};
 	
-	
 	$(()=>{
 		user["userNo"] = ${user.userNo};
 		user["nickname"] = "${user.nickname}";
 		user["email"] = "${user.email}";
 		user["profilePic"] = "${user.profilePic}";
 		user["loginStateCode"] = "${user.loginStateCode}";
-		socket.emit("join",{"user":user,projectNo:${projectNo}});
-	})
+	});
+	$(chattingListLoad());
 	
     socket.on(${projectNo}+"join",function(result){
         $("#chatting_content").append(`<div class="joinMsg"><span>[ `+result.nickname+` ]님이 </span><span>입장하셨습니다.</span></div>`);
@@ -254,20 +253,38 @@
     $("#onchat").on("click",()=>{
     	onMsg();
     })
-    
+    $("#text_box").on("keyup",function(e){
+        if(e.keyCode==13&&e.ctrlKey){ onMsg() }
+    })
     function onMsg(){
     	let msg = $("#text_box");
     	socket.emit("msg",{"user":user,"projectNo":${projectNo},"msg":msg.html()});
     	msg.html("");
+    	
 	}
 	socket.on(${projectNo}+"msg",function(result){
-		console.log(${user.userNo})
-		if(${user.userNo}==result.user.userNo){
+		noLoading();
+		chattingViewByMsg(result.msg,result.user)
+ 		$.ajax({
+			url:'${pageContext.request.contextPath}/chatting/send.json',
+			type:"POST",
+			data: {
+				"projectNo":${projectNo},
+				"sendUserNo":result.user.userNo,
+				"message":result.msg,
+				"msgTypeCode":"00301"
+			}
+		})
+
+	})
+    
+	function chattingViewByMsg(msg,user) {
+		if(${user.userNo}==user.userNo){
 	        $("#chatting_content").append(`
 	             <div class="myChatView chatView">
 	              	<div class="myMsgArea">
 		              	<div class="myUserMsg userMsg">
-		              		`+result.msg+`
+		              		`+msg+`
 		              	</div>
 		              	<span class="msgTri"></span>
 	              	</div>
@@ -276,18 +293,38 @@
 		}else{
 			$("#chatting_content").append(`
 		          <div class="unknownChatView chatView">
-	              	  <h6><span class="userNickname">`+result.user.nickname+`</span></h6>
+	              	  <h6><span class="userNickname">`+user.nickname+`</span></h6>
 	              	  <div class="profilePic">
-	              		  <img src="${pageContext.request.contextPath}`+result.user.profilePic+`"/>
+	              		  <img src="${pageContext.request.contextPath}`+user.profilePic+`"/>
 	              	  </div>
 	              	  <div class="unknownUserMsg userMsg">
-	              	      `+result.msg+`
+	              	      `+msg+`
 	              	  </div>
 	              </div>
     		`);
 		}
-	})
-    
+	}
+	
+	function chattingListLoad() {
+ 		$.ajax({
+			url:'${pageContext.request.contextPath}/chatting/listLoad.json',
+			type:"POST",
+			data: {"projectNo":${projectNo}}
+		}).done(function(chattingList) {
+			for(chat of chattingList){
+				let user = {};
+				user["userNo"] = chat.sendUserNo;
+				user["profilePic"] = chat.profilePic;
+				user["nickname"] = chat.nickname;
+				switch (chat.msgTypeCode) {
+				case "00301":
+					chattingViewByMsg(chat.message,user)
+				break;
+				}
+			}
+			socket.emit("join",{"user":user,projectNo:${projectNo}});
+		})
+	}
     
     
     

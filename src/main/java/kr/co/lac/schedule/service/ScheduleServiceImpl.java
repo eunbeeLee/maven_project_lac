@@ -28,6 +28,12 @@ public class ScheduleServiceImpl implements ScheduleService{
 	public void deleteSchedule(int schNo) throws Exception{
 		mapper.deleteSchedule(schNo);
 	}
+	public int selectIndex() throws Exception {
+		return mapper.selectIndex();
+	}
+	public Schedule selectEventById(int schNo) throws Exception {
+		return mapper.selectEventById(schNo);
+	}
 	
 	
 }

@@ -393,7 +393,7 @@
 
 <script>
 	var userNo = ${user.userNo}
-
+	
 	$("#back_ground_shadow").on("click",function(){
 		$(this).fadeToggle(300)
 		$("#create_class").fadeOut(300);
@@ -473,18 +473,18 @@
 		searchFriends("","response",$("#response_friends_list div.friends_search_r_list"),"수락")
 	});
 	
-	function loding() {
+	function loading() {
 		$(document).ajaxStart(function(){
 			$("#back_ground_loding").css({"display":"block"});
 		}).ajaxStop(function(){
 			$("#back_ground_loding").css({"display":"none"});
-		})
+		});
 	}
+	function noLoading() {$(document).ajaxStart(function(){$("#back_ground_loding").css({"display":"none"});})}
 
 	$("#my_friends").on("click","span.friends_utill_btn",function(){
-		console.log($(this).siblings("input").val())
 		let remove = $(this).parent(".friedns_icon");
-		loding();
+		loading();
 		$.ajax({
 			url:'${pageContext.request.contextPath}/friends/delete.json',
 			type:"POST",
@@ -497,7 +497,7 @@
 	
 	$("#new_friends").on("click","span.friends_utill_btn",function(){
 		let remove = $(this).parent(".friedns_icon");
-		loding();
+		loading();
 		$.ajax({
 			url:'${pageContext.request.contextPath}/friends/request.json',
 			type:"POST",
@@ -510,7 +510,7 @@
 	
 	$("#response_friends_list").on("click","span.friends_utill_btn",function(){
 		let remove = $(this).parent(".friedns_icon");
-		loding();
+		loading();
 		$.ajax({
 			url:'${pageContext.request.contextPath}/friends/insert.json',
 			type:"POST",
@@ -523,7 +523,7 @@
 	
 	$("#request_friends_list").on("click","span.friends_utill_btn",function(){
 		let remove = $(this).parent(".friedns_icon");
-		loding();
+		loading();
 		$.ajax({
 			url:'${pageContext.request.contextPath}/friends/requestDelete.json',
 			type:"POST",
@@ -536,7 +536,7 @@
 	
 	
 	function searchFriends(nickname,type,area,btn) {
-		loding();
+		loading();
 		$.ajax({
 			url:'${pageContext.request.contextPath}/friends/search.json',
 			type:"POST",
@@ -558,7 +558,7 @@
 
 	$("#create_btn_st").on("click",()=>{
 		let projectName = $("#calss_name");
-		loding();
+		loading();
 		$.ajax({
 			url:'${pageContext.request.contextPath}/project/createProject.json',
 			type:"POST",

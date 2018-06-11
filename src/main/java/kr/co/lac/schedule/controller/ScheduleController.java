@@ -21,18 +21,22 @@ public class ScheduleController {
 	@RequestMapping("/schedule.do")
 	private void schedule(){}
 	
+	@RequestMapping("/selectIndex.json")
+	@ResponseBody
+	public int selectIndex() throws Exception  {
+		return scheduleService.selectIndex();
+	}
+	
 	@RequestMapping("/newSchedule.json")
 	@ResponseBody
 	public Schedule newSchedule(Schedule sch) throws Exception {
-//		System.out.println("스케쥴 들어옴");
 		scheduleService.insertSchedule(sch);
 		return sch;
 	}
 	@RequestMapping("/selectSchedule.json")
 	@ResponseBody
-	public Event[] selectScheduleByMonth(String month) {
+	public Event[] selectScheduleByMonth(String month)throws Exception {
 		Event[] eArr = null;
-		try {
 			Schedule[] sArray = scheduleService.selectScheduleByMonth(month);
 			eArr = new Event[sArray.length];
 			
@@ -42,14 +46,31 @@ public class ScheduleController {
 				eArr[i].setStart(s.getStartDate());
 				eArr[i].setEnd(s.getEndDate());
 				eArr[i].setTitle(s.getSchDetail());
-			}
-			System.out.println(eArr[0].getStart());
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+				eArr[i].setBackgroundColor(s.getSchColor());
+				eArr[i].setId(s.getSchNo());
+//			System.out.println(eArr[0].getStart());
+		} 
 		return eArr;
 	}
-//	
+	
+	@RequestMapping("/deleteSchedule.json")
+	@ResponseBody
+	public Event[] deleteSchedule(int schNo) throws Exception{
+		Event[] eArr = new Event[1];
+		System.out.println(schNo);
+		Schedule s = scheduleService.selectEventById(schNo);
+		scheduleService.deleteSchedule(schNo); 
+		eArr[0] = new Event();
+		System.out.println(s.getEndDate());
+		eArr[0].setId(s.getSchNo());
+		eArr[0].setStart(s.getStartDate());
+		eArr[0].setEnd(s.getEndDate());
+		eArr[0].setTitle(s.getSchDetail());
+		eArr[0].setBackgroundColor(s.getSchColor());
+//		eArr[0].setUrl("");
+		return eArr;
+	}
+	
 }
 
 

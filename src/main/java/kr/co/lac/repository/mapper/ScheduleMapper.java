@@ -9,4 +9,6 @@ public interface ScheduleMapper {
 	public void insertSchedule(Schedule schedule) throws Exception;
 	public void updateSchedule(Schedule schedule) throws Exception;
 	public void deleteSchedule(int schNo)throws Exception;
+	public int selectIndex()throws Exception;
+	public Schedule selectEventById(int schNo)throws Exception; 
 }
