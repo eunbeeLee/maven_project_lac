@@ -150,32 +150,6 @@
 
 <div id="noti_area">
 	<div id="noti_screen">
-		<div class="noti_info">
-			<div class="noti_img">
-				<img src="${pageContext.request.contextPath}/resources/img/default/defaultImg.jpg">
-			</div>
-		<div class="noti_text">
-				<span>친구이름</span><br>
-				<span>친구요청이 왔습니다.</span>
-				<i class="noti_new material-icons">fiber_new</i>
-				<i class="noti_del_btn material-icons">cancel</i>
-			</div>
-		</div>
-		
-		<div class="noti_info">
-			<div class="noti_img">
-				<img src="${pageContext.request.contextPath}/resources/img/default/defaultImg.jpg">
-			</div>
-			<div class="noti_text">
-				<span>프로젝트 이름</span><br>
-				<span>초대장이 왔습니다!</span>
-				<button>수락</button>
-				<i class="noti_del_btn material-icons">cancel</i>
-			</div>
-		</div>
-		
-		
-		
 		
 	</div>
 	<div id="noti_tri"></div>
@@ -516,6 +490,11 @@
 		})
 	}
 
+	
+	
+	$("#calss_name").on("keydown",function(e){
+		if(e.keyCode==13)$("#create_btn_st").click();
+	})
 	$("#create_btn_st").on("click",()=>{
 		let projectName = $("#calss_name");
 		loading();

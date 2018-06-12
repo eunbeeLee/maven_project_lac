@@ -400,6 +400,7 @@ $("#eddEventBtn").click(function(){
 		
 // 	}
 	 console.log($("#editSechedule").serialize());
+	 loading();
 	 $.ajax({
 		url:"/maven_project_lac/schedule/updateSchedule.json",
 // 		dataType:"json",
@@ -445,6 +446,7 @@ $.ajax({
 });
 
 function dragEvent(event, delta){
+	loading();
 	console.log(event);
 	console.log(delta);
 	console.log(event.start._i);

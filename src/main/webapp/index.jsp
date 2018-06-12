@@ -16,7 +16,7 @@
 	<br>
 	<a href='<c:url value="/template/menu.do"/>'>
 		메뉴 템플릿 데코레이션
-	</a>
+	</a>0
 	<br>
 
 

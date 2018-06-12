@@ -445,12 +445,12 @@
 		user["email"] = "${user.email}";
 		user["profilePic"] = "${user.profilePic}";
 		user["loginStateCode"] = "${user.loginStateCode}";
-		socket.emit("conn",{"userNo":${user.userNo},projectNo:${projectNo}});
+		socket.emit("conn",{"userNo":${user.userNo},projectNo:${project.projectNo}});
 	});
-	socket.on("${projectNo}conn${user.userNo}",function(result){
+	socket.on("${project.projectNo}conn${user.userNo}",function(result){
 		chattingListLoad(result);
 	});
-    socket.on(${projectNo}+"join",function(result){
+    socket.on(${project.projectNo}+"join",function(result){
         $("#inAndOutNoti").append(`<div id="`+result.userNo+`join" class="joinMsg"><span>[ `+result.nickname+` ]님이<br> </span><span>입장하셨습니다.</span></div>`);
         let msg = $("#"+result.userNo+"join");
         msg.fadeIn(300);
@@ -474,12 +474,13 @@
 							   data.file_size,			// 6. null 파일 사이즈
 							   data.ori_file_name,		// 7. null 원본 파일명
 							   data.download_path]		// 8. null 다운로드 경로
+			loadData["chattingNo"] = data.chatting_no;
 			switch (data.msg_type_code) {
 			case "00301": chattingViewByMsg(loadData); break;
 			case "00302": chattingViewByPic(loadData); break;
 			}
 		}
-		socket.emit("join",{"user":user,projectNo:${projectNo}});
+		socket.emit("join",{"user":user,projectNo:${project.projectNo}});
 		screenScroll(2);
 	}
 	
@@ -513,12 +514,12 @@
     	let msg = $("#text_box");
     	if(msg.html().length < 1) return;
     	else{
-    		socket.emit("msg",{"user":user,"sql":[${projectNo},user.userNo,msg.html(),"00301",new Date()]});
+    		socket.emit("msg",{"user":user,"sql":[${project.projectNo},user.userNo,msg.html(),"00301",new Date()]});
     		msg.html("");
     	}
 	}
     
-	socket.on(${projectNo}+"msg",function(result){
+	socket.on(${project.projectNo}+"msg",function(result){
 		chattingViewByMsg(result);
 	})
 	
@@ -638,7 +639,7 @@
 		$.ajax({
 			url:'${pageContext.request.contextPath}/chatting/send.json',
 			type:"POST",
-			data: {"projectNo":"${projectNo}","sendUserNo":"${user.userNo}","message":"","msgTypeCode":"00302","sendDate":new Date(),"fileLength":fileLength}
+			data: {"projectNo":"${project.projectNo}","sendUserNo":"${user.userNo}","message":"","msgTypeCode":"00302","sendDate":new Date(),"fileLength":fileLength}
 		}).done(function (chattingList) {
 			$("#attachLoadingImgBox").css({"display":"none"});
 			let DBDate = new Date();
@@ -646,7 +647,7 @@
 			let fileMapping = "";
 			for(data of chattingList){
 				fileMapping = fileMapping+[fileData[index].fileName]+":"+data+";";
-	 		    socket.emit("pic",{loading:true,fileInfo:fileData[index],"user":user,"projectNo":${projectNo},"chattingNo":data,"sql":[${projectNo},user.userNo,fileData[index++].e,"00302",DBDate]});
+	 		    socket.emit("pic",{loading:true,fileInfo:fileData[index],"user":user,"projectNo":${project.projectNo},"chattingNo":data,"sql":[${project.projectNo},user.userNo,fileData[index++].e,"00302",DBDate]});
 			}
 			var f = $("#uploadPicForm")[0];
 			f.sendDate.value = DBDate; 
@@ -659,27 +660,33 @@
 				contentType: false,
 				data: formData
 			}).done((successData)=>{
-				socket.emit("successLoad",{"projectNo":${projectNo},"successData":successData})
+				console.log("에이젝스")
+				socket.emit("successLoad",{"projectNo":${project.projectNo},"successData":successData})
 			})
 		})
 	})
 	
-	socket.on(${projectNo}+"successLoad",function(result){
+	socket.on(${project.projectNo}+"successLoad",function(result){
+			console.log(result)
 		for(chattingNo of result.successData){
-			$("#"+chattingNo+" img.getFileLoadingImgs").remove();
+			$("#"+chattingNo.chattingNo+" img").attr("src",chattingNo.message);
+			$("#"+chattingNo.chattingNo+" img.getFileLoadingImgs").remove();
+			
 		}
     })
-	socket.on(${projectNo}+"pic",function(result){
+	socket.on(${project.projectNo}+"pic",function(result){
 		chattingViewByPic(result,result.fileLoadName);
     })
 
 	function chattingViewByPic(result) {
+		console.log(result)
 		let loadingImg = "";
 		let chattingNo = result.sql[5];
 		if(result.chattingNo != 0){
 			loadingImg = ` id="`+result.chattingNo+`" `;
 			chattingNo = result.chattingNo;
 		}
+
 		let msg = result.sql[2];
 		let user = result.user;
 		let date = date_info(result.sql[4]);
@@ -793,7 +800,7 @@
 	
 	
 	// ------------------------------------------------ 파일 업로드 완료 함수
-	socket.on(${projectNo}+"fileLoad",function(result){
+	socket.on(${project.projectNo}+"fileLoad",function(result){
 		$(`.getFileBtn[name="`+result.fileLoadName+`"]`).each(function (index,ele) {
 			$(ele).append(`
 	  	      		<a class="getFileBtnATag" href="${pageContext.request.contextPath}/chatting/`+result.chattingNoList[index]+`/filedown.do">
