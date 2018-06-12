@@ -731,6 +731,14 @@
         height: 10%;
     }
 	
+	#my_profile_repair .passInput{
+		margin: 5px;
+		text-align: center;
+		border-radius: 5px;
+		margin-left: 10%;
+		width : 80%;
+		
+	}
 
     body{
         width: 100%;
@@ -738,3 +746,4 @@
         background-color:#202021;
         margin: 0px !important;
     }
+    

@@ -82,11 +82,11 @@ body {
 					</thead>
 					<tbody id="scheuleList">
 						<!-- 일정리스트 -->
-<!-- 						<tr> -->
-<!-- 							<td>2018-01-01</td> -->
-<!-- 							<td>2018-01-01</td> -->
-<!-- 							<td>미니 프로젝트</td> -->
-<!-- 						</tr> -->
+						<!-- 						<tr> -->
+						<!-- 							<td>2018-01-01</td> -->
+						<!-- 							<td>2018-01-01</td> -->
+						<!-- 							<td>미니 프로젝트</td> -->
+						<!-- 						</tr> -->
 					</tbody>
 				</table>
 			</div>
@@ -97,16 +97,16 @@ body {
 	</div>
 
 	<!-- 새 일정 모달 -->
-		<button style="display:none;" type="button" id="newModalOpen"class="btn btn-info btn-lg" data-toggle="modal" data-target="#editScheModal">
-		Open Modal
-	</button>
+	<button style="display: none;" type="button" id="newModalOpen"
+		class="btn btn-info btn-lg" data-toggle="modal"
+		data-target="#editScheModal">Open Modal</button>
 	<div class="modal fade in" id="newScheModal" role="modal" tabindex="-1"
 		aria-labelledby="newScheModalLabel" aria-hidden="true">
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<div class="modal-header">
-					<button type="button" id="newModalClose" class="close" data-dismiss="modal"
-						aria-label="Close">
+					<button type="button" id="newModalClose" class="close"
+						data-dismiss="modal" aria-label="Close">
 						<span aria-hidden="true">&times;</span>
 					</button>
 					<h4 class="modal-title">
@@ -116,7 +116,7 @@ body {
 				<div class="modal-body">
 					<div class="contact-clean">
 						<form method="post" id="addNewSchedule">
-							<input type="hidden" name="userNo" value=${sessionScope.userNo}>
+							<input type="hidden" name="userNo" value="${user.userNo}">
 							<input type="hidden" name="schNo" id="schNo">
 							<div class="form-group col-md-5 startDay">
 								<span>시작일</span> <input type="date" class="form-control"
@@ -148,16 +148,16 @@ body {
 	</div>
 	<!-- /.modal -->
 
-	<button style="display:none;" type="button" id="editModalOpen"class="btn btn-info btn-lg" data-toggle="modal" data-target="#editScheModal">
-		Open Modal
-	</button>
+	<button style="display: none;" type="button" id="editModalOpen"
+		class="btn btn-info btn-lg" data-toggle="modal"
+		data-target="#editScheModal">Open Modal</button>
 	<!-- 일정 편집 모달 -->
 	<div class="modal fade in" id="editScheModal" role="modal">
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<div class="modal-header">
-					<button id="editModalClose"type="button" class="close" data-dismiss="modal"
-						aria-label="Close">
+					<button id="editModalClose" type="button" class="close"
+						data-dismiss="modal" aria-label="Close">
 						<span aria-hidden="true">&times;</span>
 					</button>
 					<h4 class="modal-title">
@@ -167,19 +167,19 @@ body {
 				<div class="modal-body">
 					<div class="contact-clean">
 						<form method="post" id="editSechedule">
-							<input type="hidden" name="userNo" value='1'>
+							<input type="hidden" name="userNo" value="${user.userNo}">
 							<input type="hidden" name="schNo" id="editSchNo">
 							<div class="form-group col-md-5 startDay">
-								<span>시작일</span> 
-								<input type="date" class="form-control" name="startDate" id="editStartDate" />
+								<span>시작일</span> <input type="date" class="form-control"
+									name="startDate" id="editStartDate" />
 							</div>
 							<div class="form-group col-md-5 endDay">
-								<span>종료일</span>
-								<input type="date" class="form-control" name="endDate" id="editEndDate" />
+								<span>종료일</span> <input type="date" class="form-control"
+									name="endDate" id="editEndDate" />
 							</div>
 							<div class="form-group col-md-2">
-								<span style="visibility: hidden;">일정색</span> 
-								<input name="schColor" id="editscheColor" type="color" value="#41c7f4">
+								<span style="visibility: hidden;">일정색</span> <input
+									name="schColor" id="editscheColor" type="color" value="#41c7f4">
 							</div>
 							<div class="form-group">
 								<textarea id="updateScheduleDetail" rows="14" name="schDetail"
@@ -228,6 +228,9 @@ $(document).ready(function() {
 		        center: 'title',
 		        right: 'addEventButton'
 		      },
+// 		      windowResize: function(view) {
+// 		    	    alert('The calendar has adjusted to a window resize');
+// 		    	  },
 		      //새일정 추가
 		      	    customButtons: {
 		      addEventButton: {
@@ -238,12 +241,11 @@ $(document).ready(function() {
 		      	}  
 		      }
 		    },
+		    displayEventTime:false,
 		      //일정클릭이벤트  
 		      eventClick: function( event, jsEvent, view ){
 		    	  eventClickEvent(event);
 		    	  $("#editScheModal").modal();
-// 		    	  $("#editModalOpen").trigger("click", function(){
-// 		    	  });	
 		      },
 
 			  //오늘날짜	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      
@@ -253,12 +255,19 @@ $(document).ready(function() {
 		      eventDrop: function( event, delta, revertFunc, jsEvent, ui, view ) { 
 		    	  dragEvent(event, delta._days);
 		      },
+// 		      eventDurationEditable:true,
 		      eventLimit: true, // allow "more" link when too many events
 		      //이벤트들
-		      events: "selectSchedule.json"
+		      events: {
+		      	url : "selectSchedule.json",
+		      	data:function(){
+		      		return{
+		      			userNo : ${user.userNo}
+		      		}
+		      	}
+		      }
 		    	  
 		    });
-// 		    $(".fc-button fc-state-default fc-corner-left").attr({'id':prevBtn});
   });
   //이벤트 리스트 출력
   	function scheduleList(){
@@ -269,14 +278,14 @@ $(document).ready(function() {
 		$.ajax({
 			url:"selectScheduleByMonth.json", 
 			dataType:"json",
-			data:{month:month},
+			data:{month:month, userNo : ${user.userNo}},
 			type:"POST", 
 			success:function(result){
 				console.log("에이작스 성공 값",result);
 				for(let i = 0; i < result.length; i++){
 				html="<tr>"
 					 +"<td>"+result[i].startDate+"</td>"				
-					 +"<td>"+result[i].endDate+"</td>"				
+					 +"<td>"+result[i].endDate.substring(0,10)+"</td>"				
 					 +"<td>"+result[i].schDetail+"</td>"				
 					 +"</tr>";		
 					 $("#scheuleList").append(html);
@@ -295,12 +304,6 @@ $(document).ready(function() {
   		month = month+1;
   		scheduleList();
   	});
-//   	$('.fc-button-prev span').click(function(){
-//   		scheduleList();
-//   	});
-//   	$('.fc-button-next span').click(function(){
-//   		scheduleList();
-//   	});
 //이벤트 수정 클릭
  function eventClickEvent(eventObj){
 	  console.log("클릭이벤트 함수");
@@ -357,18 +360,17 @@ $("#addSchBtn").click(function(e){
 			  var schColor = result.schColor;
 			  var schNo = result.schNo;
 			 $.fullCalendar.formatRange(sDate, eDate, 'MMMM D YYYY');
-			 
           $('#calendar').fullCalendar('renderEvent', {
          	id : schNo,
             title: schDetail,
             start: sDate,
             end:   eDate,
             backgroundColor : schColor,
-            allDay: true
+//             allDay: true
           });
           alert('일정이 등록 완료되었습니다');
           scheduleList();
-		  },
+		  }, 
 		  error:function(e){
 			  console.log(e);
 		  }
@@ -436,14 +438,24 @@ $.ajax({
 });
 
 function dragEvent(event, delta){
-// 	console.log(event);
+	console.log(event);
 	console.log(event.start._i);
-	console.log(event.end._i);
-	console.log(event.id);
+	console.log("이벤트종료년",event.end._i[0]);
+	console.log("이벤트종료월",event.end._i[1]+1);
+	console.log("이벤트종료일",event.end._i[2]);
+// 	console.log(event.id);
+	
+	var dragEventEndM = event.end._i[1]+1;
+	var dragEventEndD = event.end._i[2];
+	if(dragEventEndM.toString().length < 2){dragEventEndM = '0'+dragEventEndM;}
+	if(dragEventEndD.toString().length < 2){dragEventEndD = '0'+dragEventEndD;}
+	
+	var endDate = event.end._i[0].toString() +"-"+ dragEventEndM +"-"+ dragEventEndD;
+	console.log("format",endDate);
 	
 	$.ajax({
 		url:"updateScheduleDate.json",
-		data:{'startDate' : event.start._i, 'endDate' : event.end._i, 'schNo':event.id, 'delta': delta},
+		data:{'startDate' : event.start._i, 'endDate' : endDate, 'schNo':event.id, 'delta': delta},
 		type:"POST",
 		success:function(){
 			alert("일정수정완료");
