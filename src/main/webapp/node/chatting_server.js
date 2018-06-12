@@ -5,11 +5,10 @@ var mysql = require('mysql');
 
 
 http.listen(3000,function(){    // 포트 열어주기
-    console.log("포트 온 : 3000");
+    console.log("채팅서버 포트 온 : 3000");
 });
 
-io.on('connection',function(socket){
-    console.log("커넥");       
+io.on('connection',function(socket){     
     socket.on("conn",function(data){
         selectChattingList(data.projectNo+"conn"+data.userNo,data.projectNo);
     });
@@ -31,7 +30,7 @@ io.on('connection',function(socket){
     })
 
     socket.on('disconnect',function(){
-        console.log("디커넥") 
+        
     })
 })
 

@@ -6,6 +6,7 @@ import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -62,7 +63,7 @@ public class ChattingController {
 
 	@RequestMapping(value="/fileUpload.json", method=RequestMethod.POST)  
 	@ResponseBody
-	public List<Integer> fileUpload(Chatting chatting,HttpServletRequest request) throws Exception{
+	public List<Map> fileUpload(Chatting chatting,HttpServletRequest request) throws Exception{
 		System.out.println("파일 랭스 : "+chatting.getUploadPic().length);
 		System.out.println("DATE : "+chatting.getSendDate());
 		System.out.println("파일매핑 : "+chatting.getFileMapping());
@@ -70,7 +71,7 @@ public class ChattingController {
 		
 		String[] arr = chatting.getFileMapping().split(";");
 		int chattingNo = 0;
-		List<Integer> successNo = new ArrayList<>();
+		List<Map> success = new ArrayList<>();
 		ServletContext context = request.getServletContext();                    
 		String saveFolder="/upload_images";
 		String realFolder = context.getRealPath(saveFolder);
@@ -104,11 +105,14 @@ public class ChattingController {
 					.setOriFileName(oriName)
 					.setChattingNo(chattingNo)
 					.setSendDate(chatting.getSendDate());
-			successNo.add(chattingNo);
+			Map<String,String> map = new HashMap<>();
+			map.put("chattingNo", ""+chattingNo);
+			map.put("message", uploadPath+datePath+"/"+systemName);
+			success.add(map);
 			chattingService.uploadFile(chatting);
 		}
 		
-		return successNo;
+		return success;
 	}
 	
 	@RequestMapping("/{chattingNo}/filedown.do")//URL호출

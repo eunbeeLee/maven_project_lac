@@ -483,7 +483,7 @@
 		$.ajax({
 			url:'${pageContext.request.contextPath}/chatting/send.json',
 			type:"POST",
-			data: {"projectNo":"${projectNo}","sendUserNo":"${user.userNo}","message":"","msgTypeCode":"00302","sendDate":new Date(),"fileLength":fileLength}
+			data: {"projectNo":"${projectNo}","sendUserNo":"${user.userNo}","message":"/maven_project_lac/resources/img/default/blockloading.gif","msgTypeCode":"00302","sendDate":new Date(),"fileLength":fileLength}
 		}).done(function (chattingList) {
 			$("#attachLoadingImgBox").css({"display":"none"});
 			let DBDate = new Date();
@@ -510,8 +510,9 @@
 	})
 	
 	socket.on(${projectNo}+"successLoad",function(result){
-		for(chattingNo of result.successData){
-			$("#"+chattingNo+" img.getFileLoadingImgs").remove();
+		for(data of result.successData){
+			$("#"+data.chattingNo+" img.getFileLoadingImgs").parent().siblings("img").prop({"src":data.message});
+			$("#"+data.chattingNo+" img.getFileLoadingImgs").remove();
 		}
     })
 	socket.on(${projectNo}+"pic",function(result){
