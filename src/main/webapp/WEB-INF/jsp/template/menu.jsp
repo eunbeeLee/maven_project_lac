@@ -13,6 +13,10 @@
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/fullcalendar/fullcalendar.min.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/fullcalendar/fullcalendar.print.min.css" media="print">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/sweetalert/sweetalert2.css"/>
+
+<!-- <script src="../../js/jquery-3.2.1.js"></script> -->
+<script src="${pageContext.request.contextPath}/sweetalert/sweetalert2.all.min.js"></script>
 
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/coding/css/coding.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/menu.css">
@@ -82,15 +86,14 @@
 		</div>
 		<div id="my_profile_repair">
 			<div>
-				<span>닉네sssss임</span>
-				<span>#</span>
-				<span>3344</span>
-				<span class="profile_repair_btn btn btn-default"><i class="material-icons">mode_edit</i></span><br>
-				(<span>abcdefd123@naver.com</span>)
+				<input id="userNickname" placeholder="${user.nickname}" readonly click=0
+				style="width:50px; background-color: rgba(0,0,0,0); border: none; text-align: center;"></input>
+				<span id="nickEditIcon" class="profile_repair_btn btn btn-default"><i class="material-icons">mode_edit</i></span><br>
+				(<span>${user.email}</span>)
 			</div>
-			
-			<div class="btn btn-default">비밀번호변경</div>
-			<div class="btn btn-default">회원탈퇴</div>
+			<div id="changePassBtn" class="btn btn-default">
+			비밀번호변경<br></div>
+			<div id="unsubscribeBtn" class="btn btn-default">회원탈퇴</div>
 		</div>
 </div>
 
@@ -293,6 +296,82 @@
 		$("#back_ground_shadow").fadeToggle(300);
 	})
 	$($("#calendar_btn_button").fadeIn(300));
+	
+	
+	
+	
+	$("#nickEditIcon").click(function(){
+		console.dir ($("#userNickname").attr("click"));
+		if($("#userNickname").attr("click")==0){
+// 			alert("일반클릭");
+			$("#userNickname").attr("readonly", false);
+			$("#userNickname").attr("style", "width:100px;");
+			$("#userNickname").focus();
+			$("#userNickname").attr("click",1);
+		}else{
+// 			alert("수정클릭");
+			$("#userNickname").attr("click",0);
+			 location.href="${pageContext.request.contextPath}/main/editNick.do?userNo=${user.userNo}&nickname="+$("#userNickname").val();
+		}
+	});
+	
+	$("#changePassBtn").click(function(){
+		swal.mixin({
+			  input: 'text',
+			  confirmButtonText: 'Next &rarr;',
+			  showCancelButton: true,
+			  progressSteps: ['1', '2', '3']
+			}).queue([
+			 '기존비밀번호를 입력하세요',
+			  {
+				    title: '새 비밀번호를 입력하세요.',
+				    text: '기존의 비밀번호와 다른 비밀번호'
+			  },
+			  '새 비밀번호를 입력하세요'
+			]).then((result) => {
+			  if (result.value) {
+				  console.log(result.value);
+				  $.ajax({
+					  url:"/maven_project_lac/main/editPass.json",
+					  data:{'userNo':${user.userNo},'password':result.value[0], 'newPassword':result.value[1],'checkNewPassword':result.value[2]},
+					  dataType:"json",
+					  type:"POST",
+					  success:function(result){
+						  titleResult = result;
+					    swal({
+					    
+					      title: result,
+		// 			      html:
+		// 			        'Your answers: <pre>' +
+		// 			          JSON.stringify(result.value) +
+		// 			        '</pre>',
+					      confirmButtonText: '닫기'
+					    })
+					  },
+					  error:function(e){
+						 	console.log(e);
+					  }
+				  });
+			  }
+			})
+	});
+	
+	$("#unsubscribeBtn").click(function(){
+		swal({
+			  title: '정말 탈퇴하시겠습니까?',
+			  type: 'warning',
+			  showCancelButton: true,
+			  confirmButtonColor: '#3085d6',
+			  cancelButtonColor: '#d33',
+			  confirmButtonText: '네!',
+			  cancelButtonText: '아니오',
+			}).then((result) => {
+			  if (result.value) {
+				  location.href="${pageContext.request.contextPath}/main/leaveId.do?userNo=${user.userNo}";
+					  }
+			  	})	
+			
+	});
 	
 	
 	
