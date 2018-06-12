@@ -12,7 +12,7 @@ import kr.co.lac.repository.domain.Event;
 import kr.co.lac.repository.domain.Schedule;
 import kr.co.lac.schedule.service.ScheduleService;
 
-@Controller
+@Controller 
 @RequestMapping("/schedule")
 public class ScheduleController {
 	@Autowired
@@ -84,6 +84,11 @@ public class ScheduleController {
 	@RequestMapping("/updateSchedule.json")
 	@ResponseBody
 	public void updateSchedule(Schedule schedule) throws Exception {
+		if(schedule.getSchDetail().equals("")) {
+//			System.out.println("디테일 값 없음");
+			Schedule s = scheduleService.selectEventById(schedule.getSchNo());
+			schedule.setSchDetail(s.getSchDetail());
+		}
 		System.out.println(schedule.getSchNo());
 		schedule.setEndDate(schedule.getEndDate()+"T10:00:00");
 		scheduleService.updateSchedule(schedule);
