@@ -739,6 +739,21 @@
 		width : 80%;
 		
 	}
+ div.noti_text > span:nth-child(1){
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	word-wrap: normal;
+    width: 70%;
+    display: inline-block;
+	overflow: hidden;
+}
+
+
+.projectJoin{
+	padding: 3px;
+	padding-bottom: 0px;
+	margin-top: -13%;
+}
 
     body{
         width: 100%;

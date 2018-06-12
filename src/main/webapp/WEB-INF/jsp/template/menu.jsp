@@ -200,13 +200,13 @@
 	
 	$("#noti_screen").one("click",".noti_del_btn",function(){
 		let notiNo = $(this).attr("name");
-		$(this).parent().parent().remove();
+		$(this).parent().parent().fadeOut(200);
 		noti.emit("deleteNoti",[notiNo,userNo+"notiCnt"]);
 	});
 	
 	$("#noti_screen").one("click",".noti_info",function(){
 		let notiNo = $(this).attr("name");
-		$(this).find(".noti_new").remove();
+		$(this).find(".noti_new").fadeOut(200);
 		noti.emit("viewNoti",[notiNo,userNo+"notiCnt"]);
 	});
 	
