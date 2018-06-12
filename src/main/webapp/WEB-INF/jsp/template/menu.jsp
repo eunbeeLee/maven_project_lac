@@ -47,7 +47,7 @@
 
 <div id="menu_bar">
     <div id="menu_bar_row" class="row">
-        <div class="menu_btn btn btn-default"><a href="${pageContext.request.contextPath}/main/logout.do"></a><i class="material-icons" style="font-size:36px">vpn_key</i></div>
+        <div class="menu_btn btn btn-default"><a href="${pageContext.request.contextPath}/main/logout.do"><i class="material-icons" style="font-size:36px">vpn_key</i></a></div>
         <div id="my_info_btn_button" class="menu_btn btn btn-default"><i class="fa fa-cog"></i></div>
         <a href="<c:url value="/project/lobby.do"/>"><div id="exit_btn_button" class="menu_btn btn btn-default">Exit</div></a>
         <div id="create_btn_button" class="menu_btn btn btn-default">New</div>
