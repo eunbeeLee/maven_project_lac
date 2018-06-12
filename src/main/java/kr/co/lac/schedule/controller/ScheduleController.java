@@ -101,7 +101,7 @@ public class ScheduleController {
 //		schedule.setEndDate(schedule.getEndDate().substring(0, 10));
 		String calStart = String.format("%02d", Integer.parseInt(schedule.getStartDate().substring(8, 10)) + delta);
 		String start = schedule.getStartDate().substring(0, 8) + calStart;
-		String calEnd = String.format("%02d", Integer.parseInt(schedule.getEndDate().substring(8, 10)) + delta);
+		String calEnd = String.format("%02d", Integer.parseInt(schedule.getEndDate().substring(8, 10)));
 		String end = schedule.getEndDate().substring(0, 8) + calEnd+"T10:00:00";
 
 		System.out.println(start);

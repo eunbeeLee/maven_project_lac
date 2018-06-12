@@ -470,7 +470,7 @@ function dragEvent(event, delta){
 			 $('#calendar').fullCalendar('removeEvents');
 			 $('#calendar').fullCalendar('rerenderEvents');
 		 	 $('#calendar').fullCalendar('refetchEvents');
-// 			scheduleList();
+			scheduleList();
 		},
 		error:function(e){
 			
