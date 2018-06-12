@@ -20,7 +20,6 @@
 <script src="${pageContext.request.contextPath}/resources/js/jquery.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/bootstrap/js/bootstrap.min.js"></script>
 <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
-<script src="${pageContext.request.contextPath}/resources/js/coding.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/fullcalendar/moment.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/fullcalendar/fullcalendar.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/fullcalendar/theme.js"></script>
