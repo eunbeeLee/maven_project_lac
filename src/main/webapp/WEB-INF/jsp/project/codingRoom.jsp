@@ -265,6 +265,17 @@
 		}
 		
 	});
+	
+	$("#firends_invite").on("cilck",".inbb",function(){
+		let resUserNo = (this).attr("name");
+		let data = {
+			sql1:["00202",resUserNo,${project.projectNo}],
+		    sql2:["00202",${user.userNo},resUserNo,'${project.projectNo}','${project.projectName}'],
+			"noti_res_no":resUserNo
+		};
+		noti.emit("requestNotiByProject",data);
+	})
+	
 	$("#friends_invitation_btn").on("click",function(){
 			$("#firends_invite").fadeToggle(300);
 			$("#search_invite").fadeToggle(300);
@@ -279,15 +290,13 @@
 			}).done(function (result) {
 				area = $("#firends_invite").html('');
 				for(info of result){
-					if(info.projectNo!=${project.projectNo}){
 						area.append(`
 						<div class="side_member_icon friedns_icon">
 						<img src="${pageContext.request.contextPath}/`+info.profilePic+`">
 						<span>`+info.nickname+`</span>
-						<div class="btn btn-default"><a href="${pageContext.request.contextPath}/project/inviteFriends.do?projectNo=${project.projectNo}&userNo=`+info.userNo+`"> 초대 </a></div>
+						<div class="inbb btn btn-default" name="`+info.userNo+`">초대</div>
 						</div>
 						`);				
-					}
 				}
 			})
 	});
@@ -299,18 +308,13 @@
 		}).done(function (result) {
 			area = $("#firends_invite").html('');
 			for(info of result){
-				area = $("#firends_invite").html('');
-				for(info of result){
-					if(info.projectNo!=${project.projectNo}){
 						area.append(`
 						<div class="side_member_icon friedns_icon">
 						<img src="${pageContext.request.contextPath}/`+info.profilePic+`">
 						<span>`+info.nickname+`</span>
-						<div class="btn btn-default"><a href="${pageContext.request.contextPath}/project/inviteFriends.do?projectNo=${project.projectNo}&userNo=`+info.userNo+`"> 초대 </a></div>
+						<div class="inbb btn btn-default" name="`+info.userNo+`">초대</div>
 						</div>
 						`);				
-					}
-				}			
 			}
 		})
 	});	
@@ -558,7 +562,7 @@
 		$.ajax({
 			url:'${pageContext.request.contextPath}/chatting/send.json',
 			type:"POST",
-			data: {"projectNo":"${projectNo}","sendUserNo":"${user.userNo}","message":"/maven_project_lac/resources/img/default/blockloading.gif","msgTypeCode":"00302","sendDate":new Date(),"fileLength":fileLength}
+			data: {"projectNo":"${projectNo}","sendUserNo":"${user.userNo}","message":"","msgTypeCode":"00302","sendDate":new Date(),"fileLength":fileLength}
 		}).done(function (chattingList) {
 			$("#attachLoadingImgBox").css({"display":"none"});
 			let DBDate = new Date();
@@ -585,9 +589,8 @@
 	})
 	
 	socket.on(${projectNo}+"successLoad",function(result){
-		for(data of result.successData){
-			$("#"+data.chattingNo+" img.getFileLoadingImgs").parent().siblings("img").prop({"src":data.message});
-			$("#"+data.chattingNo+" img.getFileLoadingImgs").remove();
+		for(chattingNo of result.successData){
+			$("#"+chattingNo+" img.getFileLoadingImgs").remove();
 		}
     })
 	socket.on(${projectNo}+"pic",function(result){

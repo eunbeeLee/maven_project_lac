@@ -77,17 +77,17 @@
 	group by u.user_no
 	</select>
 	<select id="selectInviteFriends" parameterType="search" resultMap="userMap">
-		select u.*,pc.project_no
-	      from project_lac.tb_user u
-         inner join project_lac.tb_project_participant pc
-	     	on u.user_no=pc.user_no
-		 where u.user_no != #{userNo}
-		   and u.user_no in (select f_user_no
-		                     from tb_friends f
-		                    where f.user_no = #{userNo})
-		   and nickname like concat('%',#{nickname},'%')
-		   and pc.project_no=#{projectNo}
-		 order by nickname
+		select u.*
+		  from tb_user as u
+		 inner join tb_friends as f
+		    on u.user_no = f.user_no
+		 where f.f_user_no = #{userNo}
+		   and f.user_no not in (select user_no
+								   from tb_project_participant
+								  where project_no = #{projectNo}
+								)
+		   and u.nickname like concat('%',#{nickname},'%')
+		 order by u.nickname
 	</select>
 	<insert id="inviteFriends" parameterType="search" >
 	insert into project_lac.tb_project_participant(
