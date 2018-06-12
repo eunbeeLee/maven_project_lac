@@ -266,14 +266,14 @@
 		
 	});
 	
-	$("#firends_invite").on("cilck",".inbb",function(){
-		let resUserNo = (this).attr("name");
+	$("#firends_invite").one("click",".inbb",function(){
+		let resUserNo = $(this).attr("name");
 		let data = {
 			sql1:["00202",resUserNo,${project.projectNo}],
-		    sql2:["00202",${user.userNo},resUserNo,'${project.projectNo}','${project.projectName}'],
+		    sql2:["00202",${user.userNo},resUserNo,${project.projectNo},'${project.projectName}'],
 			"noti_res_no":resUserNo
 		};
-		noti.emit("requestNotiByProject",data);
+		noti.emit("requsetNotiByProject",data);
 	})
 	
 	$("#friends_invitation_btn").on("click",function(){

@@ -198,21 +198,22 @@
 		$("#noti_cnt").html(result);
 	});
 	
-	$("#noti_screen").on("click",".noti_del_btn",function(){
+	$("#noti_screen").one("click",".noti_del_btn",function(){
 		let notiNo = $(this).attr("name");
 		$(this).parent().parent().remove();
 		noti.emit("deleteNoti",[notiNo,userNo+"notiCnt"]);
 	});
 	
-	$("#noti_screen").on("click",".noti_info",function(){
+	$("#noti_screen").one("click",".noti_info",function(){
 		let notiNo = $(this).attr("name");
 		$(this).find(".noti_new").remove();
 		noti.emit("viewNoti",[notiNo,userNo+"notiCnt"]);
 	});
 	
-	$("#noti_screen").on("click",".projectJoin",function(){
+	$("#noti_screen").one("click",".projectJoin",function(){
 		let projectNo = $(this).attr("name");
 		noti.emit("insertProjectParticipant",[userNo,projectNo]);
+		location.href="${pageContext.request.contextPath}/project/"+projectNo+"/codingRoom.do";
 	});
 	
 	function printNoti(data){
@@ -285,6 +286,10 @@
 		$("#back_ground_shadow").fadeToggle(300);
 	})
 	$("#friends_btn_button").on("click",()=>{
+		searchFriends($("#srarch_my_friends").val(),"friends",$("#my_friends div.friends_search_list"),"삭제")
+		searchFriends("","request",$("#request_friends_list div.friends_search_r_list"),"취소")
+		searchFriends("","response",$("#response_friends_list div.friends_search_r_list"),"수락")
+		searchFriends("","unknown",$("#new_friends div.friends_search_list"),"추가")
 		$("#friends_list").fadeToggle(300);
 		$("#back_ground_shadow").fadeToggle(300);
 	})
@@ -335,18 +340,6 @@
 		searchFriends($(this).val(),"unknown",$("#new_friends div.friends_search_list"),"추가")
 	})
 	
-	$("#request_friends").on("click",function(){
-		searchFriends("","request",$("#request_friends_list div.friends_search_r_list"),"취소")
-		searchFriends("","response",$("#response_friends_list div.friends_search_r_list"),"수락")
-	})
-	
-	$(()=>{
-		searchFriends($("#srarch_new_friends").val(),"unknown",$("#new_friends div.friends_search_list"),"추가")
-		searchFriends($("#srarch_my_friends").val(),"friends",$("#my_friends div.friends_search_list"),"삭제")
-		searchFriends("","request",$("#request_friends_list div.friends_search_r_list"),"취소")
-		searchFriends("","response",$("#response_friends_list div.friends_search_r_list"),"수락")
-	});
-	
 	function loading() {
 		$(document).ajaxStart(function(){
 			$("#back_ground_loding").css({"display":"block"});
@@ -369,7 +362,7 @@
 			data: {"fReqUNo":userNo,"fResUNo":$(this).siblings("input").val()}
 		}).done(function (result) {
 				remove.fadeOut(100);
-				searchFriends($("#srarch_new_friends").val(),"unknown",$("#new_friends div.friends_search_list"),"추가");
+				searchFriends("","unknown",$("#new_friends div.friends_search_list"),"추가")
 			})
 	})
 	
@@ -382,8 +375,8 @@
 			type:"POST",
 			data: {"fReqUNo":userNo,"fResUNo":resNo}
 		}).done(function (result) {
+				searchFriends("","request",$("#request_friends_list div.friends_search_r_list"),"취소")
 				remove.fadeOut(100);
-				searchFriends("","request",$("#request_friends_list div.friends_search_r_list"),"취소");
 				notiInfo["noti_type_code"] = "00201";
 				notiInfo["noti_req_no"] = userNo;
 				notiInfo["noti_res_no"] = resNo;
@@ -400,20 +393,20 @@
 			type:"POST",
 			data: {"fReqUNo":userNo,"fResUNo":$(this).siblings("input").val()}
 		}).done(function (result) {
+				searchFriends($("#srarch_my_friends").val(),"friends",$("#my_friends div.friends_search_list"),"삭제")
 				remove.fadeOut(100);
-				searchFriends($("#srarch_my_friends").val(),"friends",$("#my_friends div.friends_search_list"),"삭제");
 			})
 	})
 	
 	$("#request_friends_list").on("click","span.friends_utill_btn",function(){
 		let remove = $(this).parent(".friedns_icon");
+		remove.fadeOut(100);
 		loading();
 		$.ajax({
 			url:'${pageContext.request.contextPath}/friends/requestDelete.json',
 			type:"POST",
 			data: {"fReqUNo":userNo,"fResUNo":$(this).siblings("input").val()}
 		}).done(function (result) {
-				remove.fadeOut(100);
 				searchFriends($("#srarch_new_friends").val(),"unknown",$("#new_friends div.friends_search_list"),"추가");
 			})
 	})

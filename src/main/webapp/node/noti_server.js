@@ -162,10 +162,10 @@ var insertNotiByProject = function (data,key){
         )
     `;
     
-    conn.query(sql1,data.sql,function(err,result) {
-        if(err) {throw new Error(err);}
+    conn.query(sql1,data.sql1,function(err,result) {
+        if(err) {throw new Error(err); }
         else{
-            conn.query(sql2,data.sql,function(err,result) {
+            conn.query(sql2,data.sql2,function(err,result) {
                 if(err) {throw new Error(err);}
                 else{
                     io.emit(key,data);
@@ -180,7 +180,7 @@ var insertProjectParticipant = function (data,key){
     delete
       from tb_notification
      where noti_res_no = ?
-       and porject_no = ?
+       and project_no = ?
     `;
     let sql2 = `
         insert into tb_project_participant(
