@@ -86,10 +86,140 @@
 	overflow-x:hidden;  
 }
 
-.joinMsg{
+#newMsgNoti,.joinMsg{
 	border: none;
 	text-align: center;
 	background-color: #00D8FF;
 	padding: 2%;
 	font-weight: bold;
+	position: fixed;
+	display: none;
+	width: 20%;
+	border-radius:2%;
+	top:5%;
+	right: 7%;
+}
+
+#inAndOutNoti{
+	position:relative;
+	z-index: 100;
+	border:none;
+}
+
+#uploadForm{
+	display: none;
+}
+
+.chattingImgArea{
+	width: 100%;
+	height: 100%;
+	padding: 3%;
+}
+.chattingImgArea img{
+	height: 100%;
+	width: 100%;
+	cursor: pointer;
+}
+.newMsgNoti div{
+	border: none;
+}
+
+.newMsgNoti .profilePic{
+	position:absolute;
+	left: 3%;
+	bottom: 8%;
+}
+.newMsgNickname{
+	position: fixed;
+	bottom: 30%;
+	right: 22%;
+	font-size: 15%;
+}
+.newMsgText{
+	position: fixed;
+	bottom: 27%;
+	right: 18.6%;
+	width:90px;
+	overflow : hidden;
+    text-overflow: ellipsis;
+	white-space:nowrap;
+}
+
+.newMsgTri{
+  position:fixed;
+  width: 0;
+  height: 0;
+  z-index:1;
+  border-right: 10px solid transparent;
+  border-left: 10px solid transparent;
+  border-top: 30px solid #FF6C6C;
+  bottom:24.5%;
+  right: 25%;
+}
+
+#newMsgNoti{
+	background-color: #FF6C6C;
+	top:66%;
+	right:18%;
+	height:4%;
+	width: 10%;
+	cursor: pointer;
+}
+
+.sendTime{
+	font-size: 10%;
+	color:gray;
+	text-align: left;
+}
+.unknownSendTime{
+	text-align: right;
+}
+.printToday{
+	width: 100%;
+	text-align: center;
+	border:none;
+	background-color: #FFD9FA;
+}
+
+.myChainMsg{
+	margin-top: -4%;
+}
+.unknownChainMsg{
+	margin-top: 8%;
+}
+.getFileBtn{
+	float: right;
+}
+.getFileBtnIcon{
+	position: absolute;
+	top: 35%;
+	margin-left: 5%;
+}
+.fristIcons{
+	top: 50%;
+}
+.getFileLoadingImgs{
+	width: 24px !important;
+	height: 24px !important;
+	cursor: default !important;
+	margin-left: 5%;
+	top: 35%;
+	position: absolute;
+	background-color: gainsboro;
+	opacity: .8;
+	border-radius: 100%;
+}
+#attachLoadingImgBox{
+	position: absolute;
+	border:none;
+	top:80%;
+	height: 20%;
+	background-color: black;
+	opacity: .7;
+	display:none;
+}
+#attachLoadingImgBox img{
+	width: 60%;
+	height: 100%;
+	margin-left: 20%;
 }

@@ -3,5 +3,6 @@
 	<mapping path="/*" decorator="/WEB-INF/jsp/template/menu.jsp"/>
 	<mapping path="/main/*" decorator="/WEB-INF/jsp/template/decorator.jsp"></mapping>
 	<mapping path="/template/*" exclude="true"/>
+	<mapping path="/chatting/*.json" excluade="true"/>
 	<!-- <mapping path="/*" exclude="true"/>  -->
 </sitemesh>

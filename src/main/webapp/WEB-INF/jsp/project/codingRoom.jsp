@@ -132,14 +132,22 @@
         </div>  <!-- end .screen -->
 
         <div id="chatting_area" class="col-md-4 row"> <!-- start #chatting_area -->
-
+			<div id="inAndOutNoti"></div>
             <div class="chatting_box" id="chatting_content">    <!-- start #chatting_content -->
+				<div id="uploadForm">
+					<form id="uploadPicForm" action="/chatting/fileUpload.json" enctype="multipart/form-data">
+						<input type="hidden" name="fileMapping"/>
+						<input type="hidden" name="sendDate"/>
+					</form>
 
 
+
+					
+				</div>
             </div>                                              <!-- end #chatting_content -->
 
             <div class="chatting_box" id="chatting_write">  <!-- start #chatting_writet -->
-
+				<div id="attachLoadingImgBox"><img src="/maven_project_lac/resources/img/default/blockloading.gif"/></div>
 
                 <div id="chatting_clip">    <!-- start #chatting_clip -->
                     
@@ -168,8 +176,7 @@
                 <div id="chatting_text_box">    <!-- start #chatting_text_box -->
 
                     <div id="chatting_text">
-                        <div id="text_box" contenteditable="true">
-                        </div>
+                        <div id="text_box" contenteditable="true"></div>
                     </div>
 
                     <div id="chatting_text_btn">
@@ -247,6 +254,47 @@
 	
 	var socket = io.connect('http://localhost:3000');
 	var user = {};
+	var screen = $("#chatting_content");
+	var lastDate = null;
+	var lastSender = null;
+	
+	
+	
+	// ------------------------------------------------ 채팅출력시 스크롤 위치 기능 함수
+	function screenScroll(type,user,msg) {
+		let msgNoti = $("#inAndOutNoti");
+		msgNoti.children("#newMsgNoti").remove();
+		switch (type) {
+		case 1: if(screen.scrollTop() > screen[0].scrollHeight-900) screen.scrollTop(screen[0].scrollHeight);
+				else{
+					msgNoti.append(`
+							<div id="newMsgNoti" class="newMsgNoti">
+							  <div>
+							  	  <span class="newMsgNickname">`+user.nickname+`</span>
+							  </div>
+							  <div class="profilePic">
+			              		  <img src="${pageContext.request.contextPath}`+user.profilePic+`"/>
+			              	  </div>
+			              	  <div>
+			              	  	  <span class="newMsgText">`+msg+`</span>
+			              	  </div>
+			              	  <span class="newMsgTri"></span>
+						</div>
+					`)
+					let newMsg = $("#newMsgNoti");
+					newMsg.fadeIn(300);
+			        setTimeout(()=>{newMsg.fadeOut(300);},3000);
+				}
+		break;
+		case 2: screen.scrollTop(screen[0].scrollHeight*2); break;
+		}
+	}
+	$("#inAndOutNoti").on("click","#newMsgNoti",()=>{
+		screenScroll(2);
+	})
+	// ------------------------------------------------ 채팅출력시 스크롤 위치 기능 함수
+	
+	// ------------------------------------------------ 조인 기능 함수
 	
 	$(()=>{
 		user["userNo"] = ${user.userNo};
@@ -254,13 +302,63 @@
 		user["email"] = "${user.email}";
 		user["profilePic"] = "${user.profilePic}";
 		user["loginStateCode"] = "${user.loginStateCode}";
+		socket.emit("conn",{"userNo":${user.userNo},projectNo:${projectNo}});
 	});
-	$(chattingListLoad());
-	
+	socket.on("${projectNo}conn${user.userNo}",function(result){
+		chattingListLoad(result);
+	});
     socket.on(${projectNo}+"join",function(result){
-        $("#chatting_content").append(`<div class="joinMsg"><span>[ `+result.nickname+` ]님이 </span><span>입장하셨습니다.</span></div>`);
+        $("#inAndOutNoti").append(`<div id="`+result.userNo+`join" class="joinMsg"><span>[ `+result.nickname+` ]님이<br> </span><span>입장하셨습니다.</span></div>`);
+        let msg = $("#"+result.userNo+"join");
+        msg.fadeIn(300);
+        setTimeout(()=>{msg.fadeOut(300);},3000);
     })
 	
+    // ------------------------------------------------ 조인 기능 함수
+
+	// ------------------------------------------------ 채팅방 입장시 DB에서 불러오는 기능 함수
+	
+	function chattingListLoad(result) {
+    	for(data of result){
+ 			let loadData = {};
+			loadData["user"] = {"userNo":data.user_no,"nickname":data.nickname,"profilePic":data.profile_pic}
+			loadData["sql"] = [data.project_no,			// 0. 프로젝트 번호
+							   data.send_user_no,		// 1. 보낸 유저 번호
+							   data.message,			// 2. 메세지 (이미지 : 미리보기, 동영상: URL)
+							   data.msg_type_code,		// 3. 메세지 타입
+							   data.send_date,			// 4. 보낸 시간
+							   data.chatting_no,		// 5. 메세지 번호
+							   data.file_size,			// 6. null 파일 사이즈
+							   data.ori_file_name,		// 7. null 원본 파일명
+							   data.download_path]		// 8. null 다운로드 경로
+			switch (data.msg_type_code) {
+			case "00301": chattingViewByMsg(loadData); break;
+			case "00302": chattingViewByPic(loadData); break;
+			}
+		}
+		socket.emit("join",{"user":user,projectNo:${projectNo}});
+		screenScroll(2);
+	}
+	
+	// ------------------------------------------------ 채팅방 입장시 DB에서 불러오는 기능 함수
+	
+	
+    // ------------------------------------------------ 채팅 출력시 마지막 메세지를 보낸 사람과 날짜 비교 함수
+    function lastSendData(userNo,date) {
+		if(lastSender == null){
+			lastSender = {"userNo":userNo,"date":date};
+			return false;
+		}
+		if(lastSender.userNo == userNo && lastSender.date == date) return true;
+		lastSender = {"userNo":userNo,"date":date};
+		return false;
+	}
+    // ------------------------------------------------ 채팅 출력시 마지막 메세지를 보낸 사람과 날짜 비교 함수
+    
+    
+    
+    
+    // ------------------------------------------------ 메세지 기능 함수
     
     $("#onchat").on("click",()=>{
     	onMsg();
@@ -270,74 +368,360 @@
     })
     function onMsg(){
     	let msg = $("#text_box");
-    	socket.emit("msg",{"user":user,"projectNo":${projectNo},"msg":msg.html()});
-    	msg.html("");
-    	
+    	if(msg.html().length < 1) return;
+    	else{
+    		socket.emit("msg",{"user":user,"sql":[${projectNo},user.userNo,msg.html(),"00301",new Date()]});
+    		msg.html("");
+    	}
 	}
-	socket.on(${projectNo}+"msg",function(result){
-		noLoading();
-		chattingViewByMsg(result.msg,result.user)
- 		$.ajax({
-			url:'${pageContext.request.contextPath}/chatting/send.json',
-			type:"POST",
-			data: {
-				"projectNo":${projectNo},
-				"sendUserNo":result.user.userNo,
-				"message":result.msg,
-				"msgTypeCode":"00301"
-			}
-		})
-
-	})
     
-	function chattingViewByMsg(msg,user) {
-		if(${user.userNo}==user.userNo){
-	        $("#chatting_content").append(`
-	             <div class="myChatView chatView">
-	              	<div class="myMsgArea">
-		              	<div class="myUserMsg userMsg">
-		              		`+msg+`
+	socket.on(${projectNo}+"msg",function(result){
+		chattingViewByMsg(result);
+	})
+	
+	function chattingViewByMsg(result) {
+		let user = result.user;
+		let msg = result.sql[2];
+		let date = date_info(result.sql[4]);
+		
+		if(lastSendData(user.userNo,date)){
+			$(`.sendTime[name="`+user.userNo+date+`"]`).each(function (index,ele) {
+				ele.remove();
+			})
+			if(${user.userNo}==user.userNo){
+		        $("#chatting_content").append(`
+		             <div class="myChainMsg myChatView chatView">
+		              	<div class="myMsgArea">
+			              	<div class="myUserMsg userMsg">
+			              		`+msg+`
+			              		<div class="sendTime" name="`+user.userNo+date+`">`+parseDateScreen(date)+`</div>
+			              	</div>
 		              	</div>
-		              	<span class="msgTri"></span>
-	              	</div>
-	              </div>
-	        		`);
+		              </div>
+		        		`);
+		        screenScroll(2);
+			}else{
+				$("#chatting_content").append(`
+			          <div class="unknownChainMsg unknownChatView chatView">
+		              	  <div class="unknownUserMsg userMsg">
+		              	      `+msg+`
+		              	      <div class="unknownSendTime sendTime" name="`+user.userNo+date+`">`+parseDateScreen(date)+`</div>
+		              	  </div>
+		              </div>
+	    		`);
+				screenScroll(1,user,msg);
+			}
 		}else{
-			$("#chatting_content").append(`
-		          <div class="unknownChatView chatView">
-	              	  <h6><span class="userNickname">`+user.nickname+`</span></h6>
-	              	  <div class="profilePic">
-	              		  <img src="${pageContext.request.contextPath}`+user.profilePic+`"/>
-	              	  </div>
-	              	  <div class="unknownUserMsg userMsg">
-	              	      `+msg+`
-	              	  </div>
-	              </div>
-    		`);
+			if(${user.userNo}==user.userNo){
+		        $("#chatting_content").append(`
+		             <div class="myChatView chatView">
+		              	<div class="myMsgArea">
+			              	<div class="myUserMsg userMsg">
+			              		`+msg+`
+			              		<div class="sendTime" name="`+user.userNo+date+`">`+parseDateScreen(date)+`</div>
+			              	</div>
+			              	<span class="msgTri"></span>
+		              	</div>
+		              </div>
+		        		`);
+		        screenScroll(2);
+			}else{
+				$("#chatting_content").append(`
+			          <div class="unknownChatView chatView">
+		              	  <h6><span class="userNickname">`+user.nickname+`</span></h6>
+		              	  <div class="profilePic">
+		              		  <img src="${pageContext.request.contextPath}`+user.profilePic+`"/>
+		              	  </div>
+		              	  <div class="unknownUserMsg userMsg">
+		              	      `+msg+`
+		              	      <div class="unknownSendTime sendTime" name="`+user.userNo+date+`">`+parseDateScreen(date)+`</div>
+		              	  </div>
+		              	
+		              </div>
+	    		`);
+				screenScroll(1,user,msg);
+			}
 		}
 	}
 	
-	function chattingListLoad() {
- 		$.ajax({
-			url:'${pageContext.request.contextPath}/chatting/listLoad.json',
+	
+	
+	// ------------------------------------------------ 메세지 기능 함수
+	
+	
+	
+	
+	
+	
+	// ------------------------------------------------ 사진전송 기능 함수
+	var fileLength = null;
+	var fileIndex = 0;
+	
+	
+	
+	$("#clip_poto_btn").on("click",function(){
+        $(".imgInp").remove(); 
+		$("#uploadPicForm").append($("<input>").attr({type:"file",class:"imgInp",name:"uploadPic",multiple:"true",accept:"image/*"}).click());
+	})
+	
+	$("#uploadPicForm").on("change","input.imgInp",function(){
+    	let fileext = $(this).val();
+    	fileext = fileext.slice(fileext.indexOf(".")+1).toUpperCase();
+    	if(fileext != "JPG"
+    	 &&fileext != "PNG"
+    	 &&fileext != "GIF"
+    	 &&fileext != "BMP"
+    	){
+    		alert("이미지 파일만 선택이 가능합니다.")
+        	$(".imgInp").remove();
+    		return;
+    	}else{
+    		$("#attachLoadingImgBox").css({"display":"block"});
+    	}
+    	
+		noLoading();
+		
+
+		var fileData = [];
+		var files = this.files;
+		for(let i = 0 ; i < this.files.length ; i++){
+        	var reader = new FileReader();
+        	reader.onload = function (e) {
+        		fileData[i] = {e:e.target.result,fileName:files[i].name}
+            }
+        	reader.readAsDataURL(this.files[i]);
+		}
+        var fileLength = this.files.length;
+		$.ajax({
+			url:'${pageContext.request.contextPath}/chatting/send.json',
 			type:"POST",
-			data: {"projectNo":${projectNo}}
-		}).done(function(chattingList) {
-			for(chat of chattingList){
-				let user = {};
-				user["userNo"] = chat.sendUserNo;
-				user["profilePic"] = chat.profilePic;
-				user["nickname"] = chat.nickname;
-				switch (chat.msgTypeCode) {
-				case "00301":
-					chattingViewByMsg(chat.message,user)
-				break;
-				}
+			data: {"projectNo":"${projectNo}","sendUserNo":"${user.userNo}","message":"","msgTypeCode":"00302","sendDate":new Date(),"fileLength":fileLength}
+		}).done(function (chattingList) {
+			$("#attachLoadingImgBox").css({"display":"none"});
+			let DBDate = new Date();
+			let index = 0;
+			let fileMapping = "";
+			for(data of chattingList){
+				fileMapping = fileMapping+[fileData[index].fileName]+":"+data+";";
+	 		    socket.emit("pic",{loading:true,fileInfo:fileData[index],"user":user,"projectNo":${projectNo},"chattingNo":data,"sql":[${projectNo},user.userNo,fileData[index++].e,"00302",DBDate]});
 			}
-			socket.emit("join",{"user":user,projectNo:${projectNo}});
+			var f = $("#uploadPicForm")[0];
+			f.sendDate.value = DBDate; 
+			f.fileMapping.value = fileMapping; 
+			var formData = new FormData(f);
+			$.ajax({
+				url:'${pageContext.request.contextPath}/chatting/fileUpload.json',
+				type:"POST",
+				processData: false,
+				contentType: false,
+				data: formData
+			}).done((successData)=>{
+				socket.emit("successLoad",{"projectNo":${projectNo},"successData":successData})
+			})
 		})
+	})
+	
+	socket.on(${projectNo}+"successLoad",function(result){
+		for(chattingNo of result.successData){
+			$("#"+chattingNo+" img.getFileLoadingImgs").remove();
+		}
+    })
+	socket.on(${projectNo}+"pic",function(result){
+		chattingViewByPic(result,result.fileLoadName);
+    })
+
+	function chattingViewByPic(result) {
+		let loadingImg = "";
+		let chattingNo = result.sql[5];
+		if(result.chattingNo != 0){
+			loadingImg = ` id="`+result.chattingNo+`" `;
+			chattingNo = result.chattingNo;
+		}
+		let msg = result.sql[2];
+		let user = result.user;
+		let date = date_info(result.sql[4]);
+		if(lastSendData(user.userNo,date)){
+			$(`.sendTime[name="`+user.userNo+date+`"]`).each(function (index,ele) {
+				ele.remove();
+			})
+			if(${user.userNo}==user.userNo){
+		        $("#chatting_content").append(`
+					  <div `+loadingImg+` class="myChainMsg myChatView chatView">
+		              	<div class="myMsgArea">
+			              	<div class="myUserMsg userMsg">
+			              		<div class="chattingImgArea">
+		              				`+fileUploadIcon(chattingNo,false,result.loading)+`
+			              			<img src="`+msg+`"/>
+			              		</div>
+			              		<div class="sendTime" name="`+user.userNo+date+`">`+parseDateScreen(date)+`</div>
+			              	</div>
+		              	</div>
+		              </div>
+			    `);
+		        screenScroll(2);
+			}else{
+				$("#chatting_content").append(`
+						<div `+loadingImg+` class="unknownChainMsg unknownChatView chatView">
+		              	  <div class="unknownUserMsg userMsg">
+		              	      	<div class="chattingImgArea">
+		              	     		 `+fileUploadIcon(chattingNo,false,result.loading)+`
+			              			<img src="`+msg+`"/>
+			              		</div>
+			              		<div class="unknownSendTime sendTime" name="`+user.userNo+date+`">`+parseDateScreen(date)+`</div>
+		              	  </div>
+		              </div>
+				`);
+				screenScroll(1,user,"(사진)");
+			}
+		}else{
+			if(${user.userNo}==user.userNo){
+		        $("#chatting_content").append(`
+					  <div `+loadingImg+` class="myChatView chatView">
+		              	<div class="myMsgArea">
+			              	<div class="myUserMsg userMsg">
+			              		<div class="chattingImgArea">
+			              			`+fileUploadIcon(chattingNo,true,result.loading)+`
+			              			<img src="`+msg+`"/>
+			              		</div>
+			              		<div class="sendTime" name="`+user.userNo+date+`">`+parseDateScreen(date)+`</div>
+			              	</div>
+			              	<span class="msgTri"></span>
+		              	</div>
+		              </div>
+			    `);
+		        screenScroll(2);
+			}else{
+				$("#chatting_content").append(`
+						<div `+loadingImg+` class="unknownChatView chatView">
+		              	  <h6><span class="userNickname">`+user.nickname+`</span></h6>
+		              	  <div class="profilePic">
+		              		  <img src="${pageContext.request.contextPath}`+user.profilePic+`"/>
+		              	  </div>
+		              	  <div class="unknownUserMsg userMsg">
+		              				`+fileUploadIcon(chattingNo,true,result.loading)+`
+		              	  			<img src="`+msg+`"/>
+			              		</div>
+			              		<div class="unknownSendTime sendTime" name="`+user.userNo+date+`">`+parseDateScreen(date)+`</div>
+		              	  </div>
+		              </div>
+				`);
+				screenScroll(1,user,"(사진)");
+			}
+		}
 	}
+	
+	// ------------------------------------------------ 사진전송 기능 함수
+	
+	
+	
+	
+	// ------------------------------------------------ 파일 업로드 아이콘 함수
+		function fileUploadIcon(chattingNo,frist,loading) {
+		    var getFiles = "";
+		    var loadImges = "";
+		    if(loading){
+		    	loadImges = "<img src='/maven_project_lac/resources/img/default/fileLoading.gif' class='getFileLoadingImgs'/>";
+		    }
+		    var loadClass = "  "
+		    if(frist){
+					getFiles = `
+								<div class="getFileBtn">
+					  	      		<a class="getFileBtnATag" href="${pageContext.request.contextPath}/chatting/`+chattingNo+`/filedown.do">
+					          			<i class="material-icons getFileBtnIcon fristIcons">get_app</i>
+					          		</a>
+					          		`+loadImges+`
+					  			</div>	
+								`;
+			}
+		    else{
+					getFiles = `
+								<div class="getFileBtn">
+					  	      		<a class="getFileBtnATag" href="${pageContext.request.contextPath}/chatting/`+chattingNo+`/filedown.do">
+					          			<i class="material-icons getFileBtnIcon">get_app</i>
+					          		</a>
+					          		`+loadImges+`
+					  			</div>	
+								`;
+		    }
+			return getFiles;
+		};
+	
+	// ------------------------------------------------ 파일 업로드 아이콘 함수
+	
+	
+	// ------------------------------------------------ 파일 업로드 완료 함수
+	socket.on(${projectNo}+"fileLoad",function(result){
+		$(`.getFileBtn[name="`+result.fileLoadName+`"]`).each(function (index,ele) {
+			$(ele).append(`
+	  	      		<a class="getFileBtnATag" href="${pageContext.request.contextPath}/chatting/`+result.chattingNoList[index]+`/filedown.do">
+          				<i class="material-icons getFileBtnIcon">get_app</i>
+          			</a>
+					`);
+		})
+    });
+	// ------------------------------------------------ 파일 업로드 완료 함수
+	// ------------------------------------------------ 날짜출력 기능 함수
+	function printToday(sendDate) {
+		let week = ['일', '월', '화', '수', '목', '금', '토'];
+		let date = new Date(sendDate);
+		
+		let today = date.getFullYear()    + "년 " 
+                  + (date.getMonth() + 1) + "월 " 
+                  + date.getDate()        + "일 "
+				  + week[date.getDay()]   + "요일";
+		let lastDay = "";
+		if(lastDate != null)
+            lastDay = lastDate.getFullYear()    + "년 " 
+                    + (lastDate.getMonth() + 1) + "월 " 
+                    + lastDate.getDate()        + "일 "
+                    + week[lastDate.getDay()]   + "요일";
+		
+		if(today == lastDay) return;
+		
+		lastDate = date;
+		$("#chatting_content").append(`
+				<div class="printToday">`+today+`</div>
+				`)
+		lastSender = null;
+	};
+	
+    function date_info(sendDate){
+        var date = new Date(sendDate); 
+		printToday(date);
+		let getHours = parseInt(date.getHours());
+		let getMinutes = parseInt(date.getMinutes());
+		var time = "";
+		time =  (getHours >= 13 ? time+ "오후 " + (getHours-12)
+				                : time+ "오전 " + getHours)
+				 + "시 "
+		         + getMinutes
+		         + "분";
+		
+	    return time+":"
+		+ parseInt(date.getFullYear())
+        + parseInt((date.getMonth() + 1))
+        + parseInt(date.getDate());
+    };
     
+    function parseDateScreen(date) {
+		return date.split(":")[0]
+	};
+/*      function date_info(date){
+        var date = new Date(); 
+		if(date){
+			date = new Date(date);
+		}
+		var time = date.getFullYear() + "-" 
+		         + (date.getMonth() + 1) + "-" 
+		         + date.getDate() + " "
+		         + date.getHours() + ":"
+		         + date.getMinutes() + ":"
+		         + date.getSeconds();
+	    return time;
+    } */
+	// ------------------------------------------------ 날짜출력 기능 함수
+	
+	
     
     
 	$(function() {
@@ -369,7 +753,7 @@
             side_bar_btn = false;
         }
         return false;
-    })
+    });
 
     function side_open(){
         side_box.css({"cursor":"auto"})
@@ -377,8 +761,13 @@
                 .animate({"left":"0"},400)
         side_btn.text("close");
         side_bar_btn = true;
+<<<<<<< HEAD
     }
 	
+=======
+    };
+
+>>>>>>> origin/master
 
 
 

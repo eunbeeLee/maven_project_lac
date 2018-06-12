@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
+</head>
+<body>
+    <input id="file" type="file" multiple="true"/>
+    <input id="solo" type="file"/>
+    <script>
+        $("#file").on("change",function(e){
+            console.dir(e);
+        })
+        $("#solo").on("change",function(e){
+            console.dir(e);
+        })
+    </script>
+</body>
+</html>

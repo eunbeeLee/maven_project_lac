@@ -12,27 +12,41 @@
 		<result column="message" property="message"></result>
 		<result column="msg_type_code" property="msgTypeCode"></result>
 		<result column="send_date" property="sendDate"></result>
+		<result column="ori_file_name" property="oriFileName"></result>
+		<result column="file_size" property="fileSize"></result>
+		<result column="download_path" property="downloadPath"></result>
 	</resultMap>
-    <select id="selectChattingList" parameterType="int" resultMap="chattingMap">
-		select c.*,u.user_no,u.nickname,u.profile_pic
-          from tb_chatting as c
-         inner join tb_user as u
-            on c.send_user_no = u.user_no
-         where c.project_no = #{projectNo}
-         order by c.chatting_no
+    <select id="selectChattingByChattingNo" parameterType="int" resultMap="chattingMap">
+		select *
+          from tb_chatting
+         where chatting_no = #{chattingNo}
 	</select>
 	<insert id="insertChatting" parameterType="chatting">
+			<selectKey resultType="int" keyProperty="chattingNo" order="AFTER"> 
+				select ifnull(max(chatting_no),0) from tb_chatting 
+			</selectKey> 
 		insert into tb_chatting(
 		project_no,
 		send_user_no,
 		message,
+		send_date,
 		msg_type_code
 		)
 		values(
 		#{projectNo},
 		#{sendUserNo},
 		#{message},
+		#{sendDate},
 		#{msgTypeCode}
 		)
 	</insert>
+	<update id="uploadFile" parameterType="chatting">
+		update tb_chatting
+		   set send_date = #{sendDate},
+		       message = #{message},
+		       ori_file_name = #{oriFileName},
+		       file_size = #{fileSize},
+		       download_path = #{downloadPath}
+		 where chatting_no = #{chattingNo}
+	</update>
 </mapper>

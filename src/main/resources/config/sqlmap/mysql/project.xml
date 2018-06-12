@@ -22,9 +22,9 @@
 		<result column="login_state_code" property="loginStateCode"></result>
 	</resultMap>
 	<insert id="insertProject" parameterType="project">
-		<selectKey keyProperty="projectNo" resultType="int" order="BEFORE">
-			select MAX(project_no)+1 from tb_project
-		</selectKey>
+		<selectKey resultType="int" keyProperty="projectNo" order="AFTER"> 
+			select ifnull(max(project_no),0) from tb_project
+		</selectKey> 
 		insert into tb_project(
 		created_user_no,
 		maseter_user_no,
