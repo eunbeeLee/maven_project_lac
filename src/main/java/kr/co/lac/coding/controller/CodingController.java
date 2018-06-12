@@ -10,10 +10,6 @@ import java.io.InputStreamReader;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-<<<<<<< HEAD
-import org.springframework.web.multipart.MultipartFile;
-=======
->>>>>>> origin/master
 
 
 @Controller

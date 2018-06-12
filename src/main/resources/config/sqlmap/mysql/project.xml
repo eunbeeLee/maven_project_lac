@@ -96,4 +96,20 @@
 	  #{projectNo},#{userNo}
 	)
 	</insert>
+	<delete id="leaveProject" parameterType="search">
+	delete from project_lac.tb_project_participant
+	 where project_no=#{projectNo} 
+   	   and user_no=#{userNo}
+	</delete>
+	<select id="selectProjectNo" parameterType="search" resultType="int">
+	SELECT USER_NO 
+	  FROM project_lac.tb_project_participant 
+	 where project_no=#{projectNo} 
+	 order by join_date limit 1
+	</select>
+	<update id="updateProjectMaster" parameterType="search">
+	update project_lac.tb_project
+	   set maseter_user_no=#{userNo}
+	 where project_no=#{projectNo}
+	</update>
 </mapper>

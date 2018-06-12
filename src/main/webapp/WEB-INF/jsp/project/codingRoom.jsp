@@ -200,7 +200,22 @@
    -->
 <script>
 	$("#leave_class").on("click",function(){
-		
+		swal({
+			  title: '정말 클래스를 탈퇴하시겠습니까?',
+			  type: 'warning',
+			  showCancelButton: true,
+			  confirmButtonColor: '#3085d6',
+			  cancelButtonColor: '#d33',
+			  confirmButtonText: 'Leave'
+			}).then((result) => {
+			  if (result.value) {
+			    swal(
+			      '탈퇴하였습니다,',
+			      'success'
+			    )
+				location.href="${pageContext.request.contextPath}/project/leaveClass.do?projectNo=${project.projectNo}&userNo=${user.userNo}";
+			  }
+			})
 	});
 	$("#friends_invitation_btn").on("click",function(){
 			$("#firends_invite").fadeToggle(300);
@@ -761,13 +776,8 @@
                 .animate({"left":"0"},400)
         side_btn.text("close");
         side_bar_btn = true;
-<<<<<<< HEAD
-    }
-	
-=======
     };
-
->>>>>>> origin/master
+	
 
 
 

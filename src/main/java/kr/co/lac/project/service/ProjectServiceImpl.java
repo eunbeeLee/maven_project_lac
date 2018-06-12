@@ -48,5 +48,12 @@ public class ProjectServiceImpl implements ProjectService {
 	public void inviteFriends(Search search) {
 		mapper.inviteFriends(search);
 	}
+	@Transactional(rollbackFor=Exception.class)
+	@Override
+	public void leaveClass(Search search) throws Exception{
+		mapper.leaveProject(search);
+		search.setUserNo(mapper.selectProjectNo(search));
+		mapper.updateProjectMaster(search);
+	}
 	
 }

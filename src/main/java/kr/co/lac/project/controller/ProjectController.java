@@ -56,8 +56,8 @@ public class ProjectController {
 	}
 	@RequestMapping("/leaveClass.do")
 	public String leaveClass(Search search) throws Exception {
-		projectService.inviteFriends(search);
-		return "redirect:/project/"+search.getProjectNo()+"/codingRoom.do";
+		projectService.leaveClass(search);
+		return "redirect:/project/lobby.do";
 	}
 	
 }

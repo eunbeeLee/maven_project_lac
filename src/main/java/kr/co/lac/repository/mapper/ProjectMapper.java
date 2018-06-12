@@ -14,4 +14,8 @@ public interface ProjectMapper {
 	public List<User> selectProjectByUser(int projectNo);
 	public List<User> selectInviteFriends(Search search); //친구초대 하기위한 목록 가져오기
 	public void inviteFriends(Search search); 
+	
+	public void leaveProject(Search search);
+	public int selectProjectNo(Search search);
+	public void updateProjectMaster(Search search);
 }
