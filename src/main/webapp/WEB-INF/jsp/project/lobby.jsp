@@ -91,7 +91,7 @@
 <body>
 	<div class="room-title">
 		<div class="room-titleTop">
-			<h2 class="room-titleTop-title">${user.nickname} 의 프로젝트</h2>
+			<h2 id="room-titleTop-title"class="room-titleTop-title">${user.nickname} 의 프로젝트</h2>
 		</div>
 	    <div id="myProject" class="room-list">
 	
