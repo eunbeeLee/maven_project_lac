@@ -99,7 +99,7 @@ body {
 	<!-- 새 일정 모달 -->
 	<button style="display: none;" type="button" id="newModalOpen"
 		class="btn btn-info btn-lg" data-toggle="modal"
-		data-target="#editScheModal">Open Modal</button>
+		data-target="#newScheModal">Open Modal</button>
 	<div class="modal fade in" id="newScheModal" role="modal" tabindex="-1"
 		aria-labelledby="newScheModalLabel" aria-hidden="true">
 		<div class="modal-dialog">
@@ -386,12 +386,13 @@ $("#addSchBtn").click(function(e){
 //일정편집버튼 클릭
 $("#eddEventBtn").click(function(){
 	 $("#editModalClose").trigger("click",function(){});
-	 
-	if($("#updateScheduleDetail").val()==""){
-// 		var placeHolder = $("#updateScheduleDetail").attr("placeholder");
-		$("#updateScheduleDetail").attr({"value":$("#updateScheduleDetail").attr("placeholder")});
+// 	 console.log("일정 디테일",$("#updateScheduleDetail").attr("value"));
+// 	if($("#updateScheduleDetail").attr("value")==null){
+// 		alert("값 안들어옴");
+// // 		var placeHolder = $("#updateScheduleDetail").attr("placeholder");
+// 		$("#updateScheduleDetail").attr({"value":$("#updateScheduleDetail").attr("placeholder")});
 		
-	}
+// 	}
 	 console.log($("#editSechedule").serialize());
 	 $.ajax({
 		url:"/maven_project_lac/schedule/updateSchedule.json",
@@ -439,6 +440,7 @@ $.ajax({
 
 function dragEvent(event, delta){
 	console.log(event);
+	console.log(delta);
 	console.log(event.start._i);
 	console.log("이벤트종료년",event.end._i[0]);
 	console.log("이벤트종료월",event.end._i[1]+1);
@@ -459,7 +461,10 @@ function dragEvent(event, delta){
 		type:"POST",
 		success:function(){
 			alert("일정수정완료");
-			scheduleList();
+			 $('#calendar').fullCalendar('removeEvents');
+			 $('#calendar').fullCalendar('rerenderEvents');
+		 	 $('#calendar').fullCalendar('refetchEvents');
+// 			scheduleList();
 		},
 		error:function(e){
 			
@@ -468,6 +473,12 @@ function dragEvent(event, delta){
 		
 	});
 }
+$("#editScheModal").on("hidden.bs.modal", function(){
+ 	$(this).find('form')[0].reset()
+});
+$("#newScheModal").on("hidden.bs.modal", function(){
+ 	$(this).find('form')[0].reset()
+});
 $(function() {
 	setTimeout(() => {
 		$("#exit_btn_button").fadeIn(1000);
