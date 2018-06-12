@@ -1,10 +1,28 @@
 package kr.co.lac.repository.domain;
 
 public class User {
-	private int    userNo;
+	private int userNo;
 	private String nickname;
 	private String email;
 	private String password;
+	private String newPassword;
+	private String checkNewPassword;
+
+	public String getCheckNewPassword() {
+		return checkNewPassword;
+	}
+
+	public void setCheckNewPassword(String checkNewPassword) {
+		this.checkNewPassword = checkNewPassword;
+	}
+
+	public String getNewPassword() {
+		return newPassword;
+	}
+
+	public void setNewPassword(String newPassword) {
+		this.newPassword = newPassword;
+	}
 	private String profilePic;
 	private String loginStateCode;
 	private int projectNo;

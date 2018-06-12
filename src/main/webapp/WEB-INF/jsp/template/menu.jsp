@@ -106,13 +106,6 @@
 			<input id="srarch_my_friends" type="text" placeholder="내 친구 검색">
 		</div>
 		<div class="friends_search_list">
-		
-			<div class="friedns_icon">
-				<img src="${pageContext.request.contextPath}/resources/img/default/defaultImg.jpg">
-				<span>닉네임#1223</span>
-				<span class="friends_utill_btn btn btn-default">삭제</span>
-			</div>
-
 
 		</div>
 	</div>
@@ -125,72 +118,6 @@
 		</div>
 		<div class="friends_search_list">
 		
-		
-			<div class="friedns_icon">
-				<img src="${pageContext.request.contextPath}/resources/img/default/defaultImg.jpg">
-				<span>닉네임#1223</span>
-				<span class="friends_utill_btn btn btn-default">추가</span>
-			</div>
-		
-			<div class="friedns_icon">
-				<img src="${pageContext.request.contextPath}/resources/img/default/defaultImg.jpg">
-				<span>닉네임#1223</span>
-				<span class="friends_utill_btn btn btn-default">추가</span>
-			</div>
-		
-			<div class="friedns_icon">
-				<img src="${pageContext.request.contextPath}/resources/img/default/defaultImg.jpg">
-				<span>닉네임#1223</span>
-				<span class="friends_utill_btn btn btn-default">추가</span>
-			</div>
-		
-			<div class="friedns_icon">
-				<img src="${pageContext.request.contextPath}/resources/img/default/defaultImg.jpg">
-				<span>닉네임#1223</span>
-				<span class="friends_utill_btn btn btn-default">추가</span>
-			</div>
-		
-			<div class="friedns_icon">
-				<img src="${pageContext.request.contextPath}/resources/img/default/defaultImg.jpg">
-				<span>닉네임#1223</span>
-				<span class="friends_utill_btn btn btn-default">추가</span>
-			</div>
-		
-			<div class="friedns_icon">
-				<img src="${pageContext.request.contextPath}/resources/img/default/defaultImg.jpg">
-				<span>닉네임#1223</span>
-				<span class="friends_utill_btn btn btn-default">추가</span>
-			</div>
-		
-			<div class="friedns_icon">
-				<img src="${pageContext.request.contextPath}/resources/img/default/defaultImg.jpg">
-				<span>닉네임#1223</span>
-				<span class="friends_utill_btn btn btn-default">추가</span>
-			</div>
-		
-			<div class="friedns_icon">
-				<img src="${pageContext.request.contextPath}/resources/img/default/defaultImg.jpg">
-				<span>닉네임#1223</span>
-				<span class="friends_utill_btn btn btn-default">추가</span>
-			</div>
-		
-			<div class="friedns_icon">
-				<img src="${pageContext.request.contextPath}/resources/img/default/defaultImg.jpg">
-				<span>닉네임#1223</span>
-				<span class="friends_utill_btn btn btn-default">추가</span>
-			</div>
-		
-			<div class="friedns_icon">
-				<img src="${pageContext.request.contextPath}/resources/img/default/defaultImg.jpg">
-				<span>닉네임#1223</span>
-				<span class="friends_utill_btn btn btn-default">추가</span>
-			</div>
-		
-			<div class="friedns_icon">
-				<img src="${pageContext.request.contextPath}/resources/img/default/defaultImg.jpg">
-				<span>닉네임#1223</span>
-				<span class="friends_utill_btn btn btn-default">추가</span>
-			</div>
 
 		</div>
 	</div>
@@ -203,46 +130,6 @@
 					<span>Request List</span>
 			</div>
 			<div class="friends_search_r_list">
-				<div class="friedns_icon">
-					<img src="${pageContext.request.contextPath}/resources/img/default/defaultImg.jpg">
-					<span>닉네임#1223</span>
-					<span class="friends_utill_btn btn btn-default">수락</span>
-				</div>
-				<div class="friedns_icon">
-					<img src="${pageContext.request.contextPath}/resources/img/default/defaultImg.jpg">
-					<span>닉네임#1223</span>
-					<span class="friends_utill_btn btn btn-default">수락</span>
-				</div>
-				<div class="friedns_icon">
-					<img src="${pageContext.request.contextPath}/resources/img/default/defaultImg.jpg">
-					<span>닉네임#1223</span>
-					<span class="friends_utill_btn btn btn-default">수락</span>
-				</div>
-				<div class="friedns_icon">
-					<img src="${pageContext.request.contextPath}/resources/img/default/defaultImg.jpg">
-					<span>닉네임#1223</span>
-					<span class="friends_utill_btn btn btn-default">수락</span>
-				</div>
-				<div class="friedns_icon">
-					<img src="${pageContext.request.contextPath}/resources/img/default/defaultImg.jpg">
-					<span>닉네임#1223</span>
-					<span class="friends_utill_btn btn btn-default">수락</span>
-				</div>
-				<div class="friedns_icon">
-					<img src="${pageContext.request.contextPath}/resources/img/default/defaultImg.jpg">
-					<span>닉네임#1223</span>
-					<span class="friends_utill_btn btn btn-default">수락</span>
-				</div>
-				<div class="friedns_icon">
-					<img src="${pageContext.request.contextPath}/resources/img/default/defaultImg.jpg">
-					<span>닉네임#1223</span>
-					<span class="friends_utill_btn btn btn-default">수락</span>
-				</div>
-				<div class="friedns_icon">
-					<img src="${pageContext.request.contextPath}/resources/img/default/defaultImg.jpg">
-					<span>닉네임#1223</span>
-					<span class="friends_utill_btn btn btn-default">수락</span>
-				</div>
 				
 			</div>
 		</div>
@@ -251,49 +138,6 @@
 					<span>Response List</span>
 			</div>
 			<div class="friends_search_r_list">
-			
-			
-				<div class="friedns_icon">
-					<img src="${pageContext.request.contextPath}/resources/img/default/defaultImg.jpg">
-					<span>닉네임#1223</span>
-					<span class="friends_utill_btn btn btn-default">거절</span>
-				</div>
-			
-				<div class="friedns_icon">
-					<img src="${pageContext.request.contextPath}/resources/img/default/defaultImg.jpg">
-					<span>닉네임#1223</span>
-					<span class="friends_utill_btn btn btn-default">거절</span>
-				</div>
-			
-				<div class="friedns_icon">
-					<img src="${pageContext.request.contextPath}/resources/img/default/defaultImg.jpg">
-					<span>닉네임#1223</span>
-					<span class="friends_utill_btn btn btn-default">거절</span>
-				</div>
-			
-				<div class="friedns_icon">
-					<img src="${pageContext.request.contextPath}/resources/img/default/defaultImg.jpg">
-					<span>닉네임#1223</span>
-					<span class="friends_utill_btn btn btn-default">거절</span>
-				</div>
-			
-				<div class="friedns_icon">
-					<img src="${pageContext.request.contextPath}/resources/img/default/defaultImg.jpg">
-					<span>닉네임#1223</span>
-					<span class="friends_utill_btn btn btn-default">거절</span>
-				</div>
-			
-				<div class="friedns_icon">
-					<img src="${pageContext.request.contextPath}/resources/img/default/defaultImg.jpg">
-					<span>닉네임#1223</span>
-					<span class="friends_utill_btn btn btn-default">거절</span>
-				</div>
-			
-				<div class="friedns_icon">
-					<img src="${pageContext.request.contextPath}/resources/img/default/defaultImg.jpg">
-					<span>닉네임#1223</span>
-					<span class="friends_utill_btn btn btn-default">거절</span>
-				</div>
 				
 				
 			</div>
@@ -308,68 +152,10 @@
 			<div class="noti_img">
 				<img src="${pageContext.request.contextPath}/resources/img/default/defaultImg.jpg">
 			</div>
-			<div class="noti_text">
+		<div class="noti_text">
 				<span>친구이름</span><br>
 				<span>친구요청이 왔습니다.</span>
 				<i class="noti_new material-icons">fiber_new</i>
-				<i class="noti_del_btn material-icons">cancel</i>
-			</div>
-		</div>
-		
-		<div class="noti_info">
-			<div class="noti_img">
-				<img src="${pageContext.request.contextPath}/resources/img/default/defaultImg.jpg">
-			</div>
-			<div class="noti_text">
-				<span>친구이름</span><br>
-				<span>친구요청이 왔습니다.</span>
-				<i class="noti_new material-icons">fiber_new</i>
-				<i class="noti_del_btn material-icons">cancel</i>
-			</div>
-		</div>
-		
-		<div class="noti_info">
-			<div class="noti_img">
-				<img src="${pageContext.request.contextPath}/resources/img/default/defaultImg.jpg">
-			</div>
-			<div class="noti_text">
-				<span>친구이름</span><br>
-				<span>친구요청이 왔습니다.</span>
-				<i class="noti_new material-icons">fiber_new</i>
-				<i class="noti_del_btn material-icons">cancel</i>
-			</div>
-		</div>
-		
-		<div class="noti_info">
-			<div class="noti_img">
-				<img src="${pageContext.request.contextPath}/resources/img/default/defaultImg.jpg">
-			</div>
-			<div class="noti_text">
-				<span>친구이름</span><br>
-				<span>메세지가 왔습니다.</span>
-				<i class="noti_del_btn material-icons">cancel</i>
-			</div>
-		</div>
-		
-		<div class="noti_info">
-			<div class="noti_img">
-				<img src="${pageContext.request.contextPath}/resources/img/default/defaultImg.jpg">
-			</div>
-			<div class="noti_text">
-				<span>친구이름</span><br>
-				<span>친구요청이 왔습니다.</span>
-				<i class="noti_new material-icons">fiber_new</i>
-				<i class="noti_del_btn material-icons">cancel</i>
-			</div>
-		</div>
-		
-		<div class="noti_info">
-			<div class="noti_img">
-				<img src="${pageContext.request.contextPath}/resources/img/default/defaultImg.jpg">
-			</div>
-			<div class="noti_text">
-				<span>프로젝트 이름</span><br>
-				<span>메세지가 왔습니다.</span>
 				<i class="noti_del_btn material-icons">cancel</i>
 			</div>
 		</div>
@@ -381,6 +167,7 @@
 			<div class="noti_text">
 				<span>프로젝트 이름</span><br>
 				<span>초대장이 왔습니다!</span>
+				<button>수락</button>
 				<i class="noti_del_btn material-icons">cancel</i>
 			</div>
 		</div>
@@ -393,9 +180,88 @@
 </div>
 
     <sitemesh:write property="body"/>
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.1.1/socket.io.dev.js"></script>
 <script>
+	var noti = io.connect('http://localhost:3001');
 	var userNo = ${user.userNo}
+	var notiInfo = {nickname:"${user.nickname}",profile_pic:"${user.profilePic}",user_no:${user.userNo}};
+	
+	$(()=>{noti.emit("join",userNo)});
+	noti.on(userNo+"join",function(result){
+		printNoti(result)
+	});
+	noti.on(userNo+"noti",function(result){
+		noti.emit("join",userNo);
+	});
+	
+	noti.on(userNo+"notiCnt",function(result){
+		$("#noti_cnt").html(result);
+	});
+	
+	$("#noti_screen").on("click",".noti_del_btn",function(){
+		let notiNo = $(this).attr("name");
+		$(this).parent().parent().remove();
+		noti.emit("deleteNoti",[notiNo,userNo+"notiCnt"]);
+	});
+	
+	$("#noti_screen").on("click",".noti_info",function(){
+		let notiNo = $(this).attr("name");
+		$(this).find(".noti_new").remove();
+		noti.emit("viewNoti",[notiNo,userNo+"notiCnt"]);
+	});
+	
+	function printNoti(data){
+		let area = $("#noti_screen");
+		let newNotiCnt = 0;
+		area.html("");
+		$("#noti_cnt").html("");
+		for(d of data){
+			let newNoti = ""
+			if(d.noti_state_code=="00204"){
+				newNoti = `<i class="noti_new material-icons">fiber_new</i>`
+				newNotiCnt++;
+			}
+			
+			$("#noti_cnt").html(newNotiCnt == 0 ? "" : newNotiCnt);
+			switch (d.noti_type_code) {
+
+			case "00201": 
+				area.prepend(`
+						<div class="noti_info" id="`+d.noti_no+`noti" name="`+d.noti_no+`">
+							<div class="noti_img">
+								<img src="${pageContext.request.contextPath}`+d.profile_pic+`">
+							</div>
+							<div class="noti_text">
+								<span>`+d.nickname+`</span><br>
+								<span>친구요청이 왔습니다.</span>
+								`+newNoti+`
+								<i class="noti_del_btn material-icons" name="`+d.noti_no+`">cancel</i>
+							</div>
+						</div>
+						`)
+				break;
+			case "00202": 
+				area.append(`
+						<div class="noti_info" id="`+d.noti_no+`noti" name="`+d.noti_no+`">
+							<div class="noti_img">
+								<img src="${pageContext.request.contextPath}`+d.profile_pic+`">
+							</div>
+							<div class="noti_text">
+								<span>프로젝트 이름</span><br>
+								<span>초대장이 왔습니다!</span>
+								<button>수락</button>
+								`+newNoti+`
+								<i class="noti_del_btn material-icons" name="`+d.noti_no+`">cancel</i>
+							</div>
+						</div>
+						`)
+				break;
+	
+			}
+		}
+	}
+	
+	
 	
 	$("#back_ground_shadow").on("click",function(){
 		$(this).fadeToggle(300)
@@ -456,20 +322,18 @@
 	})
 	
 	
-/* 	$("#srarch_my_friends").on("keyup",function(){
-		console.log($(this).val())
+ 	$("#srarch_my_friends").on("keyup",function(){
 		searchFriends($(this).val(),"friends",$("#my_friends div.friends_search_list"),"삭제")
 	})
 	
 	$("#srarch_new_friends").on("keyup",function(){
-		console.log($(this).val())
 		searchFriends($(this).val(),"unknown",$("#new_friends div.friends_search_list"),"추가")
 	})
 	
 	$("#request_friends").on("click",function(){
 		searchFriends("","request",$("#request_friends_list div.friends_search_r_list"),"취소")
 		searchFriends("","response",$("#response_friends_list div.friends_search_r_list"),"수락")
-	}) */
+	})
 	
 	$(()=>{
 		searchFriends($("#srarch_new_friends").val(),"unknown",$("#new_friends div.friends_search_list"),"추가")
@@ -487,6 +351,10 @@
 	}
 	function noLoading() {$(document).ajaxStart(function(){$("#back_ground_loding").css({"display":"none"});})}
 
+	
+	
+	
+	
 	$("#my_friends").on("click","span.friends_utill_btn",function(){
 		let remove = $(this).parent(".friedns_icon");
 		loading();
@@ -502,14 +370,20 @@
 	
 	$("#new_friends").on("click","span.friends_utill_btn",function(){
 		let remove = $(this).parent(".friedns_icon");
+		let resNo = $(this).siblings("input").val();
 		loading();
 		$.ajax({
 			url:'${pageContext.request.contextPath}/friends/request.json',
 			type:"POST",
-			data: {"fReqUNo":userNo,"fResUNo":$(this).siblings("input").val()}
+			data: {"fReqUNo":userNo,"fResUNo":resNo}
 		}).done(function (result) {
 				remove.fadeOut(100);
 				searchFriends("","request",$("#request_friends_list div.friends_search_r_list"),"취소");
+				notiInfo["noti_type_code"] = "00201";
+				notiInfo["noti_req_no"] = userNo;
+				notiInfo["noti_res_no"] = resNo;
+				notiInfo["sql"] = ["00201",userNo,resNo];
+				noti.emit("requsetNoti",notiInfo);
 			})
 	})
 	
@@ -538,6 +412,11 @@
 				searchFriends($("#srarch_new_friends").val(),"unknown",$("#new_friends div.friends_search_list"),"추가");
 			})
 	})
+	
+	
+	
+	
+	
 	
 	
 	function searchFriends(nickname,type,area,btn) {

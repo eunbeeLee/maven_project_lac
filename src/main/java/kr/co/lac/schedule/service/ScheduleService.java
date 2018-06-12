@@ -7,9 +7,9 @@ import kr.co.lac.repository.domain.Schedule;
 public interface ScheduleService {
 	public int selectIndex() throws Exception;
 	
-	public Schedule[] selectSchedule() throws Exception;
+	public Schedule[] selectSchedule(int userNo) throws Exception;
 	
-	public List<Schedule> selectScheduleByMonth(String eventMonth) throws Exception;
+	public List<Schedule> selectScheduleByMonth(Schedule schedule) throws Exception;
 	
 	public void insertSchedule(Schedule schedule) throws Exception;
 	
