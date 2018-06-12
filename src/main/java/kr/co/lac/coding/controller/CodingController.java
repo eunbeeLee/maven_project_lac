@@ -17,12 +17,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class CodingController {
 	
 	
-	@RequestMapping("/codingRoom.do")
-	public void codingRoom() throws Exception {}
-	
-	@RequestMapping("/waitRoom.do")
-	public void waitRoom() throws Exception {}
-	
 	@RequestMapping("/compile.json")
 	@ResponseBody
 	public String compile(String source)throws Exception{

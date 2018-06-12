@@ -1,4 +1,4 @@
-	#calendar, #calendar div, #newScheModal div, #scheduleList div, #editScheModal div{
+	body > div.swal2-container.swal2-center.swal2-fade.swal2-shown > div, #calendar, #calendar div, #newScheModal div, #scheduleList div, #editScheModal div{
     	border: none;
 	}
 	#menu_bar{
