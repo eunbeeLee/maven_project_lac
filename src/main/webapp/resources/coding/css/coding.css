@@ -84,3 +84,11 @@ div {
     height: 14%;
     width: 100%;
 }
+#side_name > span:nth-child(1),#side_board > span:nth-child(1){
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	word-wrap: normal;
+    width: 250px;
+    display: inline-block;
+	overflow: hidden;
+}

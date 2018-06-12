@@ -54,12 +54,18 @@ public class ProjectController {
 		projectService.inviteFriends(search);
 		return "redirect:/project/"+search.getProjectNo()+"/codingRoom.do";
 	}
+	
 	@RequestMapping("/leaveClass.do")
 	public String leaveClass(Search search) throws Exception {
 		projectService.leaveClass(search);
 		return "redirect:/project/lobby.do";
 	}
 	
+	@RequestMapping("/updateProjectName.json")
+	@ResponseBody
+	public void updateProjectName(Search search) throws Exception {
+		projectService.updateProjectName(search);
+	}
 }
 
 

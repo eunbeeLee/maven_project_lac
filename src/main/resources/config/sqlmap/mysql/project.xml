@@ -107,9 +107,17 @@
 	 where project_no=#{projectNo} 
 	 order by join_date limit 1
 	</select>
-	<update id="updateProjectMaster" parameterType="search">
+	<update id="updateProject" parameterType="search">
 	update project_lac.tb_project
+	<if test="type == 'master'">
 	   set maseter_user_no=#{userNo}
+    </if>
+	<if test="type == 'projectName'">
+	   set project_name=#{projectName}
+    </if>
+	<if test="type == 'projectInfo'">
+	   set project_info=#{projectInfo}
+    </if>
 	 where project_no=#{projectNo}
 	</update>
 </mapper>

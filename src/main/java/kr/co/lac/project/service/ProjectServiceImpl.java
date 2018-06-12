@@ -53,7 +53,13 @@ public class ProjectServiceImpl implements ProjectService {
 	public void leaveClass(Search search) throws Exception{
 		mapper.leaveProject(search);
 		search.setUserNo(mapper.selectProjectNo(search));
-		mapper.updateProjectMaster(search);
+		search.setType("master");
+		mapper.updateProject(search);
+	}
+
+	@Override
+	public void updateProjectName(Search search) {
+		mapper.updateProject(search);
 	}
 	
 }

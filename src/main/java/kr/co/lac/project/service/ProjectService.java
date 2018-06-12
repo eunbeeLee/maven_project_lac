@@ -14,5 +14,6 @@ public interface ProjectService {
 	public List<User> selectInviteFriends(Search search);
 	public void inviteFriends(Search search);
 	public void leaveClass(Search search) throws Exception;
+	public void updateProjectName(Search search);
 }
  

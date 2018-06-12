@@ -15,15 +15,16 @@
             
             <div id="side_box">
                 <div id="side_name">
-                <span>${project.projectName}</span>
-                <span class="update_btns btn btn-default"><i class="material-icons">create</i></span>
+                <span title="${project.projectName}">${project.projectName}</span>
+                <span value="0" id="change_projectName" class="update_btns btn btn-default"><i class="material-icons">create</i></span>
                 </div>
 				<div id="side_img">
 					<img src="${pageContext.request.contextPath}/${project.projectPic}">
 					<span class="side_img_btns btn btn-default"><i class="material-icons">wallpaper</i></span>
 				</div>
 				<div id="side_board">
-					<span>${project.projectInfo}</span> <span class="side_board_update_btn btn btn-default">수정</span>
+					<span title="${project.projectInfo}">${project.projectInfo}</span>
+				    <span value="0"  id="change_projectInfo" class="side_board_update_btn btn btn-default">수정</span>
 				</div>
 				<div id="side_member_list">
 					<div id="side_member_text">참여목록 ${project.userCount}</div>
@@ -216,6 +217,53 @@
 				location.href="${pageContext.request.contextPath}/project/leaveClass.do?projectNo=${project.projectNo}&userNo=${user.userNo}";
 			  }
 			})
+	});
+	
+	$("#side_name").on("keyup",'span:nth-child(1)',function(e){
+		if(e.keyCode==13)$("#change_projectName").click();
+	});
+	$("#side_board").on("keyup",'span:nth-child(1)',function(e){
+		if(e.keyCode==13)$("#change_projectInfo").click();
+	});
+	
+	$("#side_name").on("click",'#change_projectName', function(){
+		console.dir($(this).attr("value"));
+		if($(this).attr("value")==0){
+			$("#side_name > span:nth-child(1)").attr("contenteditable","true").css("background-color","white").focus();
+			$(this).attr("value",1);
+		}else{
+			var projectName = $("#side_name > span:nth-child(1)").text();
+			$.ajax({
+				url:'${pageContext.request.contextPath}/project/updateProjectName.json',
+				data: {"projectName":projectName,"projectNo":'${project.projectNo}',"type":'projectName'}
+			}).done(function(result){
+				$("#side_name").html('');
+				$("#side_name").html(`<span title="`+projectName+`">`+projectName+`</span>
+		                <span value="0" id="change_projectName" class="update_btns btn btn-default">
+		                <i class="material-icons">create</i></span>
+			               `);
+			});
+		}
+		
+	});
+	
+	$("#side_board").on("click",'#change_projectInfo', function(){
+		console.dir($(this).attr("value"));
+		if($(this).attr("value")==0){
+			$("#side_board > span:nth-child(1)").attr("contenteditable","true").css("background-color","white").focus();
+			$(this).attr("value",1);
+		}else{
+			var projectInfo= $("#side_board > span:nth-child(1)").text();
+			$.ajax({
+				url:'${pageContext.request.contextPath}/project/updateProjectName.json',
+				data: {"projectInfo":projectInfo,"projectNo":'${project.projectNo}',"type":'projectInfo'}
+			}).done(function(result){
+				$("#side_board").html('');
+				$("#side_board").html(`<span title="`+projectInfo+`">`+projectInfo+`</span>
+					    <span value="0"  id="change_projectInfo" class="side_board_update_btn btn btn-default">수정</span>`);
+			});
+		}
+		
 	});
 	$("#friends_invitation_btn").on("click",function(){
 			$("#firends_invite").fadeToggle(300);

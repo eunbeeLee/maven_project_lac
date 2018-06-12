@@ -8,6 +8,22 @@ public class Search {
 							   request  : 친구신청
 							   response : 친구요청
 							*/
+	private String projectName;
+	private String projectInfo;
+	
+	
+	public String getProjectInfo() {
+		return projectInfo;
+	}
+	public void setProjectInfo(String projectInfo) {
+		this.projectInfo = projectInfo;
+	}
+	public String getProjectName() {
+		return projectName;
+	}
+	public void setProjectName(String projectName) {
+		this.projectName = projectName;
+	}
 	private int projectNo;
 	
 	public int getProjectNo() {
