@@ -15,80 +15,39 @@
             
             <div id="side_box">
                 <div id="side_name">
-                <span>채팅방 이름</span>
+                <span>${project.projectName}</span>
                 <span class="update_btns btn btn-default"><i class="material-icons">create</i></span>
                 </div>
 				<div id="side_img">
-					<img src="/project_lac/jsp/template/The-Burning-Blue-computers-wallpapers-windows-7.jpg">
+					<img src="${pageContext.request.contextPath}/${project.projectPic}">
 					<span class="side_img_btns btn btn-default"><i class="material-icons">wallpaper</i></span>
 				</div>
 				<div id="side_board">
-					<span>텔테테테에레테렝테렡ㄹ</span> <span class="side_board_update_btn btn btn-default">수정</span>
+					<span>${project.projectInfo}</span> <span class="side_board_update_btn btn btn-default">수정</span>
 				</div>
 				<div id="side_member_list">
-					<div id="side_member_text">참여목록</div>
+					<div id="side_member_text">참여목록 ${project.userCount}</div>
 					<div id="side_member_info">
-					
-					
+					<c:forEach items="${userList}" var="list">
 						<div class="side_member_icon friedns_icon">
-							<img src="/project_lac/jsp/template/defalutImg.jpg">
-							<span>닉네임#1223</span>
+							<img src="${pageContext.request.contextPath}/${list.profilePic}">
+							<span>${list.nickname}</span>
 						</div>
+					</c:forEach>
 					
-						<div class="side_member_icon friedns_icon">
-							<img src="/project_lac/jsp/template/defalutImg.jpg">
-							<span>닉네임#1223</span>
-						</div>
-					
-						<div class="side_member_icon friedns_icon">
-							<img src="/project_lac/jsp/template/defalutImg.jpg">
-							<span>닉네임#1223</span>
-						</div>
-					
-						<div class="side_member_icon friedns_icon">
-							<img src="/project_lac/jsp/template/defalutImg.jpg">
-							<span>닉네임#1223</span>
-						</div>
-					
-						<div class="side_member_icon friedns_icon">
-							<img src="/project_lac/jsp/template/defalutImg.jpg">
-							<span>닉네임#1223</span>
-						</div>
-					
-						<div class="side_member_icon friedns_icon">
-							<img src="/project_lac/jsp/template/defalutImg.jpg">
-							<span>닉네임#1223</span>
-						</div>
-					
-						<div class="side_member_icon friedns_icon">
-							<img src="/project_lac/jsp/template/defalutImg.jpg">
-							<span>닉네임#1223</span>
-						</div>
-					
-						<div class="side_member_icon friedns_icon">
-							<img src="/project_lac/jsp/template/defalutImg.jpg">
-							<span>닉네임#1223</span>
-						</div>
-					
-						<div class="side_member_icon friedns_icon">
-							<img src="/project_lac/jsp/template/defalutImg.jpg">
-							<span>닉네임#1223</span>
-						</div>
-					
-						<div class="side_member_icon friedns_icon">
-							<img src="/project_lac/jsp/template/defalutImg.jpg">
-							<span>닉네임#1223</span>
-						</div>
-						
-						
 					</div>
 				</div>
-				<div id="friends_invitation_btn" class="side_btn_button btn btn-primary">친구초대</div>
-				<div class="side_btn_button btn btn-danger">클래스 탈퇴</div>
+				<div id="friends_invitation_btn" class="side_btn_button btn btn-primary" >친구초대</div>
+				<div id="leave_class" class="side_btn_button btn btn-danger">클래스 탈퇴</div>
             </div>
         </div>
     </div>
-
+    <div id="search_invite"  style="display:none;">
+		<input id="srarch_my_invite" type="text" placeholder="내 친구 검색">
+	</div>
+	<div id="firends_invite" class="col-md-3" style="display:none;" >
+	</div>
+	</div>
 
 
 
@@ -233,6 +192,59 @@
     <script src="${pageContext.request.contextPath}/resources/js/chatting.js"></script>
    -->
 <script>
+	$("#leave_class").on("click",function(){
+		
+	});
+	$("#friends_invitation_btn").on("click",function(){
+			$("#firends_invite").fadeToggle(300);
+			$("#search_invite").fadeToggle(300);
+			$("#back_ground_shadow").fadeToggle(300);
+			var nickname = "";
+			if($("#srarch_my_invite").val()!=""){
+				nickname=$("#srarch_my_invite").val();
+			}
+			$.ajax({
+				url:'${pageContext.request.contextPath}/project/selectInviteFriends.json',
+				data: {"userNo":'${user.userNo}',"type":"friends","nickname":nickname,"projectNo":'${project.projectNo}'}
+			}).done(function (result) {
+				area = $("#firends_invite").html('');
+				for(info of result){
+					if(info.projectNo!=${project.projectNo}){
+						area.append(`
+						<div class="side_member_icon friedns_icon">
+						<img src="${pageContext.request.contextPath}/`+info.profilePic+`">
+						<span>`+info.nickname+`</span>
+						<div class="btn btn-default"><a href="${pageContext.request.contextPath}/project/inviteFriends.do?projectNo=${project.projectNo}&userNo=`+info.userNo+`"> 초대 </a></div>
+						</div>
+						`);				
+					}
+				}
+			})
+	});
+	$("#srarch_my_invite").on("keyup",function(){
+		noLoading();
+		$.ajax({
+			url:'${pageContext.request.contextPath}/project/selectInviteFriends.json',
+			data: {"userNo":'${user.userNo}',"type":"friends","nickname":this.value,"projectNo":'${project.projectNo}'}
+		}).done(function (result) {
+			area = $("#firends_invite").html('');
+			for(info of result){
+				area = $("#firends_invite").html('');
+				for(info of result){
+					if(info.projectNo!=${project.projectNo}){
+						area.append(`
+						<div class="side_member_icon friedns_icon">
+						<img src="${pageContext.request.contextPath}/`+info.profilePic+`">
+						<span>`+info.nickname+`</span>
+						<div class="btn btn-default"><a href="${pageContext.request.contextPath}/project/inviteFriends.do?projectNo=${project.projectNo}&userNo=`+info.userNo+`"> 초대 </a></div>
+						</div>
+						`);				
+					}
+				}			
+			}
+		})
+	});	
+	
 	var socket = io.connect('http://localhost:3000');
 	var user = {};
 	
@@ -366,7 +378,7 @@
         side_btn.text("close");
         side_bar_btn = true;
     }
-
+	
 
 
 

@@ -7,6 +7,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import kr.co.lac.repository.domain.Project;
+import kr.co.lac.repository.domain.Search;
+import kr.co.lac.repository.domain.User;
 import kr.co.lac.repository.mapper.ProjectMapper;
 
 @Service("projectService")
@@ -27,5 +29,24 @@ public class ProjectServiceImpl implements ProjectService {
 		return mapper.selectProjectList(userNo);
 	}
 
+	@Override
+	public Project selectProjectByNo(int projectNo) {
+		return mapper.selectProjectByNo(projectNo);
+	}
+
+	@Override
+	public List<User> selectProjectByUser(int projectNo) {
+		return mapper.selectProjectByUser(projectNo);
+	}
+
+	@Override
+	public List<User> selectInviteFriends(Search search) {
+		return mapper.selectInviteFriends(search);
+	}
+
+	@Override
+	public void inviteFriends(Search search) {
+		mapper.inviteFriends(search);
+	}
 	
 }

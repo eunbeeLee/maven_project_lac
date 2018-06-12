@@ -14,7 +14,7 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/fullcalendar/fullcalendar.min.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/fullcalendar/fullcalendar.print.min.css" media="print">
 
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/coding.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/coding/css/coding.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/menu.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/chatting/css/chatting.css">
 <script src="${pageContext.request.contextPath}/resources/js/jquery.min.js"></script>
@@ -399,6 +399,8 @@
 		$("#create_class").fadeOut(300);
 		$("#my_info").fadeOut(300);
 		$("#friends_list").fadeOut(300);
+		$("#firends_invite").fadeOut(300);
+		$("#search_invite").fadeOut(300);
 	})
 	$("#create_btn_button").on("click",()=>{
 		$("#create_class").fadeToggle(300);

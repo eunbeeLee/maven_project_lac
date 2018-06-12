@@ -7,6 +7,17 @@ public class User {
 	private String password;
 	private String profilePic;
 	private String loginStateCode;
+	private int projectNo;
+	
+	public int getProjectNo() {
+		return projectNo;
+	}
+
+	public User setProjectNo(int projectNo) {
+		this.projectNo = projectNo;
+		return this;
+	}
+
 	public int getUserNo() {
 		return userNo;
 	}

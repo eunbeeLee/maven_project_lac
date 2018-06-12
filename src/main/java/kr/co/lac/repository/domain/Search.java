@@ -8,7 +8,15 @@ public class Search {
 							   request  : 친구신청
 							   response : 친구요청
 							*/
+	private int projectNo;
 	
+	public int getProjectNo() {
+		return projectNo;
+	}
+	public Search setProjectNo(int projectNo) {
+		this.projectNo = projectNo;
+		return this;
+	}
 	public int getUserNo() {
 		return userNo;
 	}
