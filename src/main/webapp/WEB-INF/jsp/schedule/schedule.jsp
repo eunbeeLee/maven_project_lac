@@ -269,6 +269,8 @@ $(document).ready(function() {
 		    	  
 		    });
   });
+  
+  
   //이벤트 리스트 출력
   	function scheduleList(){
 		var html="";
@@ -342,6 +344,16 @@ $(document).ready(function() {
 
 //새 일정 추가
 $("#addSchBtn").click(function(e){
+	//일정 유효성 검사
+	var newSDate = $("#startDate").val().split("-");
+	var newStart = new Date(newSDate[0],newSDate[1],newSDate[2]);
+	var newEDate = $("#endDate").val().split("-");
+	var newEnd = new Date(newSDate[0],newSDate[1],newSDate[2]);
+	
+	if(newStart.getTime() > newEnd.getTime()){
+		alert("날짜유효성 X");
+	}
+	
 	  $("#schNo").attr({"value":++index});
 	  e.preventDefault();
 	  console.log($("#addNewSchedule").serialize());
@@ -375,12 +387,6 @@ $("#addSchBtn").click(function(e){
 			  console.log(e);
 		  }
 	  });
-	  
-	  //새일정 추가 모달 초기화
-	  $("#startDate").attr({"value":""});
-	  $("#endDate").attr({"value":""});
-	  
-// 	  scheduleList;
 });
 
 //일정편집버튼 클릭
