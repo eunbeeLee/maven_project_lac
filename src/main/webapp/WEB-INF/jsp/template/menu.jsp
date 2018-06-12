@@ -210,6 +210,11 @@
 		noti.emit("viewNoti",[notiNo,userNo+"notiCnt"]);
 	});
 	
+	$("#noti_screen").on("click",".projectJoin",function(){
+		let projectNo = $(this).attr("name");
+		noti.emit("insertProjectParticipant",[userNo,projectNo]);
+	});
+	
 	function printNoti(data){
 		let area = $("#noti_screen");
 		let newNotiCnt = 0;
@@ -247,9 +252,9 @@
 								<img src="${pageContext.request.contextPath}`+d.profile_pic+`">
 							</div>
 							<div class="noti_text">
-								<span>프로젝트 이름</span><br>
+								<span>`+d.noti_attach_msg+`</span><br>
 								<span>초대장이 왔습니다!</span>
-								<button>수락</button>
+								<button class="projectJoin btn btn-primary" name="`+d.project_no+`">수락</button>
 								`+newNoti+`
 								<i class="noti_del_btn material-icons" name="`+d.noti_no+`">cancel</i>
 							</div>

@@ -10,6 +10,9 @@ http.listen(3001,function(){    // 포트 열어주기
 
 io.on('connection',function(socket){
     
+    socket.on("test",function(data){
+        console.log("Test")
+    })
     socket.on("join",function(data){
         
         selectNotiList(data,data+"join");
@@ -17,6 +20,12 @@ io.on('connection',function(socket){
     socket.on("requsetNoti",function(data){
         insertNoti(data,data.noti_res_no+"noti");
     });
+    socket.on("requsetNotiByProject",function(data){
+        insertNotiByProject(data,data.noti_res_no+"noti");
+    });
+    socket.on("insertProjectParticipant",function(data){
+        insertProjectParticipant(data);
+    }); 
     socket.on("deleteNoti",function(data){
         deleteNoti(data);
     });
@@ -123,6 +132,72 @@ var insertNoti = function (data,key){
                 else{
                     io.emit(key,data);
                 }
+            });   
+        }
+    });   
+}
+
+var insertNotiByProject = function (data,key){
+    let sql1 = `
+    delete
+      from tb_notification
+     where noti_type_code = ?
+       and noti_res_no = ?
+       and project_no = ?
+    `;
+    let sql2 = `
+        insert into tb_notification(
+               noti_type_code,
+               noti_req_no,
+               noti_res_no,
+               project_no,
+               noti_attach_msg
+        )
+        values(
+               ?,
+               ?,
+               ?,
+               ?,
+               ?
+        )
+    `;
+    
+    conn.query(sql1,data.sql,function(err,result) {
+        if(err) {throw new Error(err);}
+        else{
+            conn.query(sql2,data.sql,function(err,result) {
+                if(err) {throw new Error(err);}
+                else{
+                    io.emit(key,data);
+                }
+            });   
+        }
+    });   
+}
+
+var insertProjectParticipant = function (data,key){
+    let sql1 = `
+    delete
+      from tb_notification
+     where noti_res_no = ?
+       and porject_no = ?
+    `;
+    let sql2 = `
+        insert into tb_project_participant(
+            user_no,
+            project_no
+        )
+        values(
+               ?,
+               ?
+        )
+    `;
+    
+    conn.query(sql1,data,function(err,result) {
+        if(err) {throw new Error(err);}
+        else{
+            conn.query(sql2,data,function(err,result) {
+                if(err) {throw new Error(err);}
             });   
         }
     });   
