@@ -79,6 +79,13 @@ public class UserController {
 		userService.leaveId(user);
 		return "redirect:loginForm.do";
 	}
+	@RequestMapping("/editNick.do")
+	public String editNick(User user) throws Exception {
+		System.out.println(user.getNickname());
+		System.out.println(user.getUserNo());
+		userService.editNick(user);
+		return "redirect:/project/lobby.do";
+	}
 	
 	
 	
