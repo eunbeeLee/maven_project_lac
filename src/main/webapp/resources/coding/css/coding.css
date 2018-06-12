@@ -57,3 +57,30 @@ div {
 	    float: right;
     margin-right: 100px;
 }
+#firends_invite{
+    display: none;
+    height: 50%;
+    width: 20%;
+    top: 25%;
+    left: 40%;
+    z-index: 1000;
+    position: fixed;
+    background-color: #fff;
+}
+.side_member_icon {
+    line-height: 58px;
+}
+#search_invite{
+    display: none;
+    height: 50%;
+    width: 20%;
+    top: 18%;
+    left: 40%;
+    z-index: 1000;
+    position: fixed;
+    background-color: #fff;
+}
+#srarch_my_invite{
+    height: 14%;
+    width: 100%;
+}

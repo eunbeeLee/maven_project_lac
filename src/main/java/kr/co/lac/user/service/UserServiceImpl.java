@@ -22,6 +22,30 @@ public class UserServiceImpl implements UserService {
 	public void insertUser(User user) throws Exception {
 		mapper.insertUser(user);
 	}
+
+	@Override
+	public void editPass(User user) throws Exception {
+		mapper.editPass(user);
+		
+	}
+
+	@Override
+	public void editNick(User user) throws Exception {
+		mapper.editNick(user);
+		
+	}
+
+	@Override
+	public void leaveId(User user) throws Exception {
+		mapper.leaveId(user);
+		
+	}
+
+	@Override
+	public int findUserByPass(User user) throws Exception {
+		return mapper.findUserByPass(user);
+	}
+	
 	
 	
 }

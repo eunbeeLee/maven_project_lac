@@ -5,6 +5,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.co.lac.repository.domain.User;
 import kr.co.lac.user.service.UserService;
@@ -49,5 +50,36 @@ public class UserController {
 		userService.insertUser(user);
 		return "redirect:loginForm.do";
 	}
+	
+	@RequestMapping("/editPass.json")
+	@ResponseBody
+	public String editPass(User user) throws Exception {
+		String result = "";
+		System.out.println(user.getPassword());
+		System.out.println(user.getNewPassword());
+		System.out.println(user.getCheckNewPassword());
+		int count = userService.findUserByPass(user);
+		if(count == 0 ) {
+			result="기존 비밀번호와 일치하지 않음";
+			System.out.println(result);
+		}else if(!(user.getNewPassword().equals(user.getCheckNewPassword()))) {
+			result="새 비밀번호와 비밀번호 재입력 값 일치하지 않음";
+			System.out.println(result);
+		}else {
+			user.setPassword(user.getNewPassword());
+			userService.editPass(user);
+			result="비밀번호 수정 완료!";
+			System.out.println(result);
+		}
+		return result;
+	}
+	
+	@RequestMapping("/leaveId.do")
+	public String leaveId(User user) throws Exception {
+		userService.leaveId(user);
+		return "redirect:loginForm.do";
+	}
+	
+	
 	
 }

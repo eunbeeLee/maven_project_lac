@@ -12,7 +12,15 @@
 		<result column="maseter_user_nickname" property="maseterUserNickname"></result>
 		<result column="user_count" property="userCount"></result>
 	</resultMap>
-
+	<resultMap id="userMap" type="user">
+		<result column="user_No" property="userNo"></result>
+		<result column="project_No" property="projectNo"></result>
+		<result column="nickname" property="nickname"></result>
+		<result column="email" property="email"></result>
+		<result column="password" property="password"></result>
+		<result column="profile_pic" property="profilePic"></result>
+		<result column="login_state_code" property="loginStateCode"></result>
+	</resultMap>
 	<insert id="insertProject" parameterType="project">
 		<selectKey resultType="int" keyProperty="projectNo" order="AFTER"> 
 			select ifnull(max(project_no),0) from tb_project
@@ -48,5 +56,60 @@
 							   where user_no = #{userNo})
 		 group by p.project_no
 	</select>
-
+	<select id="selectProjectByNo" parameterType="int" resultMap="projectMap">
+	SELECT pp.*, count(pc.USER_NO)  as user_count
+	  FROM project_lac.tb_project pp
+	 inner join project_lac.tb_project_participant pc
+	    on pp.project_no=pc.project_no
+	 where pp.project_no=#{userNo}
+	</select>
+	<select id="selectProjectByUser" parameterType="int" resultMap="userMap">
+	select u.*,pc.project_no
+	  from project_lac.tb_user u
+      inner join project_lac.tb_project_participant pc
+		on u.user_no=pc.user_no
+	 where u.USER_NO in(
+		   SELECT pc.USER_NO
+		   FROM project_lac.tb_project pp
+		   inner join project_lac.tb_project_participant pc
+		   on pp.project_no=pc.project_no
+		   where pp.project_no=#{userNo})
+	group by u.user_no
+	</select>
+	<select id="selectInviteFriends" parameterType="search" resultMap="userMap">
+		select u.*,pc.project_no
+	      from project_lac.tb_user u
+         inner join project_lac.tb_project_participant pc
+	     	on u.user_no=pc.user_no
+		 where u.user_no != #{userNo}
+		   and u.user_no in (select f_user_no
+		                     from tb_friends f
+		                    where f.user_no = #{userNo})
+		   and nickname like concat('%',#{nickname},'%')
+		   and pc.project_no=#{projectNo}
+		 order by nickname
+	</select>
+	<insert id="inviteFriends" parameterType="search" >
+	insert into project_lac.tb_project_participant(
+		project_no,user_no
+	)values(
+	  #{projectNo},#{userNo}
+	)
+	</insert>
+	<delete id="leaveProject" parameterType="search">
+	delete from project_lac.tb_project_participant
+	 where project_no=#{projectNo} 
+   	   and user_no=#{userNo}
+	</delete>
+	<select id="selectProjectNo" parameterType="search" resultType="int">
+	SELECT USER_NO 
+	  FROM project_lac.tb_project_participant 
+	 where project_no=#{projectNo} 
+	 order by join_date limit 1
+	</select>
+	<update id="updateProjectMaster" parameterType="search">
+	update project_lac.tb_project
+	   set maseter_user_no=#{userNo}
+	 where project_no=#{projectNo}
+	</update>
 </mapper>

@@ -11,15 +11,17 @@
 		<result column="sch_color" property="schColor"></result>
 		<result column="event_month" property="eventMonth"></result>
 	</resultMap>
-	<select id="selectSchedule" resultMap="scheduleMap">
+	<select id="selectSchedule" parameterType="int" resultMap="scheduleMap">
 		select *
 		  from tb_schedule
+		 where user_no = #{userNo}
 		 order by start_date
 	</select>
-	<select id="selectScheduleByMonth" parameterType="string" resultMap="scheduleMap">
+	<select id="selectScheduleByMonth" parameterType="schedule" resultMap="scheduleMap">
 		select *
 		  from tb_schedule
-		 where substr(start_date, 6, 2) = #{eventMonth} or substr(end_date, 6, 2) = #{eventMonth}
+		 where (substr(start_date, 6, 2) = #{eventMonth} or substr(end_date, 6, 2) = #{eventMonth})
+		   and user_no = #{userNo}
 		 order by start_date
 	</select>
 
