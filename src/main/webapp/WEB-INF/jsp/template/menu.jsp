@@ -21,6 +21,8 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/coding/css/coding.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/menu.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/chatting/css/chatting.css">
+<link href="http://vjs.zencdn.net/5.4.4/video-js.css" rel="stylesheet">
+<script src="http://vjs.zencdn.net/5.4.4/video.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/jquery.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/bootstrap/js/bootstrap.min.js"></script>
 <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
