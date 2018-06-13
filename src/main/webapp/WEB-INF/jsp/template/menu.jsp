@@ -287,6 +287,8 @@
 		}else{
 // 			alert("수정클릭");
 			$("#userNickname").attr("click",0);
+			alert("닉네임변경이 완료되었습니다.");
+			loading();
 			 location.href="${pageContext.request.contextPath}/main/editNick.do?userNo=${user.userNo}&nickname="+$("#userNickname").val();
 		}
 	});

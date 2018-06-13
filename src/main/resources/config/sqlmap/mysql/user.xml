@@ -25,6 +25,11 @@
 	 	  from tb_user
 	 	 where user_no = #{userNo} and password = #{password}
 	</select>
+	<select id="findUserByNo" parameterType="int" resultMap="userMap">
+	 	select *
+	 	  from tb_user
+	 	 where user_no = #{userNo}
+	</select>
 	<update id="editPass" parameterType="user">
 		update tb_user
 	  	   set password=#{password}
