@@ -45,6 +45,11 @@ public class UserServiceImpl implements UserService {
 	public int findUserByPass(User user) throws Exception {
 		return mapper.findUserByPass(user);
 	}
+
+	@Override
+	public User findUserByNo(int userNo) throws Exception {
+		return mapper.findUserByNo(userNo);
+	}
 	
 	
 	
