@@ -32,7 +32,7 @@ $("#compile").on("click", function() {
 	function runCode() {
 		console.log($("#importExport").val());
 		$.ajax({
-			url : '${pageContext.request.contextPath}/coding/compile.json',
+			url : '/maven_project_lac/coding/compile.json',
 			type : "POST",
 			data : {
 				"source" : $("#importExport").val()
