@@ -101,7 +101,7 @@
 	 where project_no=#{projectNo} 
    	   and user_no=#{userNo}
 	</delete>
-	<select id="selectProjectNo" parameterType="search" resultType="int">
+	<select id="selectProjectNo" parameterType="search" resultType="search">
 	SELECT USER_NO 
 	  FROM project_lac.tb_project_participant 
 	 where project_no=#{projectNo} 

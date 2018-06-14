@@ -16,7 +16,7 @@ public interface ProjectMapper {
 	public void inviteFriends(Search search); 
 	
 	public void leaveProject(Search search);
-	public int selectProjectNo(Search search);
+	public Search selectProjectNo(Search search);
 	public void updateProject(Search search);
 	public void updateProjectName(Search search);
 }
