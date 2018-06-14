@@ -51,7 +51,7 @@
 					</div>
 				</div>
 				<div id="friends_invitation_btn" class="side_btn_button btn btn-primary" >친구초대</div>
-				<div id="leave_class" class="side_btn_button btn btn-danger">클래스 탈퇴</div>
+				<div id="leave_class" class="side_btn_button btn btn-danger">프로젝트 탈퇴</div>
             </div>
         </div>
     </div>

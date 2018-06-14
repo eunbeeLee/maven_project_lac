@@ -55,6 +55,19 @@ public class UserController {
 		return "redirect:loginForm.do";
 	}
 	
+	
+	
+	@RequestMapping("/emailCheck.json")
+	@ResponseBody
+	public String emailCheck(String email) throws Exception {
+		System.out.println(email);
+		String result = "2";
+		if(userService.selectUserEmail(email).getEmail() != null) {
+			result = "1";
+		}
+		return "test";
+	}
+	
 	@RequestMapping("/editPass.json")
 	@ResponseBody
 	public String editPass(User user) throws Exception {
