@@ -315,7 +315,6 @@
 	});
 	
 	$("#side_name").on("click",'#change_projectName', function(){
-		console.dir($(this).attr("value"));
 		if($(this).attr("value")==0){
 			$("#side_name > span:nth-child(1)").attr("contenteditable","true").css("background-color","white").focus();
 			$(this).attr("value",1);
@@ -336,7 +335,6 @@
 	});
 	
 	$("#side_board").on("click",'#change_projectInfo', function(){
-		console.dir($(this).attr("value"));
 		if($(this).attr("value")==0){
 			$("#side_board > span:nth-child(1)").attr("contenteditable","true").css("background-color","white").focus();
 			$(this).attr("value",1);
@@ -406,8 +404,7 @@
 			}
 		})
 	});	
-	
-	var socket = io.connect('http://localhost:3000');
+	var socket = io.connect(host+':3000');
 	var user = {};
 	var screen = $("#chatting_content");
 	var lastDate = null;
@@ -677,7 +674,6 @@
 				contentType: false,
 				data: formData
 			}).done((successData)=>{
-				console.log("에이젝스")
 				socket.emit("successLoad",{"projectNo":${project.projectNo},"successData":successData})
 			})
 		})
@@ -793,7 +789,6 @@
     		alert("mp4 파일만 선택이 가능합니다.");
     		return;
     	}else{
-    		console.log($(this)[0].files[0].name)
     		$("#uploadProgName").text($(this)[0].files[0].name);
     		$("#attachLoadingImgBox").css({"display":"block"});
     	}
@@ -811,12 +806,12 @@
     		fileUploadNodeServer(new FormData($("#uploadFileByNode")[0]),"00304");
     	}
 	});
-	
+
 	function fileUploadNodeServer(form,msgType) {
 		$("#nodeUploadArea").css({"display":"block"});
 		noLoading();
 	     $.ajax({
-	            url: 'http://localhost:3000/upload',
+	            url: host+':3000/upload',
 	            type: 'post',
 	            data: form,
 	            processData: false,
@@ -826,7 +821,6 @@
 	                if( xhr.upload ){
 	                    xhr.upload.addEventListener("progress", function(ev){
 	                        var prog = parseInt( (ev.loaded / ev.total) * 100 );
-	                    	console.log(prog.toString()+"%");
 	                        var val = prog.toString()+"%";
 	                    	$("#uploadProgNum").html(prog.toString()+"%");
 	                    	$("#uploadProgBar").attr({"value":prog.toString()});
@@ -836,7 +830,6 @@
 	                return xhr;
 	            }
 	     }).done((data)=>{
-	            console.log(data)
 	            $("#attachLoadingImgBox").css({"display":"none"});
 	            $("#uploadProgBar").attr({"value":"0"});
             	$("#uploadProgNum").text("0%");
@@ -845,7 +838,7 @@
             	$("#nodeUploadFile").remove();
             	$("#uploadFileByNode").append($("<input>").attr({type:"file",id:"nodeUploadFile",name:"nodeUpload"}))
             	$("#uploadMp4ByNode").append($("<input>").attr({type:"file",id:"nodeUploadMp4",name:"nodeUpload",accept:"video/mp4"}))
-            	let downPath = msgType == "00303" ? "http://localhost:3000/download/video/" : "http://localhost:3000/download/file/";
+            	let downPath = msgType == "00303" ? host+":3000/download/video/" : host+":3000/download/file/";
             	let DBData = {
             		"user":user,
             		"sql":[${project.projectNo},
@@ -892,7 +885,7 @@
 					          		</a>
 				  				</div>	
 				  			        <video class="streamVideo video-js vjs-default-skin" controls preload="none" width="400" height="300" data-setup="{}">
-				  			  			<source src="http://localhost:3002/stream/`+result.sql[2]+`" type='video/mp4' />
+				  			  			<source src="`+host+`:3002/stream/`+result.sql[2]+`" type='video/mp4' />
 				  			    	</video>
 			              		<div class="sendTime" name="`+user.userNo+date+`">`+parseDateScreen(date)+`</div>
 			              	</div>
@@ -910,7 +903,7 @@
 					          		</a>
 				  				</div>	
 				  			        <video class="streamVideo video-js vjs-default-skin" controls preload="none" width="400" height="300" data-setup="{}">
-			  			  				<source src="http://localhost:3002/stream/`+result.sql[2]+`" type='video/mp4' />
+			  			  				<source src="`+host+`:3002/stream/`+result.sql[2]+`" type='video/mp4' />
 			  			    		</video>
 			              		<div class="unknownSendTime sendTime" name="`+user.userNo+date+`">`+parseDateScreen(date)+`</div>
 		              	  </div>
@@ -930,7 +923,7 @@
 					          		</a>
 				  				</div>	
 			  			       		<video class="streamVideo video-js vjs-default-skin" controls preload="none" width="400" height="300" data-setup="{}">
-		  			  					<source src="http://localhost:3002/stream/`+result.sql[2]+`" type='video/mp4' />
+		  			  					<source src="`+host+`:3002/stream/`+result.sql[2]+`" type='video/mp4' />
 		  			    			</video>
 			              		<div class="sendTime" name="`+user.userNo+date+`">`+parseDateScreen(date)+`</div>
 			              	</div>
@@ -953,7 +946,7 @@
 				          		</a>
 			  				</div>	
 		  			        	<video class="streamVideo video-js vjs-default-skin" controls preload="none" width="400" height="300" data-setup="{}">
-	  			  					<source src="http://localhost:3002/stream/`+result.sql[2]+`" type='video/mp4' />
+	  			  					<source src="`+host+`:3002/stream/`+result.sql[2]+`" type='video/mp4' />
 	  			    			</video>
 			              		<div class="unknownSendTime sendTime" name="`+user.userNo+date+`">`+parseDateScreen(date)+`</div>
 		              	  </div>
@@ -1062,7 +1055,6 @@
         			]
         	}
         socket.emit("msg",DBData);
-    	console.log(DBData)
 	})
 	socket.on(${project.projectNo}+"emoticon",function(result){
 		chattingViewByEmoticon(result);

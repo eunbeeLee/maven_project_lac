@@ -14,7 +14,10 @@ var storage = multer.diskStorage({
         }
     },
     filename : function(req,file,cd){
-        cd(null,file.fieldname+Date.now()+'-'+file.originalname)
+        let ext = "";
+        let index = file.originalname.lastIndexOf(".");
+        ext = file.originalname.substring(index);
+        cd(null,file.fieldname+Date.now()+'-usefile'+ext);
     }
 })
 var path = require('path');

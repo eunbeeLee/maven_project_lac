@@ -160,7 +160,8 @@
     <sitemesh:write property="body"/>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.1.1/socket.io.dev.js"></script>
 <script>
-	var noti = io.connect('http://localhost:3001');
+	var host = "http://192.168.0.2"
+	var noti = io.connect(host+':3001');
 	var userNo = ${user.userNo}
 	var notiInfo = {nickname:"${user.nickname}",profile_pic:"${user.profilePic}",user_no:${user.userNo}};
 	
