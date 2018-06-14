@@ -98,10 +98,28 @@
 						<input type="hidden" name="fileMapping"/>
 						<input type="hidden" name="sendDate"/>
 					</form>
-
+					
+					<form id="uploadFileByNode" action="/upload" method="post"  enctype="multipart/form-data">
+						<input id="nodeUploadFile" type="file" name="nodeUpload">
+					</form>
+					<form id="uploadMp4ByNode" action="/upload" method="post"  enctype="multipart/form-data">
+						<input id="nodeUploadMp4" type="file" name="nodeUpload" accept ="video/mp4">
+					</form>
 
 
 					
+				</div>
+				<div id="nodeUploadArea">
+					<div id="uploadProgName"></div>
+					 <meter id="uploadProgBar" min="0" max="100" value="77"></meter>
+					 <span id="uploadProgNum"></span>
+				</div>
+				<div id="emoArea">
+						<c:forEach var="i" begin="1" end="116">
+							<span class="emoBox">
+								<img class="emoImg" src="/maven_project_lac/resources/img/emoticon/${i}.png"/>
+							</span>
+						</c:forEach>
 				</div>
             </div>                                              <!-- end #chatting_content -->
 
@@ -121,12 +139,6 @@
                     </div>
                     <div id="clip_video_btn" class="clip_btn btn btn-default">
                         <i class="clip_icon material-icons">video_call</i>
-                    </div>
-                    <div id="clip_canvas_btn" class="clip_btn btn btn-default">
-                        <i class="clip_icon material-icons">color_lens</i>
-                    </div>
-                    <div id="clip_friend_btn" class="clip_btn btn btn-default">
-                        <i class="fa fa-address-card friends_addr"></i>
                     </div>
 
                 </div>  <!-- end #chatting_clip -->
@@ -445,12 +457,12 @@
 		user["email"] = "${user.email}";
 		user["profilePic"] = "${user.profilePic}";
 		user["loginStateCode"] = "${user.loginStateCode}";
-		socket.emit("conn",{"userNo":${user.userNo},projectNo:${projectNo}});
+		socket.emit("conn",{"userNo":${user.userNo},projectNo:${project.projectNo}});
 	});
-	socket.on("${projectNo}conn${user.userNo}",function(result){
+	socket.on("${project.projectNo}conn${user.userNo}",function(result){
 		chattingListLoad(result);
 	});
-    socket.on(${projectNo}+"join",function(result){
+    socket.on(${project.projectNo}+"join",function(result){
         $("#inAndOutNoti").append(`<div id="`+result.userNo+`join" class="joinMsg"><span>[ `+result.nickname+` ]님이<br> </span><span>입장하셨습니다.</span></div>`);
         let msg = $("#"+result.userNo+"join");
         msg.fadeIn(300);
@@ -473,13 +485,19 @@
 							   data.chatting_no,		// 5. 메세지 번호
 							   data.file_size,			// 6. null 파일 사이즈
 							   data.ori_file_name,		// 7. null 원본 파일명
-							   data.download_path]		// 8. null 다운로드 경로
+							   data.download_path,		// 8. null 다운로드 경로
+							   data.ori_file_name,		// 9. 원본파일명 출력시
+							   data.file_size]		// 10. 파일 사이즈 출력시
+			loadData["chattingNo"] = data.chatting_no;
 			switch (data.msg_type_code) {
-			case "00301": chattingViewByMsg(loadData); break;
-			case "00302": chattingViewByPic(loadData); break;
+			case "00301": chattingViewByMsg(loadData);    break;
+			case "00302": chattingViewByPic(loadData);    break;
+			case "00303": chattingViewByVideo(loadData);  break;
+			case "00304": chattingViewByFile(loadData);   break;
+			case "00305": chattingViewByEmoticon(loadData); break;
 			}
 		}
-		socket.emit("join",{"user":user,projectNo:${projectNo}});
+		socket.emit("join",{"user":user,projectNo:${project.projectNo}});
 		screenScroll(2);
 	}
 	
@@ -513,12 +531,12 @@
     	let msg = $("#text_box");
     	if(msg.html().length < 1) return;
     	else{
-    		socket.emit("msg",{"user":user,"sql":[${projectNo},user.userNo,msg.html(),"00301",new Date()]});
+    		socket.emit("msg",{"user":user,"sql":[${project.projectNo},user.userNo,msg.html(),"00301",new Date()]});
     		msg.html("");
     	}
 	}
     
-	socket.on(${projectNo}+"msg",function(result){
+	socket.on(${project.projectNo}+"msg",function(result){
 		chattingViewByMsg(result);
 	})
 	
@@ -638,7 +656,7 @@
 		$.ajax({
 			url:'${pageContext.request.contextPath}/chatting/send.json',
 			type:"POST",
-			data: {"projectNo":"${projectNo}","sendUserNo":"${user.userNo}","message":"","msgTypeCode":"00302","sendDate":new Date(),"fileLength":fileLength}
+			data: {"projectNo":"${project.projectNo}","sendUserNo":"${user.userNo}","message":"","msgTypeCode":"00302","sendDate":new Date(),"fileLength":fileLength}
 		}).done(function (chattingList) {
 			$("#attachLoadingImgBox").css({"display":"none"});
 			let DBDate = new Date();
@@ -646,7 +664,7 @@
 			let fileMapping = "";
 			for(data of chattingList){
 				fileMapping = fileMapping+[fileData[index].fileName]+":"+data+";";
-	 		    socket.emit("pic",{loading:true,fileInfo:fileData[index],"user":user,"projectNo":${projectNo},"chattingNo":data,"sql":[${projectNo},user.userNo,fileData[index++].e,"00302",DBDate]});
+	 		    socket.emit("pic",{loading:true,fileInfo:fileData[index],"user":user,"projectNo":${project.projectNo},"chattingNo":data,"sql":[${project.projectNo},user.userNo,fileData[index++].e,"00302",DBDate]});
 			}
 			var f = $("#uploadPicForm")[0];
 			f.sendDate.value = DBDate; 
@@ -659,17 +677,20 @@
 				contentType: false,
 				data: formData
 			}).done((successData)=>{
-				socket.emit("successLoad",{"projectNo":${projectNo},"successData":successData})
+				console.log("에이젝스")
+				socket.emit("successLoad",{"projectNo":${project.projectNo},"successData":successData})
 			})
 		})
 	})
 	
-	socket.on(${projectNo}+"successLoad",function(result){
+	socket.on(${project.projectNo}+"successLoad",function(result){
 		for(chattingNo of result.successData){
-			$("#"+chattingNo+" img.getFileLoadingImgs").remove();
+			$("#"+chattingNo.chattingNo+" img").attr("src",chattingNo.message);
+			$("#"+chattingNo.chattingNo+" img.getFileLoadingImgs").remove();
+			
 		}
     })
-	socket.on(${projectNo}+"pic",function(result){
+	socket.on(${project.projectNo}+"pic",function(result){
 		chattingViewByPic(result,result.fileLoadName);
     })
 
@@ -680,6 +701,7 @@
 			loadingImg = ` id="`+result.chattingNo+`" `;
 			chattingNo = result.chattingNo;
 		}
+
 		let msg = result.sql[2];
 		let user = result.user;
 		let date = date_info(result.sql[4]);
@@ -693,7 +715,7 @@
 		              	<div class="myMsgArea">
 			              	<div class="myUserMsg userMsg">
 			              		<div class="chattingImgArea">
-		              				`+fileUploadIcon(chattingNo,false,result.loading)+`
+		              				`+fileUploadIcon(chattingNo,false,result.loading,true)+`
 			              			<img src="`+msg+`"/>
 			              		</div>
 			              		<div class="sendTime" name="`+user.userNo+date+`">`+parseDateScreen(date)+`</div>
@@ -723,7 +745,7 @@
 		              	<div class="myMsgArea">
 			              	<div class="myUserMsg userMsg">
 			              		<div class="chattingImgArea">
-			              			`+fileUploadIcon(chattingNo,true,result.loading)+`
+			              			`+fileUploadIcon(chattingNo,true,result.loading,true)+`
 			              			<img src="`+msg+`"/>
 			              		</div>
 			              		<div class="sendTime" name="`+user.userNo+date+`">`+parseDateScreen(date)+`</div>
@@ -754,23 +776,390 @@
 	}
 	
 	// ------------------------------------------------ 사진전송 기능 함수
+
+	// ------------------------------------------------ 동영상 및 파일 기능 함수
+
+	$("#clip_file_btn").on("click",()=>{
+		$("#nodeUploadFile").click();
+	});
+	$("#clip_video_btn").on("click",()=>{
+		$("#nodeUploadMp4").click();
+	});
 	
+	$("#uploadMp4ByNode").on("change","#nodeUploadMp4",function(){
+    	let fileext = $(this).val();
+    	fileext = fileext.slice(fileext.indexOf(".")+1).toUpperCase();
+    	if(fileext != "MP4"){
+    		alert("mp4 파일만 선택이 가능합니다.");
+    		return;
+    	}else{
+    		console.log($(this)[0].files[0].name)
+    		$("#uploadProgName").text($(this)[0].files[0].name);
+    		$("#attachLoadingImgBox").css({"display":"block"});
+    	}
+    	fileUploadNodeServer(new FormData($("#uploadMp4ByNode")[0]),"00303");
+	});
+	
+	$("#uploadFileByNode").on("change","#nodeUploadFile",function(){
+    	let fileext = $(this).val();
+    	fileext = fileext.slice(fileext.indexOf(".")+1).toUpperCase();
+    	$("#uploadProgName").text($(this)[0].files[0].name);
+    	$("#attachLoadingImgBox").css({"display":"block"});
+    	if(fileext == "MP4"){
+    		fileUploadNodeServer(new FormData($("#uploadFileByNode")[0]),"00303");
+    	}else{
+    		fileUploadNodeServer(new FormData($("#uploadFileByNode")[0]),"00304");
+    	}
+	});
+	
+	function fileUploadNodeServer(form,msgType) {
+		$("#nodeUploadArea").css({"display":"block"});
+		noLoading();
+	     $.ajax({
+	            url: 'http://localhost:3000/upload',
+	            type: 'post',
+	            data: form,
+	            processData: false,
+	            contentType: false,
+	            xhr:function(){
+	                var xhr = $.ajaxSettings.xhr();
+	                if( xhr.upload ){
+	                    xhr.upload.addEventListener("progress", function(ev){
+	                        var prog = parseInt( (ev.loaded / ev.total) * 100 );
+	                    	console.log(prog.toString()+"%");
+	                        var val = prog.toString()+"%";
+	                    	$("#uploadProgNum").html(prog.toString()+"%");
+	                    	$("#uploadProgBar").attr({"value":prog.toString()});
+	                    }, false);
+	              
+	                }
+	                return xhr;
+	            }
+	     }).done((data)=>{
+	            console.log(data)
+	            $("#attachLoadingImgBox").css({"display":"none"});
+	            $("#uploadProgBar").attr({"value":"0"});
+            	$("#uploadProgNum").text("0%");
+            	$("#nodeUploadArea").css({"display":"none"});
+            	$("#nodeUploadMp4").remove();
+            	$("#nodeUploadFile").remove();
+            	$("#uploadFileByNode").append($("<input>").attr({type:"file",id:"nodeUploadFile",name:"nodeUpload"}))
+            	$("#uploadMp4ByNode").append($("<input>").attr({type:"file",id:"nodeUploadMp4",name:"nodeUpload",accept:"video/mp4"}))
+            	let downPath = msgType == "00303" ? "http://localhost:3000/download/video/" : "http://localhost:3000/download/file/";
+            	let DBData = {
+            		"user":user,
+            		"sql":[${project.projectNo},
+            			   user.userNo,
+            			   data.filename,
+            			   msgType,
+            			   new Date(),
+            			   data.size,
+            			   data.originalname,
+            			   downPath+data.filename,
+            			   downPath+data.filename,
+            			   data.originalname,
+            			   data.size
+            			]
+            	}
+            	socket.emit("fileAndVideo",DBData);
+	        })
+	   	 
+	}
+	
+	socket.on(${project.projectNo}+"video",function(result){
+		chattingViewByVideo(result);
+    })
+	socket.on(${project.projectNo}+"file",function(result){
+		chattingViewByFile(result);
+    })
+    
+	function chattingViewByVideo(result) {
+		let msg = result.sql[2];
+		let user = result.user;
+		let date = date_info(result.sql[4]);
+		if(lastSendData(user.userNo,date)){
+			$(`.sendTime[name="`+user.userNo+date+`"]`).each(function (index,ele) {
+				ele.remove();
+			})
+			if(${user.userNo}==user.userNo){
+		        $("#chatting_content").append(`
+					  <div class="myChainMsg myChatView chatView">
+		              	<div class="myMsgArea">
+			              	<div class="myUserMsg userMsg">
+								<div class="getFileBtn">
+					  	      		<a class="getFileBtnATag" href="`+result.sql[8]+`">
+					          			<i class="material-icons getFileBtnIcon fristIcons myViewIconLoading">get_app</i>
+					          		</a>
+				  				</div>	
+				  			        <video class="streamVideo video-js vjs-default-skin" controls preload="none" width="400" height="300" data-setup="{}">
+				  			  			<source src="http://localhost:3002/stream/`+result.sql[2]+`" type='video/mp4' />
+				  			    	</video>
+			              		<div class="sendTime" name="`+user.userNo+date+`">`+parseDateScreen(date)+`</div>
+			              	</div>
+		              	</div>
+		              </div>
+			    `);
+		        screenScroll(2);
+			}else{
+				$("#chatting_content").append(`
+						<div class="unknownChainMsg unknownChatView chatView">
+		              	  <div class="unknownUserMsg userMsg">
+								<div class="getFileBtn">
+					  	      		<a class="getFileBtnATag" href="`+result.sql[8]+`">
+					          			<i class="material-icons getFileBtnIcon fristIcons">get_app</i>
+					          		</a>
+				  				</div>	
+				  			        <video class="streamVideo video-js vjs-default-skin" controls preload="none" width="400" height="300" data-setup="{}">
+			  			  				<source src="http://localhost:3002/stream/`+result.sql[2]+`" type='video/mp4' />
+			  			    		</video>
+			              		<div class="unknownSendTime sendTime" name="`+user.userNo+date+`">`+parseDateScreen(date)+`</div>
+		              	  </div>
+		              </div>
+				`);
+				screenScroll(1,user,"(동영상)");
+			}
+		}else{
+			if(${user.userNo}==user.userNo){
+		        $("#chatting_content").append(`
+					  <div class="myChatView chatView">
+		              	<div class="myMsgArea">
+			              	<div class="myUserMsg userMsg">
+								<div class="getFileBtn">
+					  	      		<a class="getFileBtnATag" href="`+result.sql[8]+`">
+					          			<i class="material-icons getFileBtnIcon fristIcons myViewIconLoading">get_app</i>
+					          		</a>
+				  				</div>	
+			  			       		<video class="streamVideo video-js vjs-default-skin" controls preload="none" width="400" height="300" data-setup="{}">
+		  			  					<source src="http://localhost:3002/stream/`+result.sql[2]+`" type='video/mp4' />
+		  			    			</video>
+			              		<div class="sendTime" name="`+user.userNo+date+`">`+parseDateScreen(date)+`</div>
+			              	</div>
+			              	<span class="msgTri"></span>
+		              	</div>
+		              </div>
+			    `);
+		        screenScroll(2);
+			}else{
+				$("#chatting_content").append(`
+						<div class="unknownChatView chatView"> 
+		              	  <h6><span class="userNickname">`+user.nickname+`</span></h6>
+		              	  <div class="profilePic">
+		              		  <img src="${pageContext.request.contextPath}`+user.profilePic+`"/>
+		              	  </div>
+		              	  <div class="unknownUserMsg userMsg">
+							<div class="getFileBtn">
+				  	      		<a class="getFileBtnATag" href="`+result.sql[8]+`">
+				          			<i class="material-icons getFileBtnIcon fristIcons">get_app</i>
+				          		</a>
+			  				</div>	
+		  			        	<video class="streamVideo video-js vjs-default-skin" controls preload="none" width="400" height="300" data-setup="{}">
+	  			  					<source src="http://localhost:3002/stream/`+result.sql[2]+`" type='video/mp4' />
+	  			    			</video>
+			              		<div class="unknownSendTime sendTime" name="`+user.userNo+date+`">`+parseDateScreen(date)+`</div>
+		              	  </div>
+		              </div>
+				`);
+				screenScroll(1,user,"(동영상)");
+			}
+		}
+	}
+	
+	function chattingViewByFile(result) {
+		let msg = result.sql[2];
+		let user = result.user;
+		let date = date_info(result.sql[4]);
+		if(lastSendData(user.userNo,date)){
+			$(`.sendTime[name="`+user.userNo+date+`"]`).each(function (index,ele) {
+				ele.remove();
+			})
+			if(${user.userNo}==user.userNo){
+		        $("#chatting_content").append(`
+					  <div class="myChainMsg myChatView chatView">
+		              	<div class="myMsgArea">
+			              	<div class="myUserMsg userMsg">
+			              		<a href="`+result.sql[8]+`">
+			              		<div class="myFileUpload fileUploads">파일명    : `+result.sql[9]+`</div>
+			              		<div class="myFileUpload fileUploads">파일크기 : `+result.sql[10]+`byte</div>
+			              		</a>
+			              		<div class="sendTime" name="`+user.userNo+date+`">`+parseDateScreen(date)+`</div>
+			              	</div>
+		              	</div>
+		              </div>
+			    `);
+		        screenScroll(2);
+			}else{
+				$("#chatting_content").append(`
+						<div class="unknownChainMsg unknownChatView chatView">
+		              	  <div class="unknownUserMsg userMsg">
+			              		<a href="`+result.sql[8]+`">
+			              		<div class="fileUploads">파일명    : `+result.sql[9]+`</div>
+			              		<div class="fileUploads">파일크기 : `+result.sql[10]+`byte</div>
+			              		</a>
+			              		<div class="unknownSendTime sendTime" name="`+user.userNo+date+`">`+parseDateScreen(date)+`</div>
+		              	  </div>
+		              </div>
+				`);
+				screenScroll(1,user,"(파일)");
+			}
+		}else{
+			if(${user.userNo}==user.userNo){
+		        $("#chatting_content").append(`
+					  <div class="myChatView chatView">
+		              	<div class="myMsgArea">
+			              	<div class="myUserMsg userMsg">
+			              		<a href="`+result.sql[8]+`">
+			              		<div class="myFileUpload fileUploads">파일명    : `+result.sql[9]+`</div>
+			              		<div class="myFileUpload fileUploads">파일크기 : `+result.sql[10]+`byte</div>
+			              		</a>
+			              		<div class="sendTime" name="`+user.userNo+date+`">`+parseDateScreen(date)+`</div>
+			              	</div>
+			              	<span class="msgTri"></span>
+		              	</div>
+		              </div>
+			    `);
+		        screenScroll(2);
+			}else{
+				$("#chatting_content").append(`
+						<div class="unknownChatView chatView">
+		              	  <h6><span class="userNickname">`+user.nickname+`</span></h6>
+		              	  <div class="profilePic">
+		              		  <img src="${pageContext.request.contextPath}`+user.profilePic+`"/>
+		              	  </div>
+		              	  <div class="unknownUserMsg userMsg">
+		              	      <a href="`+result.sql[8]+`">
+		              		  <div class="fileUploads">파일명    : `+result.sql[9]+`</div>
+		              		  <div class="fileUploads">파일크기 : `+result.sql[10]+`byte</div>
+		              		  </a>
+			              	  <div class="unknownSendTime sendTime" name="`+user.userNo+date+`">`+parseDateScreen(date)+`</div>
+		              	  </div>
+		              </div>
+				`);
+				screenScroll(1,user,"(파일)");
+			}
+		}
+	}
+	
+	
+	
+	// ------------------------------------------------ 동영상 및 파일 기능 함수
+	
+	
+	// ------------------------------------------------ 이모티콘 전송 함수
+	$("#cilp_emoticon_btn").on("click",()=>{
+		$("#emoArea").fadeToggle(200);
+	})
+	
+	$(".emoImg").on("click",function(){
+		let msg = $(this).attr("src");
+		$("#emoArea").fadeToggle(200);
+    	let DBData = {
+        		"user":user,
+        		"sql":[${project.projectNo},
+        			   user.userNo,
+        			   msg,
+        			   "00305",
+        			   new Date(),
+        			]
+        	}
+        socket.emit("msg",DBData);
+    	console.log(DBData)
+	})
+	socket.on(${project.projectNo}+"emoticon",function(result){
+		chattingViewByEmoticon(result);
+    })
+    
+    function chattingViewByEmoticon(result) {
+		let msg = result.sql[2];
+		let user = result.user;
+		let date = date_info(result.sql[4]);
+		if(lastSendData(user.userNo,date)){
+			$(`.sendTime[name="`+user.userNo+date+`"]`).each(function (index,ele) {
+				ele.remove();
+			})
+			if(${user.userNo}==user.userNo){
+		        $("#chatting_content").append(`
+					  <div class="myChainMsg myChatView chatView">
+		              	<div class="myMsgArea">
+			              	<div class="myUserMsg userMsg">
+								<div class="viewEmoBox">
+									<img class="viewEmoImg" src="`+msg+`"/>
+								<div>
+			              		<div class="sendTime" name="`+user.userNo+date+`">`+parseDateScreen(date)+`</div>
+			              	</div>
+		              	</div>
+		              </div>
+			    `);
+		        screenScroll(2);
+			}else{
+				$("#chatting_content").append(`
+						<div class="unknownChainMsg unknownChatView chatView">
+		              	  <div class="unknownUserMsg userMsg">
+							<div class="viewEmoBox">
+								<img class="viewEmoImg" src="`+msg+`"/>
+							<div>
+			              		<div class="unknownSendTime sendTime" name="`+user.userNo+date+`">`+parseDateScreen(date)+`</div>
+		              	  </div>
+		              </div>
+				`);
+				screenScroll(1,user,"(이모티콘)");
+			}
+		}else{
+			if(${user.userNo}==user.userNo){
+		        $("#chatting_content").append(`
+					  <div class="myChatView chatView">
+		              	<div class="myMsgArea">
+			              	<div class="myUserMsg userMsg">
+								<div class="viewEmoBox">
+									<img class="viewEmoImg" src="`+msg+`"/>
+								<div>
+			              		<div class="sendTime" name="`+user.userNo+date+`">`+parseDateScreen(date)+`</div>
+			              	</div>
+			              	<span class="msgTri"></span>
+		              	</div>
+		              </div>
+			    `);
+		        screenScroll(2);
+			}else{
+				$("#chatting_content").append(`
+						<div class="unknownChatView chatView">
+		              	  <h6><span class="userNickname">`+user.nickname+`</span></h6>
+		              	  <div class="profilePic">
+		              		  <img src="${pageContext.request.contextPath}`+user.profilePic+`"/>
+		              	  </div>
+		              	  <div class="unknownUserMsg userMsg">
+							<div class="viewEmoBox">
+								<img class="viewEmoImg" src="`+msg+`"/>
+							<div>
+			              	  <div class="unknownSendTime sendTime" name="`+user.userNo+date+`">`+parseDateScreen(date)+`</div>
+		              	  </div>
+		              </div>
+				`);
+				screenScroll(1,user,"(이모티콘)");
+			}
+		}
+	}
+	
+	// ------------------------------------------------ 이모티콘 전송 함수
 	
 	
 	
 	// ------------------------------------------------ 파일 업로드 아이콘 함수
-		function fileUploadIcon(chattingNo,frist,loading) {
+		function fileUploadIcon(chattingNo,frist,loading,myView) {
 		    var getFiles = "";
 		    var loadImges = "";
+		    var myScreen = "";
+		    if(myView){
+		    	myScreen = " myViewIconLoading";
+		    }
 		    if(loading){
-		    	loadImges = "<img src='/maven_project_lac/resources/img/default/fileLoading.gif' class='getFileLoadingImgs'/>";
+		    	loadImges = "<img src='/maven_project_lac/resources/img/default/fileLoading.gif' class='getFileLoadingImgs"+myScreen+"'/>";
 		    }
 		    var loadClass = "  "
 		    if(frist){
 					getFiles = `
 								<div class="getFileBtn">
 					  	      		<a class="getFileBtnATag" href="${pageContext.request.contextPath}/chatting/`+chattingNo+`/filedown.do">
-					          			<i class="material-icons getFileBtnIcon fristIcons">get_app</i>
+					          			<i class="material-icons getFileBtnIcon fristIcons `+myScreen+`">get_app</i>
 					          		</a>
 					          		`+loadImges+`
 					  			</div>	
@@ -780,7 +1169,7 @@
 					getFiles = `
 								<div class="getFileBtn">
 					  	      		<a class="getFileBtnATag" href="${pageContext.request.contextPath}/chatting/`+chattingNo+`/filedown.do">
-					          			<i class="material-icons getFileBtnIcon">get_app</i>
+					          			<i class="material-icons getFileBtnIcon `+myScreen+`">get_app</i>
 					          		</a>
 					          		`+loadImges+`
 					  			</div>	
@@ -793,7 +1182,7 @@
 	
 	
 	// ------------------------------------------------ 파일 업로드 완료 함수
-	socket.on(${projectNo}+"fileLoad",function(result){
+	socket.on(${project.projectNo}+"fileLoad",function(result){
 		$(`.getFileBtn[name="`+result.fileLoadName+`"]`).each(function (index,ele) {
 			$(ele).append(`
 	  	      		<a class="getFileBtnATag" href="${pageContext.request.contextPath}/chatting/`+result.chattingNoList[index]+`/filedown.do">

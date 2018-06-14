@@ -80,10 +80,12 @@ public class UserController {
 		return "redirect:loginForm.do";
 	}
 	@RequestMapping("/editNick.do")
-	public String editNick(User user) throws Exception {
+	public String editNick(HttpSession session,User user) throws Exception {
 		System.out.println(user.getNickname());
 		System.out.println(user.getUserNo());
 		userService.editNick(user);
+		user = userService.findUserByNo(user.getUserNo());
+		session.setAttribute("user", user);
 		return "redirect:/project/lobby.do";
 	}
 	

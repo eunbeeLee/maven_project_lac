@@ -214,6 +214,7 @@ $(document).ready(function() {
 		dataType:"json",
 		type:"POST",
 		success:function(result){
+			loading();
 			console.dir(result);
 			index = result;
 		},
@@ -283,6 +284,7 @@ $(document).ready(function() {
 			data:{month:month, userNo : ${user.userNo}},
 			type:"POST", 
 			success:function(result){
+				loading();
 				console.log("에이작스 성공 값",result);
 				for(let i = 0; i < result.length; i++){
 				html="<tr>"
@@ -344,16 +346,25 @@ $(document).ready(function() {
 
 //새 일정 추가
 $("#addSchBtn").click(function(e){
+	if( $("#startDate").val()==""){
+		alert("시작일을 입력하세요.");
+	}else if($("#endDate").val()==""){
+		alert("종료일을 입력하세요.");
+	}else if($("#scheduleDetail").val()==""){
+		alert("일정내용을 입력하세요.");
+	}else{
 	//일정 유효성 검사
 	var newSDate = $("#startDate").val().split("-");
-	var newStart = new Date(newSDate[0],newSDate[1],newSDate[2]);
+	var newStart = new Date(newSDate[0],newSDate[1]-1,newSDate[2]);
 	var newEDate = $("#endDate").val().split("-");
-	var newEnd = new Date(newSDate[0],newSDate[1],newSDate[2]);
-	
+	var newEnd = new Date(newEDate[0],newEDate[1]-1,newEDate[2]);
+// 	alert(newStart);
+// 	alert(newStart.getTime());
+// 	alert(newEnd);
 	if(newStart.getTime() > newEnd.getTime()){
-		alert("날짜유효성 X");
-	}
-	
+		alert("시작일와 종료일이 올바르지 않습니다.");
+	}else{
+// 		alert("시작일 종료일 올바름");
 	  $("#schNo").attr({"value":++index});
 	  e.preventDefault();
 	  console.log($("#addNewSchedule").serialize());
@@ -365,6 +376,7 @@ $("#addSchBtn").click(function(e){
 		 dataType:"json",
 		 data:$("#addNewSchedule").serialize(),
 		 success : function(result){
+			 loading();
 			  var sDate = moment(result.startDate);
 			  var eDate = moment(result.endDate);
 			  var schDetail = moment(result.schDetail);
@@ -385,8 +397,10 @@ $("#addSchBtn").click(function(e){
 		  }, 
 		  error:function(e){
 			  console.log(e);
-		  }
-	  });
+			  }
+		  });
+		}
+	}
 });
 
 //일정편집버튼 클릭
@@ -400,12 +414,14 @@ $("#eddEventBtn").click(function(){
 		
 // 	}
 	 console.log($("#editSechedule").serialize());
+	 loading();
 	 $.ajax({
 		url:"/maven_project_lac/schedule/updateSchedule.json",
 // 		dataType:"json",
 		type:"POST",
 		data:$("#editSechedule").serialize(),
 		success:function(result){
+			loading();
 			console.log(result,"편집에이작스 성공");
 			 $('#calendar').fullCalendar('removeEvents');
 		 	 $('#calendar').fullCalendar('refetchEvents');
@@ -431,6 +447,7 @@ $.ajax({
 	data:{'schNo':no},
 	type:"POST",
 	success:function(result){
+		loading();
 		console.log("일정삭제 에이작스 성공",result); 
 		 $('#calendar').fullCalendar('removeEvents');
 		 $('#calendar').fullCalendar('rerenderEvents');
@@ -444,14 +461,27 @@ $.ajax({
 	});
 });
 
+//일정 드래그 편집
 function dragEvent(event, delta){
+	loading();
 	console.log(event);
 	console.log(delta);
 	console.log(event.start._i);
+// 	console.log("이벤트종시작년",event.start._i[0]);
+// 	console.log("이벤트시작월",event.start._i[1]+1);
+// 	console.log("이벤트시작일",event.start._i[2]);
+	
+// 	var dragEventStartM = event.end._i[1]+1;
+// 	var dragEventStartD = event.end._i[2];
+// 	if(dragEventStartM.toString().length < 2){dragEventStartM = '0'+dragEventStartM;}
+// 	if(dragEventStartD.toString().length < 2){dragEventStartD = '0'+dragEventStartD;}
+	
+// 	var startDate = event.start._i[0].toString() +"-"+ dragEventStartM +"-"+ dragEventStartD;
+// 	console.log("formatS",startDate);
+	
 	console.log("이벤트종료년",event.end._i[0]);
 	console.log("이벤트종료월",event.end._i[1]+1);
 	console.log("이벤트종료일",event.end._i[2]);
-// 	console.log(event.id);
 	
 	var dragEventEndM = event.end._i[1]+1;
 	var dragEventEndD = event.end._i[2];
@@ -459,18 +489,19 @@ function dragEvent(event, delta){
 	if(dragEventEndD.toString().length < 2){dragEventEndD = '0'+dragEventEndD;}
 	
 	var endDate = event.end._i[0].toString() +"-"+ dragEventEndM +"-"+ dragEventEndD;
-	console.log("format",endDate);
+	console.log("formatE",endDate);
 	
 	$.ajax({
 		url:"updateScheduleDate.json",
-		data:{'startDate' : event.start._i, 'endDate' : endDate, 'schNo':event.id, 'delta': delta},
+		data:{'startDate' :event.start._i, 'endDate' : endDate, 'schNo':event.id, 'delta': delta},
 		type:"POST",
 		success:function(){
+			loading();
 			alert("일정수정완료");
 			 $('#calendar').fullCalendar('removeEvents');
 			 $('#calendar').fullCalendar('rerenderEvents');
 		 	 $('#calendar').fullCalendar('refetchEvents');
-// 			scheduleList();
+			scheduleList();
 		},
 		error:function(e){
 			

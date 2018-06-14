@@ -21,6 +21,8 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/coding/css/coding.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/menu.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/chatting/css/chatting.css">
+<link href="http://vjs.zencdn.net/5.4.4/video-js.css" rel="stylesheet">
+<script src="http://vjs.zencdn.net/5.4.4/video.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/jquery.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/bootstrap/js/bootstrap.min.js"></script>
 <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
@@ -150,32 +152,6 @@
 
 <div id="noti_area">
 	<div id="noti_screen">
-		<div class="noti_info">
-			<div class="noti_img">
-				<img src="${pageContext.request.contextPath}/resources/img/default/defaultImg.jpg">
-			</div>
-		<div class="noti_text">
-				<span>친구이름</span><br>
-				<span>친구요청이 왔습니다.</span>
-				<i class="noti_new material-icons">fiber_new</i>
-				<i class="noti_del_btn material-icons">cancel</i>
-			</div>
-		</div>
-		
-		<div class="noti_info">
-			<div class="noti_img">
-				<img src="${pageContext.request.contextPath}/resources/img/default/defaultImg.jpg">
-			</div>
-			<div class="noti_text">
-				<span>프로젝트 이름</span><br>
-				<span>초대장이 왔습니다!</span>
-				<button>수락</button>
-				<i class="noti_del_btn material-icons">cancel</i>
-			</div>
-		</div>
-		
-		
-		
 		
 	</div>
 	<div id="noti_tri"></div>
@@ -202,13 +178,13 @@
 	
 	$("#noti_screen").one("click",".noti_del_btn",function(){
 		let notiNo = $(this).attr("name");
-		$(this).parent().parent().remove();
+		$(this).parent().parent().fadeOut(200);
 		noti.emit("deleteNoti",[notiNo,userNo+"notiCnt"]);
 	});
 	
 	$("#noti_screen").one("click",".noti_info",function(){
 		let notiNo = $(this).attr("name");
-		$(this).find(".noti_new").remove();
+		$(this).find(".noti_new").fadeOut(200);
 		noti.emit("viewNoti",[notiNo,userNo+"notiCnt"]);
 	});
 	
@@ -311,6 +287,8 @@
 		}else{
 // 			alert("수정클릭");
 			$("#userNickname").attr("click",0);
+			alert("닉네임변경이 완료되었습니다.");
+			loading();
 			 location.href="${pageContext.request.contextPath}/main/editNick.do?userNo=${user.userNo}&nickname="+$("#userNickname").val();
 		}
 	});
@@ -516,6 +494,11 @@
 		})
 	}
 
+	
+	
+	$("#calss_name").on("keydown",function(e){
+		if(e.keyCode==13)$("#create_btn_st").click();
+	})
 	$("#create_btn_st").on("click",()=>{
 		let projectName = $("#calss_name");
 		loading();
