@@ -16,6 +16,9 @@
 		where email = #{email}
 	</select>
 	<insert id="insertUser" parameterType="user">
+		<selectKey resultType="int" keyProperty="userNo" order="AFTER"> 
+			select ifnull(max(user_no),0) from tb_user
+		</selectKey> 
 		insert into tb_user(nickname, email, password)
 		values(#{nickname},#{email},#{password})
 	</insert>
@@ -47,5 +50,11 @@
 	    set login_state_code = '00104'
 	 where user_no=#{userNo}
 	</update>
+	
+	<insert id="insertJoinNoti" parameterType="user">
+		insert into tb_notification(noti_type_code,noti_req_no,noti_res_no,noti_attach_msg)
+		values('00205',15,#{userNo},#{nickname})
+	</insert>
+	
 	
 </mapper>

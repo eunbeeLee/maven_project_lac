@@ -288,6 +288,7 @@
    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.1.1/socket.io.dev.js"></script>
    <script type="text/javascript" src="${pageContext.request.contextPath}/resources/coding/js/coding.js"></script>
 <script>
+var host = "http://192.168.0.2";
 	$("#leave_class").on("click",function(){
 		swal({
 			  title: '정말 클래스를 탈퇴하시겠습니까?',
@@ -352,7 +353,7 @@
 		
 	});
 	
-	$("#firends_invite").one("click",".inbb",function(){
+	$("#firends_invite").on("click",".inbb",function(){
 		let resUserNo = $(this).attr("name");
 		let data = {
 			sql1:["00202",resUserNo,${project.projectNo}],
@@ -360,6 +361,7 @@
 			"noti_res_no":resUserNo
 		};
 		noti.emit("requsetNotiByProject",data);
+		$(this).parent().fadeOut(200);
 	})
 	
 	$("#friends_invitation_btn").on("click",function(){
@@ -630,7 +632,7 @@
     	 &&fileext != "GIF"
     	 &&fileext != "BMP"
     	){
-    		alert("이미지 파일만 선택이 가능합니다.")
+    		swal('이미지 파일만 선택이 가능합니다.');
         	$(".imgInp").remove();
     		return;
     	}else{
@@ -786,7 +788,7 @@
     	let fileext = $(this).val();
     	fileext = fileext.slice(fileext.indexOf(".")+1).toUpperCase();
     	if(fileext != "MP4"){
-    		alert("mp4 파일만 선택이 가능합니다.");
+    		swal('MP4 파일만 선택이 가능합니다.');
     		return;
     	}else{
     		$("#uploadProgName").text($(this)[0].files[0].name);
@@ -1042,7 +1044,7 @@
 		$("#emoArea").fadeToggle(200);
 	})
 	
-	$(".emoImg").on("click",function(){
+	$(".emoImg").one("click",function(){
 		let msg = $(this).attr("src");
 		$("#emoArea").fadeToggle(200);
     	let DBData = {

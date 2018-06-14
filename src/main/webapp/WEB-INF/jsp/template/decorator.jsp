@@ -21,6 +21,8 @@
 	<script src="${pageContext.request.contextPath}/resources/js/fullcalendar.min.js"></script>
 	<script src="${pageContext.request.contextPath}/resources/bootstrap/js/bootstrap.min.js"></script>
 	<script src="${pageContext.request.contextPath}/resources/js/theme.js"></script>
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/sweetalert/sweetalert2.css" />
+<script src="${pageContext.request.contextPath}/sweetalert/sweetalert2.all.min.js"></script>
     <sitemesh:write property="head"/>
 </head>
 <body>

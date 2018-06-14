@@ -215,11 +215,11 @@ $(document).ready(function() {
 		type:"POST",
 		success:function(result){
 			loading();
-			console.dir(result);
+// 			console.dir(result);
 			index = result;
 		},
 		error:function(e){
-			  console.dir(e);
+// 			  console.dir(e);
 		  }
 	});
 		    $('#calendar').fullCalendar({ 
@@ -277,7 +277,7 @@ $(document).ready(function() {
 		var html="";
 		$("#scheuleList").html(html);
 		
-		console.log("달",month);
+// 		console.log("달",month);
 		$.ajax({
 			url:"selectScheduleByMonth.json", 
 			dataType:"json",
@@ -285,7 +285,7 @@ $(document).ready(function() {
 			type:"POST", 
 			success:function(result){
 				loading();
-				console.log("에이작스 성공 값",result);
+// 				console.log("에이작스 성공 값",result);
 				for(let i = 0; i < result.length; i++){
 				html="<tr>"
 					 +"<td>"+result[i].startDate+"</td>"				
@@ -296,7 +296,7 @@ $(document).ready(function() {
 				}
 			},
 			error:function(e){
-				console.log(e);
+// 				console.log(e);
 			}
 		});
 	}
@@ -310,9 +310,9 @@ $(document).ready(function() {
   	});
 //이벤트 수정 클릭
  function eventClickEvent(eventObj){
-	  console.log("클릭이벤트 함수");
+// 	  console.log("클릭이벤트 함수");
 	  $("#editSchNo").attr({"value":eventObj.id});
-	  console.dir(eventObj);
+// 	  console.dir(eventObj);
 	  eventSources=eventObj.source;
   	  $("#updateScheduleDetail").attr({"placeholder":eventObj.title});
   	  $("#updateScheduleDetail").attr({"value":eventObj.title});
@@ -367,7 +367,7 @@ $("#addSchBtn").click(function(e){
 // 		alert("시작일 종료일 올바름");
 	  $("#schNo").attr({"value":++index});
 	  e.preventDefault();
-	  console.log($("#addNewSchedule").serialize());
+// 	  console.log($("#addNewSchedule").serialize());
 	  $("#newModalClose").trigger("click",function(){});
 //         $("#newScheModal").modal('hide');
 	  $.ajax({
@@ -384,19 +384,22 @@ $("#addSchBtn").click(function(e){
 			  var schColor = result.schColor;
 			  var schNo = result.schNo;
 			 $.fullCalendar.formatRange(sDate, eDate, 'MMMM D YYYY');
-          $('#calendar').fullCalendar('renderEvent', {
-         	id : schNo,
-            title: schDetail,
-            start: sDate,
-            end:   eDate,
-            backgroundColor : schColor,
-//             allDay: true
-          });
+			 $('#calendar').fullCalendar('removeEvents');
+			 $('#calendar').fullCalendar('rerenderEvents');
+		 	 $('#calendar').fullCalendar('refetchEvents');
+//           $('#calendar').fullCalendar('renderEvent', {
+//          	id : schNo,
+//             title: schDetail,
+//             start: sDate,
+//             end:   eDate,
+//             backgroundColor : schColor,
+// //             allDay: true
+//           });
           alert('일정이 등록 완료되었습니다');
           scheduleList();
 		  }, 
 		  error:function(e){
-			  console.log(e);
+// 			  console.log(e);
 			  }
 		  });
 		}
@@ -422,7 +425,7 @@ $("#eddEventBtn").click(function(){
 		data:$("#editSechedule").serialize(),
 		success:function(result){
 			loading();
-			console.log(result,"편집에이작스 성공");
+// 			console.log(result,"편집에이작스 성공");
 			 $('#calendar').fullCalendar('removeEvents');
 		 	 $('#calendar').fullCalendar('refetchEvents');
 			 $('#calendar').fullCalendar('rerenderEvents');
@@ -430,7 +433,7 @@ $("#eddEventBtn").click(function(){
 			 scheduleList();
 		},
 		error:function(e){
-			console.log(e);
+// 			console.log(e);
 		}
 	 });
 });
@@ -439,7 +442,7 @@ $("#eddEventBtn").click(function(){
 //일정 삭제
 $("#delEventBtn").click(function(){
 	var no = $("#editSchNo").val();
-	console.log("번호",  no);
+// 	console.log("번호",  no);
 	   $("#editScheModal").modal('hide');
 $.ajax({
 	url:"/maven_project_lac/schedule/deleteSchedule.json",
@@ -448,7 +451,7 @@ $.ajax({
 	type:"POST",
 	success:function(result){
 		loading();
-		console.log("일정삭제 에이작스 성공",result); 
+// 		console.log("일정삭제 에이작스 성공",result); 
 		 $('#calendar').fullCalendar('removeEvents');
 		 $('#calendar').fullCalendar('rerenderEvents');
 	 	 $('#calendar').fullCalendar('refetchEvents');
@@ -456,7 +459,7 @@ $.ajax({
 		 scheduleList();
 	},
 	error:function(e){
-		  console.dir(e);
+// 		  console.dir(e);
 	  }
 	});
 });
@@ -464,9 +467,9 @@ $.ajax({
 //일정 드래그 편집
 function dragEvent(event, delta){
 	loading();
-	console.log(event);
-	console.log(delta);
-	console.log(event.start._i);
+// 	console.log(event);
+// 	console.log(delta);
+// 	console.log(event.start._i);
 // 	console.log("이벤트종시작년",event.start._i[0]);
 // 	console.log("이벤트시작월",event.start._i[1]+1);
 // 	console.log("이벤트시작일",event.start._i[2]);
@@ -479,9 +482,9 @@ function dragEvent(event, delta){
 // 	var startDate = event.start._i[0].toString() +"-"+ dragEventStartM +"-"+ dragEventStartD;
 // 	console.log("formatS",startDate);
 	
-	console.log("이벤트종료년",event.end._i[0]);
-	console.log("이벤트종료월",event.end._i[1]+1);
-	console.log("이벤트종료일",event.end._i[2]);
+// 	console.log("이벤트종료년",event.end._i[0]);
+// 	console.log("이벤트종료월",event.end._i[1]+1);
+// 	console.log("이벤트종료일",event.end._i[2]);
 	
 	var dragEventEndM = event.end._i[1]+1;
 	var dragEventEndD = event.end._i[2];
@@ -489,7 +492,7 @@ function dragEvent(event, delta){
 	if(dragEventEndD.toString().length < 2){dragEventEndD = '0'+dragEventEndD;}
 	
 	var endDate = event.end._i[0].toString() +"-"+ dragEventEndM +"-"+ dragEventEndD;
-	console.log("formatE",endDate);
+// 	console.log("formatE",endDate);
 	
 	$.ajax({
 		url:"updateScheduleDate.json",
@@ -505,7 +508,7 @@ function dragEvent(event, delta){
 		},
 		error:function(e){
 			
-			console.dir(e);
+// 			console.dir(e);
 		}
 		
 	});

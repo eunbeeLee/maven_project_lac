@@ -97,6 +97,7 @@ var selectChattingList = function (key,projectNo){
 }
 
 var insertChattingByMsg = function (sendData){
+    sendData.sql[4] = new Date();
     let sql = `
         insert into tb_chatting(
                project_no,
@@ -129,6 +130,7 @@ var insertChattingByMsg = function (sendData){
 }
 
 var insertChattingByFileAndVideo = function (sendData){
+    sendData.sql[4] = new Date();
     let sql = `
         insert into tb_chatting(
                project_no,

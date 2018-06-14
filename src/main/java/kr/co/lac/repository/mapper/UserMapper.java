@@ -10,6 +10,6 @@ public interface UserMapper {
 	public void editNick(User user);
 	public void leaveId(User user);
 	public int findUserByPass(User user);
-	
+	public void insertJoinNoti(User user);
 	
 }

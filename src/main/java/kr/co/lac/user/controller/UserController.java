@@ -28,13 +28,17 @@ public class UserController {
 	public String login(HttpSession session, User login) throws Exception{
 		User user = userService.selectUserEmail(login.getEmail());
 		if(user==null) {
-			session.setAttribute("errMsg", "아이디를 확인하세요");
+			session.setAttribute("errMsg", "001");
 		}else if(user.getPassword().equals(login.getPassword())){
 			session.removeAttribute("errMsg");
 			session.setAttribute("user", user);	// 세션에 로그인 정보 담기
+			if(user.getLoginStateCode().equals("00104")) {
+				session.setAttribute("errMsg", "002");
+				return "redirect:loginForm.do";
+			}
 			return "redirect:/project/lobby.do";
 		}else {
-			session.setAttribute("errMsg", "패스워드를 확인하세요");
+			session.setAttribute("errMsg", "003");
 		}
 		return "redirect:loginForm.do";
 	}

@@ -13,10 +13,8 @@
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/fullcalendar/fullcalendar.min.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/fullcalendar/fullcalendar.print.min.css" media="print">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/sweetalert/sweetalert2.css"/>
 
 <!-- <script src="../../js/jquery-3.2.1.js"></script> -->
-<script src="${pageContext.request.contextPath}/sweetalert/sweetalert2.all.min.js"></script>
 
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/coding/css/coding.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/menu.css">
@@ -50,7 +48,7 @@
 </div>
 
 
-<div id="menu_bar">
+<div id="menu_bar">	
     <div id="menu_bar_row" class="row">
         <div class="menu_btn btn btn-default"><a href="${pageContext.request.contextPath}/main/logout.do"><i class="material-icons" style="font-size:36px">vpn_key</i></a></div>
         <div id="my_info_btn_button" class="menu_btn btn btn-default"><i class="fa fa-cog"></i></div>
@@ -59,7 +57,7 @@
         <div id="friends_btn_button" class="menu_btn btn btn-default"><i class="fa fa-address-book friends_addr friends_addr_side"></i></div>
         <a href="<c:url value="/schedule/schedule.do"/>"><div id="calendar_btn_button" class="menu_btn btn btn-default"><span class="glyphicon glyphicon-calendar"></span></div></a>
         <div id="noti_box" class="menu_btn btn btn-default"><i class="fa fa-bell" style="font-size:24px"></i>
-        <div id="noti_cnt">7</div>
+        <div id="noti_cnt"></div>
         </div> 
    
     </div>
@@ -160,7 +158,7 @@
     <sitemesh:write property="body"/>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.1.1/socket.io.dev.js"></script>
 <script>
-	var host = "http://192.168.0.2"
+	var host = "http://192.168.0.2";
 	var noti = io.connect(host+':3001');
 	var userNo = ${user.userNo}
 	var notiInfo = {nickname:"${user.nickname}",profile_pic:"${user.profilePic}",user_no:${user.userNo}};
@@ -235,6 +233,21 @@
 								<span>`+d.noti_attach_msg+`</span><br>
 								<span>초대장이 왔습니다!</span>
 								<button class="projectJoin btn btn-primary" name="`+d.project_no+`">수락</button>
+								`+newNoti+`
+								<i class="noti_del_btn material-icons" name="`+d.noti_no+`">cancel</i>
+							</div>
+						</div>
+						`)
+				break;
+			case "00205": 
+				area.prepend(`
+						<div class="noti_info" id="`+d.noti_no+`noti" name="`+d.noti_no+`">
+							<div class="noti_img">
+								<img src="${pageContext.request.contextPath}`+d.profile_pic+`">
+							</div>
+							<div class="noti_text">
+								<span>`+d.nickname+`</span><br>
+								<span>`+d.noti_attach_msg+`</span>
 								`+newNoti+`
 								<i class="noti_del_btn material-icons" name="`+d.noti_no+`">cancel</i>
 							</div>

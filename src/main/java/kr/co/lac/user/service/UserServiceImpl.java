@@ -21,6 +21,8 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public void insertUser(User user) throws Exception {
 		mapper.insertUser(user);
+		user.setNickname(user.getNickname()+"님 가입을 환영합니다!");
+		mapper.insertJoinNoti(user);
 	}
 
 	@Override

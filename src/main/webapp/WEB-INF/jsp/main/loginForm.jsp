@@ -5,6 +5,8 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
+
+
 <body>
 
 	<main class="page landing-page">
@@ -35,11 +37,18 @@
 				<div class="form-group">
 					<button class="btn btn-primary btn-block" type="submit">로그인</button>
 				</div>
-				<a href="#" class="forgot">이메일/비밀번호를 잊으셨나요?</a>
 			</form>
 		</div>
 	</section>
 	</main>
-
+<script>
+$(()=>{if('${errMsg}'){
+	switch ('${errMsg}') {
+	case "001": swal('아이디를 확인해주세요'); break;
+	case "002":swal('탈퇴된 회원입니다'); break;
+	case "003": swal('비밀번호를 확인해주세요'); break;
+	}
+}});
+</script>
 </body>
 </html>

@@ -7,7 +7,7 @@ public class User {
 	private String password;
 	private String newPassword;
 	private String checkNewPassword;
-
+	
 	public String getCheckNewPassword() {
 		return checkNewPassword;
 	}
