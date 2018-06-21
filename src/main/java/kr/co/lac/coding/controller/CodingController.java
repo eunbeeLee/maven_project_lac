@@ -32,10 +32,6 @@ public class CodingController {
         
         Runtime run = Runtime.getRuntime();
 		Process proc = run.exec(new String[] {"C:\\Program Files\\Java\\jdk1.8.0_161\\bin\\javac", 
-							   "-d", 
-							   "C:\\java-lec\\upload", 
-							   "-encoding", 
-							   "utf-8",
 							   "C:\\java-lec\\upload\\MyApp.java"});
 		proc.waitFor();
 		

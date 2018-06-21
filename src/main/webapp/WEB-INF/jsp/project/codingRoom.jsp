@@ -9,7 +9,7 @@
 <!-- blockly 스크립트  -->
 <script src="${pageContext.request.contextPath}/blockly-master/blockly_compressed.js"></script>
 <script src="${pageContext.request.contextPath}/blockly-master/blocks_compressed.js"></script>
-<script src="${pageContext.request.contextPath}/blockly-master/java_compressed.js"></script>
+<script src="${pageContext.request.contextPath}/blockly-master/java_uncomp.js"></script>
 <script src="${pageContext.request.contextPath}/blockly-master/msg/js/ko.js"></script>
 <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
 
